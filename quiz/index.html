@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quiz des symboles astrologiques — Lilian Gitton</title>
-<meta name="description" content="Testez-vous en 10 questions : symboles des signes et des planètes, éléments, maisons astrologiques. Un petit jeu proposé par Lilian Gitton, astrologue humaniste à Orléans.">
+<title>Quiz d'astrologie (3 niveaux) — Lilian Gitton</title>
+<meta name="description" content="Quiz d'astrologie en 3 niveaux : débutant, intermédiaire et très avancé. 10 questions à chaque partie. Un petit jeu proposé par Lilian Gitton, astrologue humaniste à Orléans.">
 <link rel="canonical" href="https://www.liliangitton.fr/quiz/">
-<meta property="og:title" content="Quiz : connaissez-vous les symboles de l'astrologie ?">
+<meta property="og:title" content="Quiz d'astrologie : débutant, intermédiaire ou très avancé ?">
 <meta property="og:description" content="10 questions pour tester vos connaissances : signes, planètes, éléments et maisons.">
 <meta property="og:url" content="https://www.liliangitton.fr/quiz/">
 <meta property="og:type" content="website">
@@ -53,6 +53,12 @@ h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,5vw,40px);l
 .cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
 .share{margin-top:18px;text-align:center;font-size:14px;color:var(--muted)}
 .share button{background:none;border:none;color:var(--gold-soft);font:inherit;text-decoration:underline;cursor:pointer}
+.levels{display:grid;gap:12px}
+.level{display:block;width:100%;text-align:left;cursor:pointer;color:var(--paper);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px;box-shadow:0 18px 40px -24px rgba(0,0,0,.7);transition:border-color .2s,transform .2s;font:inherit}
+.level:hover{border-color:var(--gold-soft);transform:translateY(-2px)}
+.lv-tag{display:inline-block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);border:1px solid var(--gold-soft);border-radius:999px;padding:2px 10px;margin-bottom:8px}
+.lv-name{display:block;font-family:'Fraunces',serif;font-size:22px;margin-bottom:4px}
+.lv-desc{display:block;color:var(--muted);font-size:15px;line-height:1.55}
 .hidden{display:none !important}
 footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
 </style>
@@ -61,15 +67,17 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
 <header class="top"><a class="brand" href="https://liliangitton.fr/">Lilian Gitton</a><a class="back" href="https://liliangitton.fr/#astrologie">← Retour au site</a></header>
 <main>
   <div class="kicker">Petit jeu d'astrologie</div>
-  <h1>Connaissez-vous les symboles de l'astrologie&nbsp;?</h1>
-  <p class="lead">10 questions sur les signes, les planètes, les maisons, les aspects et l'astrologie humaniste. Débutant ou passionné, testez-vous en 2 minutes&nbsp;!</p>
+  <h1>Quiz d'astrologie&nbsp;: à vous de jouer&nbsp;!</h1>
+  <p class="lead">10 questions à chaque partie, tirées au hasard&nbsp;: vous pouvez rejouer autant que vous voulez, les questions changent. Choisissez votre niveau&nbsp;:</p>
 
-  <section class="card" id="start">
-    <p style="margin:0 0 18px">Chaque partie tire 10 questions au hasard&nbsp;: vous pouvez rejouer autant de fois que vous voulez, les questions changent.</p>
-    <button class="btn" id="go" type="button">Commencer le quiz</button>
+  <section id="start" class="levels">
+    <button class="level" type="button" data-level="debutant"><span class="lv-tag">Niveau 1</span><span class="lv-name">Quiz débutant</span><span class="lv-desc">Vous n'avez jamais pris de cours d'astrologie&nbsp;? Les signes, leurs dates, leurs symboles et les bases de la carte du ciel.</span></button>
+    <button class="level" type="button" data-level="intermediaire"><span class="lv-tag">Niveau 2</span><span class="lv-name">Quiz «&nbsp;j'ai déjà pris des cours&nbsp;»</span><span class="lv-desc">Les symboles des signes et des planètes, les éléments, les maisons, les aspects et l'astrologie humaniste.</span></button>
+    <button class="level" type="button" data-level="avance"><span class="lv-tag">Niveau 3</span><span class="lv-name">Quiz très avancé</span><span class="lv-desc">Rétrogradations, dominantes, configurations et dessins planétaires, nœuds lunaires, maisons dérivées… pour les passionnés.</span></button>
   </section>
 
   <section class="card hidden" id="play" aria-live="polite">
+    <div class="kicker" id="lvname" style="margin-bottom:10px"></div>
     <div class="progress"><span id="num">Question 1 / 10</span><span id="pts">Score : 0</span></div>
     <div class="bar"><span id="bar"></span></div>
     <div class="glyph" id="glyph"></div>
@@ -80,16 +88,16 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
   </section>
 
   <section class="card end hidden" id="end">
-    <div class="kicker" style="text-align:center">Votre résultat</div>
+    <div class="kicker" style="text-align:center" id="endname">Votre résultat</div>
     <div class="score" id="final"></div>
     <div class="verdict" id="verdict"></div>
     <p id="msg"></p>
-    <p>Les symboles sont l'alphabet de l'astrologie. Apprendre à les lire, c'est le premier pas pour comprendre votre propre carte du ciel.</p>
+    <p>Apprendre le langage de l'astrologie, c'est le premier pas pour comprendre votre propre carte du ciel.</p>
     <div class="cta">
       <a class="btn" href="https://liliangitton.fr/#astro-initiation">Découvrir la formation en astrologie</a>
       <a class="btn ghost" href="https://liliangitton.fr/#astro-prestations">Faire analyser mon thème astral</a>
     </div>
-    <div class="cta"><button class="btn ghost" id="again" type="button">Rejouer</button></div>
+    <div class="cta"><button class="btn ghost" id="again" type="button">Rejouer à ce niveau</button><button class="btn ghost" id="change" type="button">Changer de niveau</button></div>
     <div class="share"><button id="sharebtn" type="button">Partager le quiz</button> <span id="copied"></span></div>
   </section>
 </main>
@@ -151,16 +159,107 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
     function(){var x=LEVELS[rnd(LEVELS.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
     function(){var x=AXES[rnd(AXES.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}}
   ];
+  // ---------- NIVEAU DÉBUTANT ----------
+  var DATES=[['Bélier','21 mars','20 avril'],['Taureau','21 avril','20 mai'],['Gémeaux','21 mai','21 juin'],['Cancer','22 juin','22 juillet'],['Lion','23 juillet','22 août'],['Vierge','23 août','22 septembre'],['Balance','23 septembre','22 octobre'],['Scorpion','23 octobre','21 novembre'],['Sagittaire','22 novembre','20 décembre'],['Capricorne','21 décembre','19 janvier'],['Verseau','20 janvier','18 février'],['Poissons','19 février','20 mars']];
+  var IMG=[['Bélier','un bélier'],['Taureau','un taureau'],['Gémeaux','des jumeaux'],['Cancer','un crabe'],['Lion','un lion'],['Vierge','une jeune fille'],['Balance','une balance'],['Scorpion','un scorpion'],['Sagittaire','un archer mi-homme, mi-cheval'],['Capricorne','une chèvre à queue de poisson'],['Verseau','un porteur d\'eau'],['Poissons','deux poissons']];
+  var EL4=[['Feu','le Bélier, le Lion et le Sagittaire'],['Terre','le Taureau, la Vierge et le Capricorne'],['Air','les Gémeaux, la Balance et le Verseau'],['Eau','le Cancer, le Scorpion et les Poissons']];
+  var BFIX=[
+    ['Combien y a-t-il de signes du zodiaque ?','12',['12','10','7','24'],'Il y a 12 signes, du Bélier aux Poissons.'],
+    ['Quel est le premier signe du zodiaque ?','Le Bélier',['Le Bélier','Le Capricorne','Les Poissons','Le Lion'],'Le Bélier ouvre le zodiaque, au moment de l\'équinoxe de printemps (vers le 21 mars).'],
+    ['Quel est le dernier signe du zodiaque ?','Les Poissons',['Les Poissons','Le Verseau','Le Capricorne','Le Bélier'],'Les Poissons ferment le cycle du zodiaque.'],
+    ['Combien y a-t-il de maisons dans une carte du ciel ?','12',['12','4','10','7'],'Il y a 12 maisons, qui représentent les grands domaines de la vie.'],
+    ['Quels sont les 4 éléments de l\'astrologie ?','Feu, terre, air, eau',['Feu, terre, air, eau','Bois, métal, feu, eau','Soleil, Lune, Terre, ciel','Été, automne, hiver, printemps'],'Le feu, la terre, l\'air et l\'eau : chacun est porté par 3 signes.'],
+    ['Que faut-il connaître pour faire une carte du ciel ?','La date, l\'heure et le lieu de naissance',['La date, l\'heure et le lieu de naissance','Seulement la date de naissance','Le prénom et le nom','La date de naissance des parents'],'Date, heure et lieu : l\'heure permet de calculer les maisons et l\'Ascendant.'],
+    ['Quand on dit « je suis Lion », de quoi parle-t-on ?','Du signe où se trouvait le Soleil à la naissance',['Du signe où se trouvait le Soleil à la naissance','Du signe où se trouvait la Lune','Du signe chinois','Du signe de sa mère'],'C\'est le « signe solaire » : la position du Soleil à votre naissance.'],
+    ['En astrologie, le Soleil est en réalité…','Une étoile',['Une étoile','Une planète','Un satellite','Une comète'],'Le Soleil est une étoile : on l\'appelle « planète » par commodité.'],
+    ['En astrologie, la Lune est en réalité…','Un satellite de la Terre',['Un satellite de la Terre','Une étoile','Une planète','Une comète'],'La Lune est le satellite de la Terre : on l\'appelle « planète » par commodité.'],
+    ['Combien de temps met le Soleil pour parcourir tout le zodiaque ?','Un an',['Un an','Un mois','Une semaine','Dix ans'],'Le Soleil (vu de la Terre) fait le tour des 12 signes en un an.'],
+    ['Combien de temps le Soleil reste-t-il environ dans chaque signe ?','Environ un mois',['Environ un mois','Environ une semaine','Environ un an','Environ une journée'],'Un an divisé par 12 signes : environ un mois par signe.'],
+    ['Qu\'est-ce que l\'Ascendant ?','Le signe qui se levait à l\'Est au moment de la naissance',['Le signe qui se levait à l\'Est au moment de la naissance','Le signe de son père','Le signe le plus haut dans le ciel','Le signe de la personne qu\'on aime'],'L\'Ascendant, c\'est le signe qui se levait à l\'horizon Est quand vous êtes né.'],
+    ['L\'Ascendant change environ toutes les…','2 heures',['2 heures','2 jours','2 mois','2 ans'],'Le ciel tourne en 24 heures : l\'Ascendant change de signe environ toutes les 2 heures. D\'où l\'importance de l\'heure de naissance !'],
+    ['L\'astrologie humaniste sert surtout à…','Mieux se connaître et donner du sens à sa vie',['Mieux se connaître et donner du sens à sa vie','Prédire les numéros du loto','Juger les gens','Savoir si on va déménager'],'Elle est avant tout un outil de connaissance de soi, pas de la voyance.'],
+    ['Deux personnes nées le même jour ont-elles la même carte du ciel ?','Non, l\'heure et le lieu changent les maisons et l\'Ascendant',['Non, l\'heure et le lieu changent les maisons et l\'Ascendant','Oui, toujours exactement la même','Oui, si elles ont le même prénom','Non, cela dépend de la météo'],'Même jour, mais heure et lieu différents : les maisons et l\'Ascendant changent.'],
+    ['Sur une carte du ciel, que représentent les traits entre les planètes ?','Les aspects : les liens entre les planètes',['Les aspects : les liens entre les planètes','Les frontières des pays','Les étoiles filantes','Rien, c\'est décoratif'],'Ce sont les aspects : ils montrent comment les planètes dialoguent entre elles.']
+  ];
+  var BEG=[
+    function(){var d=DATES[rnd(12)];return {g:'',q:'Quel est le signe des personnes nées entre le '+d[1]+' et le '+d[2]+' ?',a:d[0],o:pick(names,d[0],4),e:'Entre le '+d[1]+' et le '+d[2]+', le Soleil est dans le signe '+du(d[0])+'.'}},
+    function(){var x=IMG[rnd(12)];return {g:'',q:'Quel signe est représenté par '+x[1]+' ?',a:x[0],o:pick(names,x[0],4),e:Le(x[0])+est(x[0])+'représenté'+(ART[x[0]]==='la '?'e':ART[x[0]]==='les '?'s':'')+' par '+x[1]+'.'}},
+    function(){var x=EL4[rnd(4)],all=EL4.map(function(e){return e[1]});return {g:'',q:'Quels sont les trois signes '+(x[0]==='Air'||x[0]==='Eau'?'d\'':'de ')+x[0].toLowerCase()+' ?',a:x[1],o:shuffle(all),e:'Les signes '+(x[0]==='Air'||x[0]==='Eau'?'d\'':'de ')+x[0].toLowerCase()+' sont '+x[1]+'.'}},
+    function(){var s=SIGNS[rnd(12)];return {g:s[0]+V,q:'Quel signe du zodiaque représente ce symbole ?',a:s[1],o:pick(names,s[1],4),e:'C\'est le symbole '+du(s[1])+'.'}},
+    function(){var x=BFIX[rnd(BFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
+    function(){var x=BFIX[rnd(BFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}}
+  ];
+  // ---------- NIVEAU TRÈS AVANCÉ ----------
+  var OPP=[0,6,7,8,9,10,11,0,1,2,3,4,5];
+  var AFIX=[
+    ['Vue de la Terre, la rétrogradation d\'une planète est…','Un effet d\'optique',['Un effet d\'optique','Un vrai recul de la planète','Une éclipse','Un changement d\'orbite'],'La planète tourne toujours dans le même sens : c\'est le croisement des mouvements de la Terre et de la planète qui donne l\'impression qu\'elle recule.'],
+    ['Juste avant de devenir rétrograde, une planète devient…','Stationnaire',['Stationnaire','Combuste','Exaltée','Angulaire'],'Elle ralentit, reste sur le même degré (stationnaire), puis rétrograde.'],
+    ['Combien de temps dure environ une rétrogradation de Mercure ?','20 à 22 jours',['20 à 22 jours','3 jours','4 à 5 mois','Un an'],'La rétrogradation de Mercure dure généralement entre 20 et 22 jours.'],
+    ['Mercure est toujours rétrograde lors de sa conjonction…','Inférieure avec le Soleil',['Inférieure avec le Soleil','Supérieure avec le Soleil','Avec la Lune','Avec Saturne'],'À la conjonction inférieure, Mercure est entre la Terre et le Soleil : il est toujours rétrograde.'],
+    ['Comment appelle-t-on Mercure quand il se lève avant le Soleil ?','Prométhée',['Prométhée','Épiméthée','Hespérus','Lucifer'],'Mercure Prométhée « anticipe » : il est devant le Soleil dans le sens horaire.'],
+    ['Comment appelle-t-on Mercure quand il se lève après le Soleil ?','Épiméthée',['Épiméthée','Prométhée','Hespérus','Lucifer'],'Mercure Épiméthée est tourné vers l\'expérience vécue, derrière le Soleil dans le sens horaire.'],
+    ['Comment appelle-t-on Vénus « étoile du soir » ?','Vénus Hespérus',['Vénus Hespérus','Vénus Lucifer','Vénus Prométhée','Vénus Épiméthée'],'Vénus Hespérus, l\'étoile du soir ; Vénus Lucifer, l\'étoile du matin.'],
+    ['Les planètes extérieures (de Mars à Pluton) sont rétrogrades quand elles sont…','En opposition au Soleil',['En opposition au Soleil','En conjonction au Soleil','En carré à la Lune','Dans leur domicile'],'Vues de la Terre, les planètes extérieures rétrogradent autour de leur opposition au Soleil.'],
+    ['Quel célèbre psychanalyste, cité dans le cours sur la rétrogradation, avait Mars rétrograde ?','Sigmund Freud',['Sigmund Freud','Carl Gustav Jung','Jacques Lacan','Alfred Adler'],'Freud avait Mars rétrograde : une énergie tournée vers l\'intérieur, mise au service de l\'exploration psychique.'],
+    ['Dans la grille de Berthon revisitée par Luc Bigé, combien de points marque une planète conjointe exactement à l\'Ascendant ?','60 points',['60 points','35 points','10 points','100 points'],'Toute planète conjointe précisément à l\'Ascendant marque 60 points : c\'est probablement une dominante.'],
+    ['Combien de points gagne la planète qui colore un amas dans la grille des dominantes ?','35 points',['35 points','60 points','5 points','50 points'],'La planète qui colore un amas gagne 35 points.'],
+    ['Combien de planètes faut-il au moins dans un signe ou une maison pour parler de stellium ?','4',['4','2','6','8'],'Un stellium : au moins 4 planètes concentrées dans un signe ou une maison.'],
+    ['Dans un stellium, quelle planète colore l\'amas et indique comment il se dirige vers l\'extérieur ?','La plus lente',['La plus lente','La plus rapide','Le Soleil','La plus proche de l\'Ascendant'],'La plus lente colore l\'amas ; la plus rapide l\'individualise et peut devenir dominante.'],
+    ['Une opposition et deux carrés forment…','Une croix en T',['Une croix en T','Un yod','Un cerf-volant','Un grand rectangle'],'La croix en T : nécessité d\'agir, avec une planète focale qui reçoit les deux carrés.'],
+    ['Un sextile et deux quinconces forment…','Un yod (« doigt de Dieu »)',['Un yod (« doigt de Dieu »)','Un doigt du monde','Une croix en T','Un grand trigone'],'Le yod intègre une impulsion spirituelle dans des formes concrètes, avec des réajustements à faire.'],
+    ['Un carré et deux sesqui-carrés forment…','Un doigt du monde',['Un doigt du monde','Un yod','Un cerf-volant','Une croix en T'],'Le doigt du monde : une crise libérée par les sesqui-carrés, au service des besoins des autres.'],
+    ['Un grand trigone complété par deux sextiles et une opposition forme…','Un cerf-volant',['Un cerf-volant','Un grand rectangle','Un yod','Un grand carré'],'Le cerf-volant : compréhension du trigone, efficacité du sextile, conscience de l\'opposition.'],
+    ['Deux oppositions reliées par deux trigones et deux sextiles forment…','Un grand rectangle',['Un grand rectangle','Un grand carré','Un cerf-volant','Une étoile à 6 branches'],'Le grand rectangle (rectangle harmonique) : une grande capacité de synthèse et de créativité.'],
+    ['Dans une croix en T, comment appelle-t-on la planète qui reçoit les deux carrés ?','La planète focale',['La planète focale','La planète leader','Le singleton','La planète de queue'],'La planète focale concentre la tension ; sa résolution se trouve à son mi-point opposé.'],
+    ['Quel dessin planétaire : 10 planètes dans une moitié du thème, l\'autre moitié vide ?','Le bol',['Le bol','L\'entonnoir','La locomotive','Le bouquet'],'Le bol : concentration sur soi, de grandes ressources intérieures, et un vide à explorer.'],
+    ['Quel dessin planétaire : 9 planètes dans une moitié du thème et 1 planète isolée dans l\'autre ?','L\'entonnoir (ou seau)',['L\'entonnoir (ou seau)','Le bol','La balançoire','Le trépied'],'L\'entonnoir : la planète isolée (l\'anse du seau) concentre et libère l\'énergie des 9 autres.'],
+    ['Dans un entonnoir, comment appelle-t-on la planète isolée ?','Le singleton (l\'anse du seau)',['Le singleton (l\'anse du seau)','La planète focale','La planète de queue','Le point de nécessité'],'Le singleton, ou anse du seau : une direction très importante du thème.'],
+    ['Quel dessin planétaire : les planètes réparties tout autour du thème ?','Le splash (éparpillé)',['Le splash (éparpillé)','La locomotive','Le bouquet','Le bol'],'Le splash : une diversité d\'intérêts, le « citoyen universel ».'],
+    ['Quel dessin planétaire : les 10 planètes réunies dans un tiers du thème ?','Le bouquet (ou coin)',['Le bouquet (ou coin)','Le bol','La locomotive','Le trépied'],'Le bouquet : beaucoup d\'intensité, mais un risque d\'étroitesse.'],
+    ['Quel dessin planétaire : les planètes réparties sur les deux tiers du thème, un tiers vide ?','La locomotive',['La locomotive','Le bouquet','La balançoire','Le splash'],'La locomotive : la planète qui mène vers le vide tracte l\'ensemble des énergies.'],
+    ['Quel dessin planétaire : deux groupes de planètes qui se font face ?','La balançoire',['La balançoire','Le trépied','Le bol','L\'entonnoir'],'La balançoire repose sur l\'opposition : confrontation, relation, recherche d\'équilibre.'],
+    ['Quel dessin planétaire : trois groupes de planètes, souvent reliés par des trigones ?','Le trépied',['Le trépied','La balançoire','La locomotive','Le splash'],'Le trépied : une assise stable, la recherche d\'un nouveau niveau de conscience.'],
+    ['Que représente le nœud Sud ?','Ce qui est déjà acquis, le passé (le karma)',['Ce qui est déjà acquis, le passé (le karma)','Ce qu\'il y a à acquérir (le dharma)','La vocation professionnelle','La relation au père'],'Le nœud Sud : nos automatismes et acquis, ce qui domine en début de vie.'],
+    ['Que représente le nœud Nord ?','Ce qu\'il y a à acquérir (le dharma)',['Ce qu\'il y a à acquérir (le dharma)','Ce qui est déjà acquis (le karma)','Les blessures d\'enfance','Le partenaire amoureux'],'Le nœud Nord : la direction d\'évolution, qui se révèle au fur et à mesure du chemin.'],
+    ['Quel orbe maximum le cours retient-il pour les aspects aux nœuds lunaires ?','5°',['5°','10°','1°','15°'],'On retient un orbe de 5° maximum pour les aspects aux nœuds.'],
+    ['Le Point d\'Engagement et le Point de Nécessité de la croix des nœuds sont décrits par…','Luc Bigé',['Luc Bigé','Dane Rudhyar','Stephen Arroyo','Thérèse Casati'],'C\'est la croix des nœuds lunaires selon Luc Bigé.'],
+    ['Quelle domification est utilisée dans les cours ?','Placidus',['Placidus','Maisons égales','Koch','Campanus'],'La domification Placidus, la plus courante.'],
+    ['Quel zodiaque utilise l\'astrologie occidentale des cours ?','Le zodiaque tropical',['Le zodiaque tropical','Le zodiaque sidéral','Le zodiaque chinois','Le zodiaque védique'],'Le zodiaque tropical, basé sur les saisons et non sur les étoiles.'],
+    ['Avec la technique des maisons dérivées, la maison VIII est la maison II de la maison…','VII',['VII','II','IV','X'],'La VIII est la II de la VII : ce que l\'on a à sa disposition dans la relation.'],
+    ['Avec la technique des maisons dérivées, la maison IX est la maison III de la maison…','VII',['VII','VI','III','I'],'La IX est la III de la VII : les lois de la relation et du fonctionnement social.'],
+    ['Quelles sont les maisons angulaires ?','I, IV, VII et X',['I, IV, VII et X','II, V, VIII et XI','III, VI, IX et XII','I, II, III et IV'],'Les maisons angulaires (cardinales) commencent aux quatre angles du thème.'],
+    ['Comment appelle-t-on une planète dans le signe qu\'elle maîtrise ?','En domicile',['En domicile','En exil','En chute','En exaltation'],'En domicile, la planète s\'exprime pleinement ; dans le signe opposé, elle est en exil.'],
+    ['Comment appelle-t-on une planète dans le signe opposé à son domicile ?','En exil',['En exil','En chute','En exaltation','En domicile'],'En exil, la planète est dans le signe opposé à celui qu\'elle maîtrise.'],
+    ['Dans le cycle des aspects, à quel signe est associé le carré croissant ?','Cancer',['Cancer','Capricorne','Lion','Balance'],'Le carré croissant (Cancer) : une crise d\'action ; le carré décroissant (Capricorne) : une crise de conscience.'],
+    ['Dans le cycle des aspects, à quel signe est associé le trigone décroissant ?','Sagittaire',['Sagittaire','Lion','Bélier','Verseau'],'Le trigone décroissant (Sagittaire) : une moisson de signification, à partager.'],
+    ['Dans le cycle des aspects, à quel signe est associée l\'opposition ?','Balance',['Balance','Bélier','Scorpion','Poissons'],'L\'opposition (Balance) : le moment du cycle où l\'on passe de la forme à la conscience.']
+  ];
+  var ADV=[
+    function(){var x=AFIX[rnd(AFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
+    function(){var x=AFIX[rnd(AFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
+    function(){var x=AFIX[rnd(AFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
+    function(){var i=rnd(12),o=(i+6)%12;return {g:'',q:'Si le nœud Sud est '+(ART[names[i]]==='les '?'dans les ':'en ')+names[i]+', où se trouve le nœud Nord ?',a:names[o],o:pick(names,names[o],4),e:'Les nœuds sont toujours opposés : nœud Sud '+(ART[names[i]]==='les '?'dans les ':'en ')+names[i]+', nœud Nord '+(ART[names[o]]==='les '?'dans les ':'en ')+names[o]+'.'}},
+    function(){var i=rnd(12),o=(i+6)%12;return {g:'',q:'Si le nœud Sud est en maison '+ROM[i]+', dans quelle maison se trouve le nœud Nord ?',a:'Maison '+ROM[o],o:pick(ROM,ROM[o],4).map(function(x){return 'Maison '+x}),e:'Les nœuds sont toujours opposés : maison '+ROM[i]+' et maison '+ROM[o]+'.'}}
+  ];
+  var LEVELSET={debutant:{m:BEG,t:'Quiz débutant'},intermediaire:{m:makers,t:'Quiz « j\'ai déjà pris des cours »'},avance:{m:ADV,t:'Quiz très avancé'}};
+  var level='intermediaire';
   var qs=[],k=0,score=0;
   function el(id){return document.getElementById(id)}
-  function build(){var seen={},out=[],guard=0;while(out.length<10&&guard<2000){guard++;var idx=shuffle(makers.map(function(_,n){return n}));for(var t=0;t<idx.length&&out.length<10;t++){if(idx[t]===8||idx[t]===9){if(Math.random()<.6)continue}var q=makers[idx[t]]();if(seen[q.q+q.a])continue;seen[q.q+q.a]=1;out.push(q)}}return shuffle(out)}
+  function build(){var ms=LEVELSET[level].m,seen={},out=[],guard=0;while(out.length<10&&guard<5000){guard++;var q=ms[rnd(ms.length)]();if(seen[q.q+q.a])continue;seen[q.q+q.a]=1;out.push(q)}return out}
   function show(){var q=qs[k];el('num').textContent='Question '+(k+1)+' / 10';el('pts').textContent='Score : '+score;el('bar').style.width=(k*10)+'%';el('glyph').textContent=q.g;el('glyph').style.display=q.g?'block':'none';el('q').textContent=q.q;el('fb').innerHTML='';el('next').classList.add('hidden');var box=el('opts');box.innerHTML='';q.o.forEach(function(t){var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=t;b.onclick=function(){answer(b,t)};box.appendChild(b)})}
   function answer(b,t){var q=qs[k],ok=t===q.a;if(ok)score++;Array.prototype.forEach.call(el('opts').children,function(x){x.disabled=true;if(x.textContent===q.a)x.classList.add('ok')});if(!ok)b.classList.add('ko');el('fb').innerHTML=(ok?'<strong>Bravo&nbsp;!</strong> ':'<strong>Presque.</strong> ')+q.e;el('pts').textContent='Score : '+score;el('bar').style.width=((k+1)*10)+'%';var n=el('next');n.textContent=k===9?'Voir mon résultat':'Question suivante';n.classList.remove('hidden');n.focus()}
-  function end(){el('play').classList.add('hidden');el('end').classList.remove('hidden');el('final').textContent=score+' / 10';var v,m;if(score>=9){v='Vous parlez couramment le langage du ciel !';m='Impressionnant : vous avez déjà de solides bases. La formation vous permettrait d\'aller beaucoup plus loin, jusqu\'à analyser un thème en autonomie.'}else if(score>=6){v='Belles connaissances !';m='Vous avez de bonnes bases. Il ne vous manque pas grand-chose pour commencer à lire une carte du ciel.'}else if(score>=3){v='Un bon début !';m='Vous connaissez déjà quelques symboles. Avec un peu de pratique, ils deviendront vite familiers.'}else{v='Tout reste à découvrir !';m='Pas d\'inquiétude : c\'est justement le point de départ de la première année de formation, qui commence par l\'alphabet astrologique.'}el('verdict').textContent=v;el('msg').textContent=m;el('copied').textContent='';el('end').scrollIntoView({behavior:'smooth',block:'start'})}
-  function start(){qs=build();k=0;score=0;el('start').classList.add('hidden');el('end').classList.add('hidden');el('play').classList.remove('hidden');show();el('play').scrollIntoView({behavior:'smooth',block:'start'})}
-  el('go').onclick=start;el('again').onclick=start;
+  function end(){el('play').classList.add('hidden');el('end').classList.remove('hidden');el('final').textContent=score+' / 10';el('endname').textContent='Votre résultat · '+LEVELSET[level].t;var v,m,hi=score>=8,mid=score>=5;
+    if(level==='debutant'){if(hi){v='Bravo, vous avez déjà l\'œil !';m='Vous connaissez bien les bases. Prêt pour le niveau 2 ? Et si vous voulez aller plus loin, la formation commence justement par l\'alphabet astrologique.'}else if(mid){v='Un bon début !';m='Vous avez quelques repères. Avec un peu de curiosité, le langage du ciel deviendra vite familier.'}else{v='Tout reste à découvrir !';m='Pas d\'inquiétude : tout le monde commence par là. La première année de formation part de zéro.'}}
+    else if(level==='avance'){if(hi){v='Impressionnant, vous êtes un vrai praticien !';m='Vous maîtrisez des notions que l\'on aborde en fin de première année. La deuxième année vous ouvrirait de nouvelles techniques : Chiron, degrés sabians, transits, révolution solaire…'}else if(mid){v='De très bonnes connaissances !';m='Ce niveau est exigeant : vous avez déjà de solides bases. Quelques notions restent à approfondir.'}else{v='Ce niveau est exigeant !';m='Ces questions portent sur des notions avancées, vues en fin de première année. Essayez le niveau 2, ou découvrez la formation pour progresser.'}}
+    else{if(score>=9){v='Vous parlez couramment le langage du ciel !';m='Impressionnant : vous avez déjà de solides bases. Tentez le niveau 3, très avancé !'}else if(score>=6){v='Belles connaissances !';m='Vous avez de bonnes bases. Il ne vous manque pas grand-chose pour commencer à lire une carte du ciel.'}else if(score>=3){v='Un bon début !';m='Vous connaissez déjà quelques notions. Avec un peu de pratique, elles deviendront vite familières.'}else{v='Tout reste à découvrir !';m='Commencez par le quiz débutant, ou découvrez la formation : la première année commence par l\'alphabet astrologique.'}}
+    el('verdict').textContent=v;el('msg').textContent=m;el('copied').textContent='';el('end').scrollIntoView({behavior:'smooth',block:'start'})}
+  function start(){qs=build();k=0;score=0;el('lvname').textContent=LEVELSET[level].t;el('start').classList.add('hidden');el('end').classList.add('hidden');el('play').classList.remove('hidden');show();el('play').scrollIntoView({behavior:'smooth',block:'start'})}
+  Array.prototype.forEach.call(document.querySelectorAll('.level'),function(b){b.onclick=function(){level=b.getAttribute('data-level');try{history.replaceState(null,'','#'+level)}catch(e){}start()}});
+  el('again').onclick=start;
+  el('change').onclick=function(){el('end').classList.add('hidden');el('start').classList.remove('hidden');el('start').scrollIntoView({behavior:'smooth',block:'start'})};
+  var h=(location.hash||'').replace('#','');if(LEVELSET[h]){level=h;start()}
   el('next').onclick=function(){k++;if(k<10){show();el('play').scrollIntoView({behavior:'smooth',block:'start'})}else end()};
-  el('sharebtn').onclick=function(){var url='https://www.liliangitton.fr/quiz/',txt='J\'ai eu '+score+'/10 au quiz des symboles astrologiques. À vous !';if(navigator.share){navigator.share({title:'Quiz astrologie',text:txt,url:url}).catch(function(){})}else{try{navigator.clipboard.writeText(txt+' '+url).then(function(){el('copied').textContent='Lien copié !'},function(){el('copied').textContent=url})}catch(e){el('copied').textContent=url}}};
+  el('sharebtn').onclick=function(){var url='https://liliangitton.fr/quiz/#'+level,txt='J\'ai eu '+score+'/10 au '+({debutant:'quiz d\'astrologie débutant',intermediaire:'quiz d\'astrologie de niveau 2',avance:'quiz d\'astrologie très avancé'})[level]+'. À vous !';if(navigator.share){navigator.share({title:'Quiz astrologie',text:txt,url:url}).catch(function(){})}else{try{navigator.clipboard.writeText(txt+' '+url).then(function(){el('copied').textContent='Lien copié !'},function(){el('copied').textContent=url})}catch(e){el('copied').textContent=url}}};
 })();
 </script>
 </body>
