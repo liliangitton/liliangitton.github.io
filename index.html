@@ -186,6 +186,12 @@
     .nav ul .dd .dd-tag{display:block; font-size:12px; color:var(--muted); margin-top:2px;}
     .nav ul .dd a.dd-hl{color:var(--gold-soft); border-top:1px solid var(--line);}
   }
+  /* Grands écrans : logo et nom plus grands, plus à gauche, à part du menu */
+  @media (min-width:1240px){
+    .nav{max-width:1700px; padding:14px 28px;}
+    .nav .header-watermark{height:60px; margin-right:14px;}
+    .nav .name{font-size:27px; padding-right:48px;}
+  }
   /* Contact animé dans le menu (ordinateur) */
   @media (min-width:761px){
     .nav-contact-slot{position:relative; display:flex; align-items:center;}
