@@ -59,6 +59,7 @@ h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,5vw,40px);l
 .lv-tag{display:inline-block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);border:1px solid var(--gold-soft);border-radius:999px;padding:2px 10px;margin-bottom:8px}
 .lv-name{display:block;font-family:'Fraunces',serif;font-size:22px;margin-bottom:4px}
 .lv-desc{display:block;color:var(--muted);font-size:15px;line-height:1.55}
+.play-share{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
 .hidden{display:none !important}
 footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
 </style>
@@ -85,6 +86,7 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
     <div class="opts" id="opts"></div>
     <p class="fb" id="fb"></p>
     <div class="next"><button class="btn hidden" id="next" type="button">Question suivante</button></div>
+    <div class="share play-share"><button id="shareplay" type="button">Partager ce quiz</button> <span id="copiedplay"></span></div>
   </section>
 
   <section class="card end hidden" id="end">
@@ -253,12 +255,14 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
     else if(level==='avance'){if(hi){v='Impressionnant, vous êtes un vrai praticien !';m='Vous maîtrisez des notions que l\'on aborde en fin de première année. La deuxième année vous ouvrirait de nouvelles techniques : Chiron, degrés sabians, transits, révolution solaire…'}else if(mid){v='De très bonnes connaissances !';m='Ce niveau est exigeant : vous avez déjà de solides bases. Quelques notions restent à approfondir.'}else{v='Ce niveau est exigeant !';m='Ces questions portent sur des notions avancées, vues en fin de première année. Essayez le niveau 2, ou découvrez la formation pour progresser.'}}
     else{if(score>=9){v='Vous parlez couramment le langage du ciel !';m='Impressionnant : vous avez déjà de solides bases. Tentez le niveau 3, très avancé !'}else if(score>=6){v='Belles connaissances !';m='Vous avez de bonnes bases. Il ne vous manque pas grand-chose pour commencer à lire une carte du ciel.'}else if(score>=3){v='Un bon début !';m='Vous connaissez déjà quelques notions. Avec un peu de pratique, elles deviendront vite familières.'}else{v='Tout reste à découvrir !';m='Commencez par le quiz débutant, ou découvrez la formation : la première année commence par l\'alphabet astrologique.'}}
     el('verdict').textContent=v;el('msg').textContent=m;el('copied').textContent='';el('end').scrollIntoView({behavior:'smooth',block:'start'})}
-  function start(){qs=build();k=0;score=0;el('lvname').textContent=LEVELSET[level].t;el('start').classList.add('hidden');el('end').classList.add('hidden');el('play').classList.remove('hidden');show();el('play').scrollIntoView({behavior:'smooth',block:'start'})}
+  function start(){qs=build();k=0;score=0;el('lvname').textContent=LEVELSET[level].t;el('start').classList.add('hidden');el('end').classList.add('hidden');el('play').classList.remove('hidden');el('copiedplay').textContent='';show();el('play').scrollIntoView({behavior:'smooth',block:'start'})}
   Array.prototype.forEach.call(document.querySelectorAll('.level'),function(b){b.onclick=function(){level=b.getAttribute('data-level');try{history.replaceState(null,'','#'+level)}catch(e){}start()}});
   el('again').onclick=start;
   el('change').onclick=function(){el('end').classList.add('hidden');el('start').classList.remove('hidden');el('start').scrollIntoView({behavior:'smooth',block:'start'})};
   var h=(location.hash||'').replace('#','');if(LEVELSET[h]){level=h;start()}
   el('next').onclick=function(){k++;if(k<10){show();el('play').scrollIntoView({behavior:'smooth',block:'start'})}else end()};
+  function shareIt(txt,out){var url='https://liliangitton.fr/quiz/#'+level;if(navigator.share){navigator.share({title:'Quiz d\'astrologie',text:txt,url:url}).catch(function(){})}else{try{navigator.clipboard.writeText(txt+' '+url).then(function(){el(out).textContent='Lien copié !'},function(){el(out).textContent=url})}catch(e){el(out).textContent=url}}}
+  el('shareplay').onclick=function(){shareIt('Testez-vous au '+({debutant:'quiz d\'astrologie débutant',intermediaire:'quiz d\'astrologie de niveau 2',avance:'quiz d\'astrologie très avancé'})[level]+' de Lilian Gitton !','copiedplay')};
   el('sharebtn').onclick=function(){var url='https://liliangitton.fr/quiz/#'+level,txt='J\'ai eu '+score+'/10 au '+({debutant:'quiz d\'astrologie débutant',intermediaire:'quiz d\'astrologie de niveau 2',avance:'quiz d\'astrologie très avancé'})[level]+'. À vous !';if(navigator.share){navigator.share({title:'Quiz astrologie',text:txt,url:url}).catch(function(){})}else{try{navigator.clipboard.writeText(txt+' '+url).then(function(){el('copied').textContent='Lien copié !'},function(){el('copied').textContent=url})}catch(e){el('copied').textContent=url}}};
 })();
 </script>
