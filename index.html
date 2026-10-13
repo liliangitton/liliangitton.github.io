@@ -195,6 +195,24 @@
   #astrologie .price-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
   #astrologie .price-row .price{margin:0;}
   #astrologie .price-note{margin-top:10px; font-size:13.5px; color:var(--muted);}
+  /* Ordinateur : bandeau soigné, liens plus lisibles, Contact à part, bandeau compact au défilement */
+  @media (min-width:761px){
+    header{background:linear-gradient(180deg, rgba(42,30,70,.95) 0%, rgba(24,19,28,.9) 100%); border-bottom:1px solid transparent; border-image:linear-gradient(90deg, rgba(221,174,94,0) 0%, rgba(221,174,94,.55) 50%, rgba(221,174,94,0) 100%) 1;}
+    .nav{transition:padding .25s ease;}
+    .nav .header-watermark{transition:height .25s ease;}
+    .nav .name{transition:font-size .25s ease;}
+    header.scrolled .nav{padding-top:6px; padding-bottom:6px;}
+    header.scrolled .nav .header-watermark{height:42px;}
+    header.scrolled .nav .name{font-size:21px;}
+    .nav ul > li:not(.nav-contact-slot) > a{position:relative; font-size:13.5px; letter-spacing:.015em; color:rgba(239,231,216,.78); padding:6px 0;}
+    .nav ul > li:not(.nav-contact-slot) > a::before{content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--gold-soft); transform:scaleX(0); transform-origin:left center; transition:transform .28s ease;}
+    .nav ul > li:not(.nav-contact-slot) > a:hover{color:var(--gold-soft);}
+    .nav ul > li:not(.nav-contact-slot) > a:hover::before, .nav ul > li:not(.nav-contact-slot) > a[aria-current="page"]::before{transform:scaleX(1);}
+    .nav ul > li:not(.nav-contact-slot) > a[aria-current="page"]{color:var(--paper);}
+    .nav ul li.has-dd > a:hover::before{transform:scaleX(1);}
+    .nav ul .dd a::before{display:none;}
+    .nav ul .nav-contact-slot{margin:0 16px 0 22px;}
+  }
   /* Contact animé dans le menu (ordinateur) */
   @media (min-width:761px){
     .nav-contact-slot{position:relative; display:flex; align-items:center;}
@@ -230,9 +248,19 @@
     }
     .nav ul a{white-space:nowrap;}
   }
-  @media (min-width:1001px){
-    .nav ul{gap:22px; flex-wrap:nowrap;}
+  @media (min-width:1100px){
+    .nav ul{gap:14px; flex-wrap:nowrap;}
     .nav .name{white-space:nowrap;}
+    .nav ul > li:not(.nav-contact-slot) > a{font-size:13px; letter-spacing:0;}
+    .nav ul .nav-contact-slot{margin:0 8px 0 12px;}
+  }
+  @media (min-width:1240px){
+    .nav ul{gap:22px;}
+    .nav ul > li:not(.nav-contact-slot) > a{font-size:13.5px; letter-spacing:.015em;}
+    .nav ul .nav-contact-slot{margin:0 16px 0 22px;}
+  }
+  @media (min-width:1240px) and (max-width:1299px){
+    .nav ul{gap:15px;}
   }
 
   /* Mobile menu toggle (hidden on desktop) */
@@ -1793,6 +1821,28 @@
         });
         if(dd.children.length){ li.classList.add('has-dd'); li.appendChild(dd); }
       });
+    })();
+
+    // Bandeau compact au défilement + page en cours soulignée (ordinateur)
+    (function(){
+      var header = document.querySelector('header');
+      var links = Array.prototype.slice.call(document.querySelectorAll('.nav ul > li > a[href^="#"]'));
+      if(!header) return;
+      var compact = false;
+      window.addEventListener('scroll', function(){
+        var y = window.scrollY;
+        if(!compact && y > 120){ compact = true; header.classList.add('scrolled'); }
+        else if(compact && y < 40){ compact = false; header.classList.remove('scrolled'); }
+      }, { passive: true });
+      function mark(id){
+        links.forEach(function(a){
+          if(a.getAttribute('href') === '#' + id){ a.setAttribute('aria-current', 'page'); }
+          else { a.removeAttribute('aria-current'); }
+        });
+      }
+      document.addEventListener('tabchange', function(e){ mark(e.detail); });
+      var cur = document.querySelector('section[id].tab-active');
+      if(cur) mark(cur.id);
     })();
 
     // Bouton Contact animé : dans le menu sur ordinateur, sous l'en-tête sur mobile
