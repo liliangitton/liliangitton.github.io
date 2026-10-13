@@ -1465,6 +1465,25 @@
   @media (max-width:900px){.hero-grid{flex-direction:column-reverse; align-items:flex-start; gap:30px;} .hero-photo{flex-basis:auto;} .hero-photo img{width:150px; height:180px; border-radius:75px 75px 16px 16px;} .home-rev-grid{grid-template-columns:1fr;} .home-cabinet{flex-direction:column; align-items:flex-start;} .home-cabinet img{width:100%;}}
   .hero-grid .hero-copy{min-width:0;}
   .hero .wrap{padding-bottom:70px;}
+
+  @media (min-width:901px){
+    #accueil .wrap{max-width:1240px;}
+    .hero-grid{gap:80px; align-items:center; justify-content:space-between;}
+    .hero-grid .hero-copy{max-width:720px;}
+    .hero h1{max-width:720px;}
+    .hero .welcome{max-width:640px; font-size:23px;}
+    .hero p.lead{max-width:640px;}
+    .hero-photo{flex:0 0 360px;}
+    .hero-photo img{width:360px; height:450px; border-radius:180px 180px 28px 28px;}
+    .hero .reassure, .hero .hand-sign{display:inline-block; vertical-align:middle;}
+    .hero .reassure{margin-right:34px;}
+    .home-reviews{text-align:center;}
+    .home-reviews .home-h::after{margin-left:auto; margin-right:auto;}
+    .home-rev{text-align:left;}
+    .home-cabinet{justify-content:center; gap:56px;}
+    .home-cabinet img{width:min(560px,50%);}
+    .home-cabinet p{font-size:23px; max-width:440px;}
+  }
 </style>
 <!-- Suivi de visites respectueux de la vie privée (Plausible, sans cookies). 
      À activer : crée un compte gratuit sur https://plausible.io, ajoute "liliangitton.fr",
