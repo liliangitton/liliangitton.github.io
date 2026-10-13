@@ -62,7 +62,7 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
 <main>
   <div class="kicker">Petit jeu d'astrologie</div>
   <h1>Connaissez-vous les symboles de l'astrologie&nbsp;?</h1>
-  <p class="lead">10 questions sur les signes, les planètes, les éléments et les maisons. Débutant ou passionné, testez-vous en 2 minutes&nbsp;!</p>
+  <p class="lead">10 questions sur les signes, les planètes, les maisons, les aspects et l'astrologie humaniste. Débutant ou passionné, testez-vous en 2 minutes&nbsp;!</p>
 
   <section class="card" id="start">
     <p style="margin:0 0 18px">Chaque partie tire 10 questions au hasard&nbsp;: vous pouvez rejouer autant de fois que vous voulez, les questions changent.</p>
@@ -107,6 +107,28 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
   function pl(n){return PA[n]||n}
   var HOUSES=['Je nais et je m\'affirme','J\'utilise mes ressources','Je pense, communique et apprends','Je trouve mon centre','J\'exprime qui je suis','Je m\'améliore','Je rencontre l\'Autre','Je me transforme','J\'élargis mes horizons','Je réalise ma vocation','Je partage mes idéaux dans un groupe','Je m\'ouvre au plus grand'];
   var RULERS=[['Taureau','Vénus'],['Gémeaux','Mercure'],['Cancer','Lune'],['Lion','Soleil'],['Vierge','Mercure'],['Balance','Vénus'],['Sagittaire','Jupiter'],['Capricorne','Saturne']];
+  var ASPECTS=[['Conjonction',0,'La conjonction (0°) : l\'union, la fusion de deux énergies.','de la conjonction'],['Semi-sextile',30,'Le semi-sextile (30°) est un aspect mineur harmonique.','du semi-sextile'],['Semi-carré',45,'Le semi-carré (45°) est un aspect mineur de défi : un virage à prendre.','du semi-carré'],['Sextile',60,'Le sextile (60°) : compréhension, objectivité, coopération.','du sextile'],['Carré',90,'Le carré (90°) : une crise d\'action, un défi qui donne l\'énergie d\'évoluer.','du carré'],['Trigone',120,'Le trigone (120°) : un aspect facile, de compréhension et de créativité.','du trigone'],['Sesqui-carré',135,'Le sesqui-carré (135°) : un carré plus un semi-carré, une tension qui permet de grandir.','du sesqui-carré'],['Quinconce',150,'Le quinconce (150°) : un aspect d\'amélioration et d\'ajustement.','du quinconce'],['Opposition',180,'L\'opposition (180°) : un tiraillement entre deux énergies, qui peut mener à une prise de conscience.','de l\'opposition']];
+  var anames=ASPECTS.map(function(a){return a[0]}), adeg=ASPECTS.map(function(a){return a[1]+'°'});
+  var AGLY=[['☌','Conjonction','la conjonction (0°)'],['☍','Opposition','l\'opposition (180°)'],['□','Carré','le carré (90°)'],['△','Trigone','le trigone (120°)']];
+  var LV=['Le niveau socio-culturel','Le niveau individuel','Le niveau transpersonnel'];
+  var LEVELS=[
+    ['Selon l\'astrologie humaniste, à quel niveau de conscience la personne est-elle conditionnée par sa culture, sans même s\'en rendre compte ?',LV[0],LV,'C\'est le niveau socio-culturel : nos choix y sont surtout l\'expression de nos conditionnements.'],
+    ['À quel niveau de conscience la personne se sépare-t-elle des matrices parentales, culturelles et religieuses pour devenir ce qu\'elle est ?',LV[1],LV,'C\'est le niveau individuel : la personne devient plus consciente de qui elle est.'],
+    ['À quel niveau de conscience agit-on pour les autres, en sachant qui l\'on est et que « moi, c\'est les autres » ?',LV[2],LV,'C\'est le niveau transpersonnel : la conscience collective au sens le plus élevé.'],
+    ['Quel astrologue a décrit les 3 niveaux de conscience de l\'astrologie humaniste, en s\'inspirant de Carl Gustav Jung ?','Dane Rudhyar',['Dane Rudhyar','Nostradamus','Galilée','Ptolémée'],'C\'est Dane Rudhyar, le fondateur de l\'astrologie humaniste.']
+  ];
+  var PTS=['L\'Ascendant','Le Descendant','Le Milieu du Ciel','Le Fond du Ciel'];
+  var AXES=[
+    ['Quel point du thème est opposé à l\'Ascendant ?','Le Descendant',PTS.slice(1),'Le Descendant fait face à l\'Ascendant : c\'est l\'axe moi ↔ les autres.'],
+    ['Quel point du thème est opposé au Descendant ?','L\'Ascendant',[PTS[0],PTS[2],PTS[3]],'L\'Ascendant fait face au Descendant : c\'est l\'axe moi ↔ les autres.'],
+    ['Quel point du thème est opposé au Milieu du Ciel ?','Le Fond du Ciel',[PTS[0],PTS[1],PTS[3]],'Le Fond du Ciel fait face au Milieu du Ciel : c\'est l\'axe privé ↔ public.'],
+    ['Quel point du thème est opposé au Fond du Ciel ?','Le Milieu du Ciel',[PTS[0],PTS[1],PTS[2]],'Le Milieu du Ciel fait face au Fond du Ciel : c\'est l\'axe privé ↔ public.'],
+    ['L\'axe Ascendant – Descendant est appelé l\'axe…','De la conscience',['De la conscience','Du pouvoir et de la destinée','De la communication','Des ressources'],'C\'est l\'axe de la conscience : moi et les autres.'],
+    ['L\'axe Fond du Ciel – Milieu du Ciel est appelé l\'axe…','Du pouvoir et de la destinée',['Du pouvoir et de la destinée','De la conscience','De la communication','Des ressources'],'C\'est l\'axe du pouvoir et de la destinée : les racines et la fleur.'],
+    ['Le Milieu du Ciel marque le début de quelle maison ?','Maison X',['Maison X','Maison IV','Maison VII','Maison I'],'Le Milieu du Ciel ouvre la maison X, celle de la vocation.'],
+    ['Le Fond du Ciel marque le début de quelle maison ?','Maison IV',['Maison IV','Maison X','Maison VII','Maison I'],'Le Fond du Ciel ouvre la maison IV, celle des racines.'],
+    ['Le Descendant marque le début de quelle maison ?','Maison VII',['Maison VII','Maison I','Maison IV','Maison X'],'Le Descendant ouvre la maison VII, celle de la rencontre avec l\'Autre.']
+  ];
   var ROM=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
   function rnd(n){return Math.floor(Math.random()*n)}
   function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=rnd(i+1),t=a[i];a[i]=a[j];a[j]=t}return a}
@@ -122,11 +144,16 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
     function(){var s=SIGNS[rnd(12)];return {g:s[0]+V,q:Le(s[1])+est(s[1])+'un signe…',a:s[3],o:shuffle(['Cardinal','Fixe','Mutable']),e:Le(s[1])+est(s[1])+'un signe '+s[3].toLowerCase()+'.'}},
     function(){var r=RULERS[rnd(RULERS.length)];return {g:'',q:'Quelle planète gouverne le signe '+du(r[0])+' ?',a:r[1],o:pick(pnames,r[1],4),e:Le(r[0])+(ART[r[0]]==='les '?' sont gouvernés par ':' est gouverné'+(ART[r[0]]==='la '?'e':'')+' par ')+pl(r[1])+'.'}},
     function(){return {g:'',q:'Comment appelle-t-on le début de la maison I, le signe qui se levait à l\'Est à votre naissance ?',a:'L\'Ascendant',o:shuffle(['L\'Ascendant','Le Milieu du Ciel','Le Descendant','Le Fond du Ciel']),e:'C\'est l\'Ascendant : votre façon de naître au monde et d\'aborder la vie.'}},
-    function(){return {g:'',q:'Pour calculer une carte du ciel, il faut la date, le lieu et…',a:'L\'heure de naissance',o:shuffle(['L\'heure de naissance','Le prénom','Le signe des parents','La couleur préférée']),e:'Date, heure et lieu : l\'heure permet de calculer les maisons et l\'Ascendant.'}}
+    function(){return {g:'',q:'Pour calculer une carte du ciel, il faut la date, le lieu et…',a:'L\'heure de naissance',o:shuffle(['L\'heure de naissance','Le prénom','Le signe des parents','La couleur préférée']),e:'Date, heure et lieu : l\'heure permet de calculer les maisons et l\'Ascendant.'}},
+    function(){var x=ASPECTS[rnd(ASPECTS.length)];return {g:'',q:'Quel aspect correspond à un angle de '+x[1]+'° entre deux planètes ?',a:x[0],o:pick(anames,x[0],4),e:x[2]}},
+    function(){var x=ASPECTS[rnd(ASPECTS.length)];return {g:'',q:'Quel est l\'angle '+x[3]+' ?',a:x[1]+'°',o:pick(adeg,x[1]+'°',4),e:x[2]}},
+    function(){var x=AGLY[rnd(AGLY.length)];return {g:x[0]+V,q:'Quel aspect représente ce symbole ?',a:x[1],o:pick(anames,x[1],4),e:'C\'est '+x[2]+'.'}},
+    function(){var x=LEVELS[rnd(LEVELS.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
+    function(){var x=AXES[rnd(AXES.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}}
   ];
   var qs=[],k=0,score=0;
   function el(id){return document.getElementById(id)}
-  function build(){var seen={},out=[];var order=shuffle([0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,8,9]);for(var i=0;i<order.length&&out.length<10;i++){var q=makers[order[i]]();if(seen[q.q+q.a])continue;seen[q.q+q.a]=1;out.push(q)}var guard=0;while(out.length<10&&guard<500){guard++;var q2=makers[rnd(8)]();if(!seen[q2.q+q2.a]){seen[q2.q+q2.a]=1;out.push(q2)}}return out}
+  function build(){var seen={},out=[],guard=0;while(out.length<10&&guard<2000){guard++;var idx=shuffle(makers.map(function(_,n){return n}));for(var t=0;t<idx.length&&out.length<10;t++){if(idx[t]===8||idx[t]===9){if(Math.random()<.6)continue}var q=makers[idx[t]]();if(seen[q.q+q.a])continue;seen[q.q+q.a]=1;out.push(q)}}return shuffle(out)}
   function show(){var q=qs[k];el('num').textContent='Question '+(k+1)+' / 10';el('pts').textContent='Score : '+score;el('bar').style.width=(k*10)+'%';el('glyph').textContent=q.g;el('glyph').style.display=q.g?'block':'none';el('q').textContent=q.q;el('fb').innerHTML='';el('next').classList.add('hidden');var box=el('opts');box.innerHTML='';q.o.forEach(function(t){var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=t;b.onclick=function(){answer(b,t)};box.appendChild(b)})}
   function answer(b,t){var q=qs[k],ok=t===q.a;if(ok)score++;Array.prototype.forEach.call(el('opts').children,function(x){x.disabled=true;if(x.textContent===q.a)x.classList.add('ok')});if(!ok)b.classList.add('ko');el('fb').innerHTML=(ok?'<strong>Bravo&nbsp;!</strong> ':'<strong>Presque.</strong> ')+q.e;el('pts').textContent='Score : '+score;el('bar').style.width=((k+1)*10)+'%';var n=el('next');n.textContent=k===9?'Voir mon résultat':'Question suivante';n.classList.remove('hidden');n.focus()}
   function end(){el('play').classList.add('hidden');el('end').classList.remove('hidden');el('final').textContent=score+' / 10';var v,m;if(score>=9){v='Vous parlez couramment le langage du ciel !';m='Impressionnant : vous avez déjà de solides bases. La formation vous permettrait d\'aller beaucoup plus loin, jusqu\'à analyser un thème en autonomie.'}else if(score>=6){v='Belles connaissances !';m='Vous avez de bonnes bases. Il ne vous manque pas grand-chose pour commencer à lire une carte du ciel.'}else if(score>=3){v='Un bon début !';m='Vous connaissez déjà quelques symboles. Avec un peu de pratique, ils deviendront vite familiers.'}else{v='Tout reste à découvrir !';m='Pas d\'inquiétude : c\'est justement le point de départ de la première année de formation, qui commence par l\'alphabet astrologique.'}el('verdict').textContent=v;el('msg').textContent=m;el('copied').textContent='';el('end').scrollIntoView({behavior:'smooth',block:'start'})}
