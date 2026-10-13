@@ -1484,6 +1484,11 @@
     .home-cabinet img{width:min(560px,50%);}
     .home-cabinet p{font-size:23px; max-width:440px;}
   }
+
+  /* Photo accueil : fondu doux dans le fond */
+  .hero-photo img{border:none !important; box-shadow:none !important; border-radius:0 !important; filter:saturate(.95) brightness(.97);
+    -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);
+            mask-image:radial-gradient(ellipse 50% 50% at 50% 46%, #000 52%, transparent 100%);}
 </style>
 <!-- Suivi de visites respectueux de la vie privée (Plausible, sans cookies). 
      À activer : crée un compte gratuit sur https://plausible.io, ajoute "liliangitton.fr",
