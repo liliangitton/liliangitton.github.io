@@ -173,7 +173,20 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
   ];
   // ---------- NIVEAU DÉBUTANT ----------
   var DATES=[['Bélier','21 mars','20 avril'],['Taureau','21 avril','20 mai'],['Gémeaux','21 mai','21 juin'],['Cancer','22 juin','22 juillet'],['Lion','23 juillet','22 août'],['Vierge','23 août','22 septembre'],['Balance','23 septembre','22 octobre'],['Scorpion','23 octobre','21 novembre'],['Sagittaire','22 novembre','20 décembre'],['Capricorne','21 décembre','19 janvier'],['Verseau','20 janvier','18 février'],['Poissons','19 février','20 mars']];
-  var IMG=[['Bélier','un bélier'],['Taureau','un taureau'],['Gémeaux','des jumeaux'],['Cancer','un crabe'],['Lion','un lion'],['Vierge','une jeune fille'],['Balance','une balance'],['Scorpion','un scorpion'],['Sagittaire','un archer mi-homme, mi-cheval'],['Capricorne','une chèvre à queue de poisson'],['Verseau','un porteur d\'eau'],['Poissons','deux poissons']];
+  var TRAITS=[
+    ['Bélier','Quel signe aime foncer, démarrer et passer à l\'action, parfois avant de réfléchir ?','C\'est le Bélier : « Je passe à l\'action donc je suis. »'],
+    ['Taureau','Quel signe aime la stabilité, le concret et les plaisirs des sens ?','C\'est le Taureau : « J\'ai donc je suis. »'],
+    ['Gémeaux','Quel signe est curieux de tout, aime communiquer et faire des liens entre les idées et les gens ?','Ce sont les Gémeaux : « Je fais le lien donc je suis. »'],
+    ['Cancer','Quel signe est très sensible et tourné vers le foyer, la famille et le cocon ?','C\'est le Cancer : « Je ressens donc je suis. »'],
+    ['Lion','Quel signe aime rayonner, créer et être reconnu pour ce qu\'il est ?','C\'est le Lion : « Je rayonne donc je suis. »'],
+    ['Vierge','Quel signe aime analyser, trier, améliorer et rendre service ?','C\'est la Vierge : « J\'analyse donc je suis. »'],
+    ['Balance','Quel signe cherche avant tout l\'harmonie, l\'équilibre et le lien avec les autres ?','C\'est la Balance : « Je rencontre l\'Autre donc je suis. »'],
+    ['Scorpion','Quel signe est intense et passionné, et cherche la vérité derrière les apparences ?','C\'est le Scorpion : « Je vis profondément donc je suis. »'],
+    ['Sagittaire','Quel signe aime explorer, voyager et chercher le sens de la vie ?','C\'est le Sagittaire : « Je comprends le sens de l\'existence donc je suis. »'],
+    ['Capricorne','Quel signe est réputé sérieux et responsable, et construit avec patience et ambition ?','C\'est le Capricorne : « Je réalise donc je suis. »'],
+    ['Verseau','Quel signe est l\'original du zodiaque, indépendant et fraternel, tourné vers l\'avenir ?','C\'est le Verseau : « Je suis indépendant donc je suis. »'],
+    ['Poissons','Quel signe ressent tout, les autres comme les ambiances, avec beaucoup de compassion ?','Ce sont les Poissons : « Je suis tout donc je suis. »']
+  ];
   var EL4=[['Feu','le Bélier, le Lion et le Sagittaire'],['Terre','le Taureau, la Vierge et le Capricorne'],['Air','les Gémeaux, la Balance et le Verseau'],['Eau','le Cancer, le Scorpion et les Poissons']];
   var BFIX=[
     ['Combien y a-t-il de signes du zodiaque ?','12',['12','10','7','24'],'Il y a 12 signes, du Bélier aux Poissons.'],
@@ -195,7 +208,8 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
   ];
   var BEG=[
     function(){var d=DATES[rnd(12)];return {g:'',q:'Quel est le signe des personnes nées entre le '+d[1]+' et le '+d[2]+' ?',a:d[0],o:pick(names,d[0],4),e:'Entre le '+d[1]+' et le '+d[2]+', le Soleil est dans le signe '+du(d[0])+'.'}},
-    function(){var x=IMG[rnd(12)];return {g:'',q:'Quel signe est représenté par '+x[1]+' ?',a:x[0],o:pick(names,x[0],4),e:Le(x[0])+est(x[0])+'représenté'+(ART[x[0]]==='la '?'e':ART[x[0]]==='les '?'s':'')+' par '+x[1]+'.'}},
+    function(){var i=rnd(12),n=(i+1)%12;return {g:'',q:'Dans l\'ordre du zodiaque, quel signe vient juste après '+(ART[names[i]]==='les '?'les ':ART[names[i]])+names[i]+' ?',a:names[n],o:pick(names.filter(function(x){return x!==names[i]}),names[n],4),e:'Après '+(ART[names[i]]==='les '?'les ':ART[names[i]])+names[i]+(ART[names[n]]==='les '?' viennent ':' vient ')+(ART[names[n]]==='les '?'les ':ART[names[n]])+names[n]+'.'}},
+    function(){var x=TRAITS[rnd(12)];return {g:'',q:x[1],a:x[0],o:pick(names,x[0],4),e:x[2]}},
     function(){var x=EL4[rnd(4)],all=EL4.map(function(e){return e[1]});return {g:'',q:'Quels sont les trois signes '+(x[0]==='Air'||x[0]==='Eau'?'d\'':'de ')+x[0].toLowerCase()+' ?',a:x[1],o:shuffle(all),e:'Les signes '+(x[0]==='Air'||x[0]==='Eau'?'d\'':'de ')+x[0].toLowerCase()+' sont '+x[1]+'.'}},
     function(){var s=SIGNS[rnd(12)];return {g:s[0]+V,q:'Quel signe du zodiaque représente ce symbole ?',a:s[1],o:pick(names,s[1],4),e:'C\'est le symbole '+du(s[1])+'.'}},
     function(){var x=BFIX[rnd(BFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
