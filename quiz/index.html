@@ -190,6 +190,16 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
   ];
   var EL4=[['Feu','le Bélier, le Lion et le Sagittaire'],['Terre','le Taureau, la Vierge et le Capricorne'],['Air','les Gémeaux, la Balance et le Verseau'],['Eau','le Cancer, le Scorpion et les Poissons']];
   var BFIX=[
+    ['Quelle planète est associée à l\'amour, à la beauté et au plaisir ?','Vénus',['Vénus','Mars','Saturne','Mercure'],'Vénus parle de ce que l\'on aime, de nos valeurs et de notre façon d\'aimer.'],
+    ['Quelle planète est associée à l\'action, à l\'énergie et au courage ?','Mars',['Mars','Vénus','Jupiter','la Lune'],'Mars, c\'est notre énergie, notre façon d\'agir et de nous affirmer.'],
+    ['Quelle planète est associée à la communication et à la pensée ?','Mercure',['Mercure','Saturne','Neptune','Mars'],'Mercure est le messager : il parle de notre façon de penser et de communiquer.'],
+    ['Dans une carte du ciel, que représente surtout la Lune ?','Les émotions et les besoins de sécurité',['Les émotions et les besoins de sécurité','Le travail et la carrière','L\'argent','Les voyages lointains'],'La Lune parle de notre monde émotionnel, de nos besoins et de notre sensibilité.'],
+    ['Combien de signes y a-t-il dans chaque élément ?','3',['3','4','2','6'],'12 signes répartis en 4 éléments : 3 signes par élément.'],
+    ['Comment s\'appelle le cercle qui représente les 12 signes ?','Le zodiaque',['Le zodiaque','L\'équateur','Le méridien','La galaxie'],'Le zodiaque est la bande du ciel découpée en 12 signes.'],
+    ['Un signe d\'eau est plutôt tourné vers…','Les émotions et la sensibilité',['Les émotions et la sensibilité','L\'action et l\'enthousiasme','Le concret et la matière','Les idées et les échanges'],'L\'eau, c\'est l\'élément du ressenti : Cancer, Scorpion, Poissons.'],
+    ['Un signe de feu est plutôt tourné vers…','L\'action et l\'enthousiasme',['L\'action et l\'enthousiasme','Les émotions et la sensibilité','Le concret et la matière','Les idées et les échanges'],'Le feu, c\'est l\'élan et l\'énergie : Bélier, Lion, Sagittaire.'],
+    ['Un signe de terre est plutôt tourné vers…','Le concret et la matière',['Le concret et la matière','L\'action et l\'enthousiasme','Les émotions et la sensibilité','Les idées et les échanges'],'La terre, c\'est le réel et le tangible : Taureau, Vierge, Capricorne.'],
+    ['Un signe d\'air est plutôt tourné vers…','Les idées et les échanges',['Les idées et les échanges','Le concret et la matière','L\'action et l\'enthousiasme','Les émotions et la sensibilité'],'L\'air, c\'est la pensée et la relation : Gémeaux, Balance, Verseau.'],
     ['Combien y a-t-il de signes du zodiaque ?','12',['12','10','7','24'],'Il y a 12 signes, du Bélier aux Poissons.'],
     ['Quel est le premier signe du zodiaque ?','Le Bélier',['Le Bélier','Le Capricorne','Les Poissons','Le Lion'],'Le Bélier ouvre le zodiaque, au moment de l\'équinoxe de printemps (vers le 21 mars).'],
     ['Quel est le dernier signe du zodiaque ?','Les Poissons',['Les Poissons','Le Verseau','Le Capricorne','Le Bélier'],'Les Poissons ferment le cycle du zodiaque.'],
@@ -208,13 +218,15 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
     ['Sur une carte du ciel, que représentent les traits entre les planètes ?','Les aspects : les liens entre les planètes',['Les aspects : les liens entre les planètes','Les frontières des pays','Les étoiles filantes','Rien, c\'est décoratif'],'Ce sont les aspects : ils montrent comment les planètes dialoguent entre elles.']
   ];
   var BEG=[
-    function(){var d=DATES[rnd(12)];return {g:'',q:'Quel est le signe des personnes nées entre le '+d[1]+' et le '+d[2]+' ?',a:d[0],o:pick(names,d[0],4),e:'Entre le '+d[1]+' et le '+d[2]+', le Soleil est dans le signe '+du(d[0])+'.'}},
-    function(){var i=rnd(12),n=(i+1)%12;return {g:'',q:'Dans l\'ordre du zodiaque, quel signe vient juste après '+(ART[names[i]]==='les '?'les ':ART[names[i]])+names[i]+' ?',a:names[n],o:pick(names.filter(function(x){return x!==names[i]}),names[n],4),e:'Après '+(ART[names[i]]==='les '?'les ':ART[names[i]])+names[i]+(ART[names[n]]==='les '?' viennent ':' vient ')+(ART[names[n]]==='les '?'les ':ART[names[n]])+names[n]+'.'}},
+    function(){var d=DATES[rnd(12)];return {g:'',q:'Quel est le signe des personnes nées entre le '+d[1]+' et le '+d[2]+' ?',a:d[0],o:pick(names,d[0],4),e:'Entre le '+d[1]+' et le '+d[2]+', le Soleil est dans le signe '+du(d[0])+'.',t:'date'}},
+    function(){var i=rnd(12),n=(i+1)%12;return {g:'',q:'Dans l\'ordre du zodiaque, quel signe vient juste après '+(ART[names[i]]==='les '?'les ':ART[names[i]])+names[i]+' ?',a:names[n],o:pick(names.filter(function(x){return x!==names[i]}),names[n],4),e:'Après '+(ART[names[i]]==='les '?'les ':ART[names[i]])+names[i]+(ART[names[n]]==='les '?' viennent ':' vient ')+(ART[names[n]]==='les '?'les ':ART[names[n]])+names[n]+'.',t:'ordre'}},
     function(){var x=TRAITS[rnd(12)];return {g:'',q:x[1],a:x[0],o:pick(names,x[0],4),e:x[2]}},
     function(){var x=EL4[rnd(4)],all=EL4.map(function(e){return e[1]});return {g:'',q:'Quels sont les trois signes '+(x[0]==='Air'||x[0]==='Eau'?'d\'':'de ')+x[0].toLowerCase()+' ?',a:x[1],o:shuffle(all),e:'Les signes '+(x[0]==='Air'||x[0]==='Eau'?'d\'':'de ')+x[0].toLowerCase()+' sont '+x[1]+'.'}},
     function(){var s=SIGNS[rnd(12)];return {g:s[0]+V,q:'Quel signe du zodiaque représente ce symbole ?',a:s[1],o:pick(names,s[1],4),e:'C\'est le symbole '+du(s[1])+'.'}},
     function(){var x=BFIX[rnd(BFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
-    function(){var x=BFIX[rnd(BFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}}
+    function(){var x=BFIX[rnd(BFIX.length)];return {g:'',q:x[0],a:x[1],o:shuffle(x[2]),e:x[3]}},
+    function(){var EL={'Bélier':'Feu','Lion':'Feu','Sagittaire':'Feu','Taureau':'Terre','Vierge':'Terre','Capricorne':'Terre','Gémeaux':'Air','Balance':'Air','Verseau':'Air','Cancer':'Eau','Scorpion':'Eau','Poissons':'Eau'};var n=names[rnd(12)],e=EL[n],pl=ART[n]==='les ';return {g:'',q:'À quel élément appartien'+(pl?'nent':'t')+' '+(pl?'les ':ART[n])+n+' ?',a:e,o:shuffle(['Feu','Terre','Air','Eau']),e:(pl?'Les ':capA(ART[n]))+n+(pl?' sont':' est')+' un signe '+(e==='Air'||e==='Eau'?'d\'':'de ')+e.toLowerCase()+'.'}},
+    function(){var i=rnd(12),n=(i+11)%12,a=ART[names[i]],b=ART[names[n]];return {g:'',q:'Dans l\'ordre du zodiaque, quel signe vient juste avant '+(a==='les '?'les ':a)+names[i]+' ?',a:names[n],o:pick(names.filter(function(x){return x!==names[i]}),names[n],4),e:'Juste avant '+(a==='les '?'les ':a)+names[i]+(b==='les '?' viennent ':' vient ')+(b==='les '?'les ':b)+names[n]+'.',t:'ordre'}}
   ];
   // ---------- NIVEAU TRÈS AVANCÉ ----------
   var OPP=[0,6,7,8,9,10,11,0,1,2,3,4,5];
@@ -300,7 +312,7 @@ footer{text-align:center;font-size:13px;color:var(--muted);padding:0 16px 30px}
   var level='intermediaire';
   var qs=[],k=0,score=0;
   function el(id){return document.getElementById(id)}
-  function build(){var ms=LEVELSET[level].m,seen={},out=[],guard=0;while(out.length<10&&guard<5000){guard++;var q=ms[rnd(ms.length)]();if(seen[q.q+q.a])continue;seen[q.q+q.a]=1;out.push(q)}return out}
+  function build(){var ms=LEVELSET[level].m,seen={},out=[],guard=0;while(out.length<10&&guard<5000){guard++;var q=ms[rnd(ms.length)]();if(seen[q.q+q.a])continue;if(q.t){var cap={date:1,ordre:2}[q.t]||99;if((seen['#'+q.t]||0)>=cap)continue;seen['#'+q.t]=(seen['#'+q.t]||0)+1}seen[q.q+q.a]=1;out.push(q)}return out}
   function show(){var q=qs[k];el('num').textContent='Question '+(k+1)+' / 10';el('pts').textContent='Score : '+score;el('bar').style.width=(k*10)+'%';if(q.d){el('glyph').innerHTML=chartSVG(q.d)}else{el('glyph').textContent=q.g}el('glyph').style.display=(q.g||q.d)?'block':'none';el('q').textContent=q.q;el('fb').innerHTML='';el('next').classList.add('hidden');var box=el('opts');box.innerHTML='';q.o.forEach(function(t){var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=t;b.onclick=function(){answer(b,t)};box.appendChild(b)})}
   function answer(b,t){var q=qs[k],ok=t===q.a;if(ok)score++;Array.prototype.forEach.call(el('opts').children,function(x){x.disabled=true;if(x.textContent===q.a)x.classList.add('ok')});if(!ok)b.classList.add('ko');el('fb').innerHTML=(ok?'<strong>Bravo&nbsp;!</strong> ':'<strong>Presque.</strong> ')+q.e;el('pts').textContent='Score : '+score;el('bar').style.width=((k+1)*10)+'%';var n=el('next');n.textContent=k===9?'Voir mon résultat':'Question suivante';n.classList.remove('hidden');n.focus()}
   function end(){el('play').classList.add('hidden');el('end').classList.remove('hidden');el('final').textContent=score+' / 10';el('endname').textContent='Votre résultat · '+LEVELSET[level].t;var v,m,hi=score>=8,mid=score>=5;
