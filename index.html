@@ -1498,6 +1498,35 @@
   .hero .hero-sign{font-size:46px; margin:0 0 50px 0; padding-top:0; text-align:right; padding-right:24px;}
   @media (min-width:901px){.hero .hero-sign{text-align:right; max-width:640px; margin:8px 0 56px 0; padding-right:70px;}}
   .hero .welcome{margin-bottom:0;}
+
+
+  /* ---------- Étiquette « Quiz astro » (accueil) ---------- */
+  .hero-photo{position:relative;}
+  .quiz-sticker{position:relative; z-index:3; vertical-align:middle; margin:4px 0 4px 10px; display:inline-flex; align-items:center; gap:7px; padding:8px 15px 8px 10px; border-radius:999px; text-decoration:none; color:#1d1233; font-weight:600; font-size:14.5px; letter-spacing:.02em; background:linear-gradient(135deg,#F3D08A,#DDAE5E 45%,#C6913D); box-shadow:0 6px 22px rgba(0,0,0,.35), 0 0 26px rgba(221,174,94,.55); transform:rotate(-7deg); animation:qs-wobble 3.6s ease-in-out infinite; overflow:visible; white-space:nowrap; transition:transform .25s ease, box-shadow .25s ease;}
+  .quiz-sticker::after{content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%); background-size:250% 100%; background-position:150% 0; animation:qs-shine 4.5s ease-in-out infinite; pointer-events:none;}
+  .quiz-sticker:hover,.quiz-sticker:focus-visible{animation:none; transform:rotate(0deg) scale(1.08); box-shadow:0 8px 26px rgba(0,0,0,.4), 0 0 38px rgba(221,174,94,.85);}
+  .qs-ic{display:inline-flex;}
+  .qs-spin{transform-origin:12px 12px; animation:qs-rot 9s linear infinite;}
+  .qs-spark{position:absolute; top:-10px; right:-4px; font-size:16px; color:#F3D08A; text-shadow:0 0 10px rgba(243,208,138,.9); animation:qs-twinkle 2.2s ease-in-out infinite;}
+  @keyframes qs-wobble{0%,100%{transform:rotate(-7deg) translateY(0);}50%{transform:rotate(-3.5deg) translateY(-4px);}}
+  @keyframes qs-shine{0%,55%{background-position:150% 0;}100%{background-position:-60% 0;}}
+  @keyframes qs-rot{to{transform:rotate(360deg);}}
+  @keyframes qs-twinkle{0%,100%{opacity:.3; transform:scale(.7);}50%{opacity:1; transform:scale(1.15);}}
+  @media (max-width:900px){.quiz-sticker{font-size:14px; padding:8px 15px 8px 10px; margin-left:4px;}}
+  @media (prefers-reduced-motion:reduce){.quiz-sticker,.quiz-sticker::after,.qs-spin,.qs-spark{animation:none;}}
+
+  .hero .quiz-line{margin-top:18px; max-width:680px; color:var(--muted); font-size:17px; line-height:1.7; display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px;}
+  .hero .quiz-line .ql-text{flex:0 1 auto;}
+  .hero .quiz-line .quiz-sticker{margin:4px 6px; flex:0 0 auto;}
+
+  /* Étiquette dans le menu */
+  .quiz-sticker.quiz-sticker-sm{font-size:12px; padding:4px 11px 4px 7px; gap:5px; margin:0 0 0 10px; vertical-align:middle; box-shadow:0 3px 12px rgba(0,0,0,.3), 0 0 14px rgba(221,174,94,.5); pointer-events:none;}
+  .quiz-sticker-sm .qs-svg{width:15px; height:15px;}
+  .quiz-sticker-sm .qs-spark{font-size:12px; top:-8px; right:-3px;}
+  .submenu-video-link:has(.quiz-sticker-sm) .nav-label{flex:0 0 auto;}
+  .submenu-video-link .quiz-sticker-sm{margin-right:auto;}
+  .nav ul .dd .dd-text{display:block;}
+  .nav ul .dd .dd-text .quiz-sticker-sm{display:inline-flex; width:auto; margin:2px 0 2px 12px; vertical-align:middle;}
 </style>
 <!-- Suivi de visites respectueux de la vie privée (Plausible, sans cookies). 
      À activer : crée un compte gratuit sur https://plausible.io, ajoute "liliangitton.fr",
@@ -1658,7 +1687,8 @@
             </svg>
           </a></li>
           <li><a href="/quiz/" class="submenu-video-link">
-            <span class="nav-label">Quiz d'astrologie : testez-vous (3 niveaux + spécial signes)</span>
+            <span class="nav-label">Testez-vous</span>
+            <span class="quiz-sticker quiz-sticker-sm" aria-hidden="true"><span class="qs-ic"><svg class="qs-svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g class="qs-spin"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#1d1233" stroke-width="1.4" stroke-dasharray="2 2.6"/><path d="M12 3.5l1.6 6.9 6.9 1.6-6.9 1.6L12 20.5l-1.6-6.9L3.5 12l6.9-1.6z" fill="#1d1233"/></g></svg></span><span class="qs-t">Quiz astro</span><span class="qs-spark" aria-hidden="true">✦</span></span>
             <svg class="submenu-camera-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <circle cx="22" cy="17" r="12" fill="none" stroke="currentColor" stroke-width="1.4"/>
               <path d="M18 13.5 C18 11 19.8 9.6 22 9.6 C24.2 9.6 26 11 26 13.2 C26 15.4 24.4 16.1 23.2 17 C22.4 17.6 22 18.2 22 19.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -1887,7 +1917,9 @@
           var txt = document.createElement('span'); txt.className = 'dd-text';
           while(l.firstChild){ txt.appendChild(l.firstChild); }
           l.appendChild(txt);
-          var ic = a.querySelector('svg');
+          var bd = a.querySelector('.quiz-sticker');
+          if(bd){ txt.appendChild(bd.cloneNode(true)); }
+          var ic = a.querySelector('svg:not(.qs-svg)');
           if(ic){ var c = ic.cloneNode(true); c.setAttribute('class', 'dd-ic'); c.setAttribute('aria-hidden', 'true'); l.appendChild(c); }
           item.appendChild(l); dd.appendChild(item);
         });
@@ -2008,6 +2040,7 @@
       <p class="welcome">Bienvenue&nbsp;! Vous méritez de vous sentir bien, en paix avec vous-même. Que vous traversiez une période difficile, que vous portiez une blessure ancienne ou que vous ayez envie de mieux vous connaître, je vous accompagne avec mes différents outils. Je serai heureux de vous accueillir à Orléans ou à distance.</p>
       <p class="hand-sign hero-sign">Lilian</p>
       <p class="lead">Sur ce site, je vous présente différentes possibilités d'accompagnement réalisées <a class="xl" href="#cabinet">en cabinet</a> ou à distance&nbsp;: <a class="xl" href="#hypnose">Hypnose Humaniste</a>, <a class="xl" href="#energetique">soins énergétiques</a> et <a class="xl" href="#astrologie">astrologie humaniste</a>. Vous pourrez aussi trouver des <a class="xl" href="#articles-spiritualite">articles sur la spiritualité et le développement personnel</a>, ainsi que des <a class="xl" href="#articles-videos">vidéos pédagogiques sur l'astrologie</a>.</p>
+      <p class="quiz-line"><span class="ql-text">Et si vous avez envie de tester vos connaissances en astrologie&nbsp;:</span> <a class="quiz-sticker" href="/quiz/" aria-label="Faire le quiz d'astrologie"><span class="qs-ic"><svg class="qs-svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g class="qs-spin"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#1d1233" stroke-width="1.4" stroke-dasharray="2 2.6"/><path d="M12 3.5l1.6 6.9 6.9 1.6-6.9 1.6L12 20.5l-1.6-6.9L3.5 12l6.9-1.6z" fill="#1d1233"/></g></svg></span><span class="qs-t">Quiz astro</span><span class="qs-spark" aria-hidden="true">✦</span></a></p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">Prendre rendez-vous</a>
         <a href="tel:+33687035649" class="btn btn-ghost">M'appeler</a>
@@ -2017,7 +2050,7 @@
     </div>
     <div class="hero-photo"><img id="homePortrait" alt="Lilian Gitton, hypnothérapeute, énergéticien et astrologue"></div>
     </div>
-    <div class="home-reviews">
+<div class="home-reviews">
       <h2 class="home-h">Ils m'ont fait confiance</h2>
       <div class="home-rev-grid"><figure class="home-rev"><blockquote>« Lilian est très agréable et sensible, il aime le partage et la relation, ses explications sont claires et précises. Mon thème astral était puissant de vérité, il n'y a pas à hésiter si vous voulez une étude de votre chemin, il est la personne à aller voir. »</blockquote><figcaption>— Nelly</figcaption></figure><figure class="home-rev"><blockquote>« Merci à Lilian pour son écoute et son accompagnement lors d'une période de vie délicate. L'hypnose humaniste m'a permis d'avancer d'une façon ludique et en même temps profonde. Les soins énergétiques ont soutenu ce processus en m'ouvrant à des champs jusqu'alors inconnus. Beaucoup de gratitude pour tout cela. »</blockquote><figcaption>— Amélie</figcaption></figure><figure class="home-rev"><blockquote>« Superbe analyse de moi et de mon fils qui a 10 ans. Tout à résonné en moi et avec ce que je vis actuellement dans ma vie. J'ai reconnu le caractère de mon fils à travers cette magnifique analyse. Je vous recommande Lilian, très bon astrologue. »</blockquote><figcaption>— Manuela</figcaption></figure></div>
       <p class="home-more"><a class="xl" href="#avis">Lire tous les avis →</a></p>
