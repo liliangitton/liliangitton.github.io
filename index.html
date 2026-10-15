@@ -672,6 +672,19 @@
     font-size:13.5px; color:var(--muted); margin:0; line-height:1.55;
   }
 
+  /* Articles : cartes repliables */
+  .article-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; align-items:start;}
+  .art-card{scroll-margin-top:96px; padding:24px 26px 24px; border:1px solid var(--line-strong); border-left:3px solid var(--gold-soft); border-radius:4px 14px 14px 4px; background:rgba(239,231,216,.04); transition:background .25s ease, border-color .25s ease;}
+  .art-card:hover{background:rgba(221,174,94,.07);}
+  .art-card.open{grid-column:1 / -1; background:rgba(221,174,94,.06);}
+  .art-title{font-family:'Fraunces',serif; font-weight:400; font-size:21px; line-height:1.3; margin:0 0 10px; color:var(--paper);}
+  .art-excerpt{font-size:14.5px; line-height:1.6; color:var(--muted); margin:0 0 16px;}
+  .art-toggle{font:inherit; font-size:13.5px; letter-spacing:.04em; color:var(--gold-soft); background:transparent; border:1px solid var(--gold); border-radius:999px; padding:8px 18px; cursor:pointer; transition:background .25s ease, color .25s ease;}
+  .art-toggle:hover,.art-toggle:focus-visible{background:rgba(221,174,94,.18); color:var(--paper);}
+  .art-body{margin-top:22px; padding-top:20px; border-top:1px solid var(--line); max-width:760px;}
+  .art-body[hidden]{display:none;}
+  @media (max-width:760px){ .article-grid{grid-template-columns:1fr; gap:18px;} .art-card{padding:20px 20px;} }
+
   /* Services (hairline list) */
   .service-list{border-top:1px solid var(--line);}
   .service{
@@ -2065,6 +2078,23 @@
       });
     })();
 
+    // Articles : un clic déplie ou replie le texte complet dans la carte
+    (function(){
+      document.addEventListener('click', function(e){
+        var btn = e.target.closest && e.target.closest('.art-toggle');
+        if(!btn) return;
+        var card = btn.closest('.art-card');
+        var body = document.getElementById(btn.getAttribute('aria-controls'));
+        if(!card || !body) return;
+        var opening = body.hasAttribute('hidden');
+        if(opening){ body.removeAttribute('hidden'); } else { body.setAttribute('hidden',''); }
+        card.classList.toggle('open', opening);
+        btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+        btn.textContent = opening ? "Refermer l'article" : "Lire l'article";
+        if(opening){ setTimeout(function(){ card.scrollIntoView({behavior:'smooth', block:'start'}); }, 30); }
+      });
+    })();
+
     // Consentement cookies (carte Google Maps)
     (function(){
       var banner = document.getElementById('cookieBanner');
@@ -2780,15 +2810,17 @@
     <div class="block">
       <h3 id="articles-spiritualite">Mes articles sur la spiritualité et le développement personnel</h3>
       <div class="body">
-        <p>Quelques réflexions personnelles et des ressources pour aller plus loin sur le chemin de la connaissance de soi.</p>
+        <p>Quelques réflexions personnelles pour aller plus loin sur le chemin de la connaissance de soi.</p>
       </div>
     </div>
 
     <div class="block">
-      <div class="section-head" style="margin-bottom:24px;">
-        <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:400; color:var(--paper);">Laisser être sans se laisser faire</h3>
-      </div>
-      <div class="body">
+      <div class="article-grid">
+      <article class="art-card" id="article-1">
+        <h4 class="art-title">Laisser être sans se laisser faire</h4>
+        <p class="art-excerpt">Poser ses limites sans chercher à changer l'autre&nbsp;: un petit réglage qui change nos relations, pour soi et pour les autres.</p>
+        <button type="button" class="art-toggle" aria-expanded="false" aria-controls="article-1-texte">Lire l'article</button>
+        <div class="art-body" id="article-1-texte" hidden>
         <p>Cette phrase peut vous sembler anodine, mais a pris de l'importance pour moi ces derniers temps.</p>
         <p>Dans nos relations, on a parfois des limites à poser aux autres, pour se protéger et délimiter ce qui nous convient ou pas, même avec des gens que l'on aime.</p>
         <p>On peut être tenté de poser ses limites, mais aussi de vouloir (consciemment ou inconsciemment) que la personne change, car on a l'impression qu'elle nous fait souffrir, qu'elle est dans l'erreur en agissant comme cela, et que pour le bien de la relation (ou plutôt, avouons-le, notre propre bien) elle devrait stopper son comportement.</p>
@@ -2800,14 +2832,13 @@
         <p>Avoir le courage de poser des limites fermes, et la bonté et sagesse de ne pas essayer de transformer l'autre, peut aider en cela. Car, à ce moment-là, on se respecte et on respecte l'autre, et on contribue à une relation saine et tournée vers "l'être" (pour les 2 parties).</p>
         <p>Mais si cela ne suffit pas&nbsp;? Oui, il y a des cas où on fera de son mieux, mais la relation pourra s'avérer "toxique", est-ce que la limite ultime à poser ne serait pas d'arrêter la relation, par respect pour soi, et du coup éviter une injonction que l'autre change&nbsp;?</p>
         <p>N'oublions pas que la seule véritable reconnaissance que l'on peut obtenir est la nôtre, ne construisons pas d'attentes de reconnaissance extérieure, assumons qui nous sommes. En faisant cela, nous pourrons permettre aux personnes proches de nous d'être ce qu'elles sont, et nous rencontrerons de plus en plus "d'être" humains qui nous respecterons dans notre intégrité, car nous n'aurons plus à apprendre cette leçon...</p>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="section-head" style="margin-bottom:24px;">
-        <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:400; color:var(--paper);">A-t-on vraiment le choix&nbsp;? Comment savoir ce que l'on veut réellement&nbsp;?</h3>
-      </div>
-      <div class="body">
+        </div>
+      </article>
+      <article class="art-card" id="article-2">
+        <h4 class="art-title">A-t-on vraiment le choix&nbsp;? Comment savoir ce que l'on veut réellement&nbsp;?</h4>
+        <p class="art-excerpt">Nos choix sont-ils vraiment les nôtres, ou influencés par notre éducation, nos peurs, nos conditionnements&nbsp;? Une réflexion, de Matrix à mon propre parcours.</p>
+        <button type="button" class="art-toggle" aria-expanded="false" aria-controls="article-2-texte">Lire l'article</button>
+        <div class="art-body" id="article-2-texte" hidden>
         <p>Il est certain que l'on fait des choix dans notre vie, mais nous correspondent-ils réellement, ou sont-ils influencés inconsciemment par notre éducation, notre culture, l'héritage de nos ancêtres, nos peurs, nos conditionnements…&nbsp;? Finalement, est-ce que nos choix reflètent notre vérité profonde&nbsp;?</p>
         <p>Au début du film Matrix, Morpheus propose à Néo&nbsp;: "Choisis la pilule bleue et tout s'arrête, après tu pourras faire de beaux rêves et penser ce que tu veux. Choisis la pilule rouge&nbsp;: tu restes au pays des merveilles et on descend avec le lapin blanc au fond du gouffre."</p>
         <p>Je vous pose la question autrement&nbsp;: voulez-vous sortir de votre conditionnement pour retrouver votre intuition et votre liberté&nbsp;?</p>
@@ -2834,15 +2865,13 @@
         <p>La prise de conscience peut se faire progressivement, et aussi dans la découverte et l'acceptation qu'il y a de la peur en nous, du conditionnement et du "noir". À partir du moment où vous avez décidé d'éclairer tout cela, la transformation se fera en douceur et non dans une lutte.</p>
         <p>En fin de compte, tout est là, même les obstacles, pour nous permettre de surmonter, d'avancer, de devenir nous-mêmes et faire le choix de la vie.</p>
         <p>Garder la foi en cela est primordial&nbsp;!</p>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="section-head" style="margin-bottom:24px;">
-        <div class="kicker">Ressource</div>
-        <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:400; color:var(--paper);">Qu'est-ce que l'énergie et comment s'en servir&nbsp;?</h3>
-      </div>
-      <div class="body">
+        </div>
+      </article>
+      <article class="art-card" id="article-3">
+        <h4 class="art-title">Qu'est-ce que l'énergie et comment s'en servir&nbsp;?</h4>
+        <p class="art-excerpt">Nous baignons dans l'énergie sans nous en rendre compte, comme le poisson dans l'eau. Comment la ressentir et s'en servir au quotidien.</p>
+        <button type="button" class="art-toggle" aria-expanded="false" aria-controls="article-3-texte">Lire l'article</button>
+        <div class="art-body" id="article-3-texte" hidden>
         <p><strong>Nous baignons sans le savoir dans l'énergie.</strong> Nous "baignons" continuellement dans l'énergie, mais tel le poisson dans l'eau, cela nous est tellement habituel que nous ne nous en rendons pas compte.</p>
         <p>Quand j'étais enfant, je m'amusais à créer une sensation intense dans mon ventre, et ensuite à élargir cette sorte d'intensité dans l'ensemble de mon corps, sans le savoir je m'amusais avec l'énergie.</p>
         <p>Puis, étant adulte, il m'est arrivé parfois d'avoir des sensations puissantes, presque désagréables, dans les mains après de longues périodes de méditation. J'ai aussi pu ressentir des sensations particulières en massant les gens, je pouvais sentir des choses différentes selon les zones du corps touchées et selon les personnes.</p>
@@ -2855,15 +2884,13 @@
         <p><strong>L'intention ou la pensée.</strong> C'est le côté "magique et amusant" des soins énergétiques, nous pouvons chacun influencer les énergies en posant des intentions, en pensant, en visualisant, en demandant. L'énergie est dirigée par les intentions de l'énergéticien (intention de soigner une douleur, de dissoudre un blocage, d'équilibrer). Il est possible aussi de ne pas diriger, et juste d'envoyer de l'énergie&nbsp;: dans ce cas l'énergie, qui est intelligente, ira là où elle sera utile.</p>
         <p><strong>Vous voulez sentir l'énergie&nbsp;? Rien de plus simple&nbsp;!</strong> L'énergie suit l'intention, mais elle réagit aussi à l'attention. Il suffit de porter son attention sur une zone de son corps pour y créer une plus grande vibration énergétique. Les mains sont habituellement l'endroit du corps où l'on peut le plus facilement détecter des sensations énergétiques.</p>
         <p>Chacun peut donc réaliser cet exercice simple&nbsp;: s'installer confortablement, fermer les yeux et ressentir l'intérieur et l'extérieur d'une de ses mains, en se concentrant uniquement sur elle. Peut-être pourrez-vous sentir une intensité, de la chaleur, des picotements, etc. Chaque personne pourra avoir des ressentis différents.</p>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="section-head" style="margin-bottom:24px;">
-        <div class="kicker">Ressource</div>
-        <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:400; color:var(--paper);">La méditation pour mieux se connaître</h3>
-      </div>
-      <div class="body">
+        </div>
+      </article>
+      <article class="art-card" id="article-4">
+        <h4 class="art-title">La méditation pour mieux se connaître</h4>
+        <p class="art-excerpt">Un outil de connaissance de soi&nbsp;: le «&nbsp;phare&nbsp;» de l'attention qui éclaire nos zones d'ombre, pour faire des choix en conscience.</p>
+        <button type="button" class="art-toggle" aria-expanded="false" aria-controls="article-4-texte">Lire l'article</button>
+        <div class="art-body" id="article-4-texte" hidden>
         <p>La méditation est avant tout un outil de connaissance de soi, elle permet de tourner le regard vers son intérieur, un peu comme un miroir permet de se voir.</p>
         <p>Ainsi, le "phare" de notre attention vient éclairer les zones qui sont dans le noir en nous (notre inconscient). Carl Jung disait&nbsp;: "Tant que vous n'aurez pas rendu l'inconscient conscient, il dirigera votre vie et vous appellerez cela le destin."</p>
         <p>En effet, la méditation permet de se découvrir en profondeur et de faire des choix "en conscience", d'avoir un rapport au monde plus éclairé et de mieux comprendre l'extérieur et les autres. Certaines traditions appellent cela "la vision profonde"&nbsp;: une intuition dépouillée de nos blocages, conditionnements, jugements, pensées et émotions, qui n'est ni logique, ni limitée.</p>
@@ -2882,8 +2909,11 @@
         <p><strong>Les bénéfices de la méditation.</strong> Le principal atout de la méditation est pour moi la découverte de soi, de ses fonctionnements et de sa sagesse intérieure (appelée aussi intuition). Elle permet également une prise de recul par rapport à ses pensées et ses émotions, et une identification moindre à celles-ci. J'ai aussi pu constater une intensification de ma capacité à vivre l'instant présent. L'écoute des autres peut être plus intense, les jugements sont moins présents. Le sommeil s'améliore et on se souvient plus de ses rêves.</p>
         <p><strong>Les risques de la méditation&nbsp;: les pièges à éviter.</strong> L'un des principaux pièges de la méditation est d'écraser ses pensées et émotions en se disant "je ne dois pas penser". Un autre piège est de chercher à obtenir quelque chose de la méditation&nbsp;: lorsqu'on veut atteindre un but, on n'est pas dans le présent. Il y a aussi l'égo spirituel, c'est-à-dire se sentir supérieur parce qu'on médite. Et certains peuvent penser que l'on résout tout par la méditation&nbsp;: il est parfois nécessaire de se faire accompagner par un thérapeute en complément.</p>
         <p>La méditation étant un outil de prise de conscience, elle nous amène parfois à réaliser que tout n'est pas rose en nous, ceci est désagréable et peut même être source de souffrance. Dans ce cas, il est important de ne pas paniquer et de demander de l'aide si besoin, sans rester trop longtemps dans cet entre-deux.</p>
+        </div>
+      </article>
       </div>
     </div>
+
     <nav class="next-steps" aria-label="Pour aller plus loin"><span class="ns-label">Pour aller plus loin</span><div class="ns-row"><a class="ns-link" href="#astrologie">Découvrir l'astrologie →</a><a class="ns-link" href="#apropos">Qui suis-je ? →</a><a class="btn btn-primary" href="#contact">Prendre rendez-vous</a></div></nav>
   </div>
 </section>
