@@ -1277,6 +1277,14 @@
   .wsel:hover .w-phit{fill:rgba(221,174,94,0.2);}
   .wsel.sel .w-phit{fill:rgba(221,174,94,0.42); stroke-opacity:1; stroke-width:1.5; filter:drop-shadow(0 0 7px rgba(221,174,94,0.8));}
   .wheel-panel{min-height:280px; padding:6px 0 6px 34px; border-left:1px solid var(--line);}
+  .soin-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:18px 0 8px;}
+  .soin-card{padding:16px 18px 14px; border:1px solid var(--line); border-radius:14px; background:rgba(239,231,216,.04);}
+  .soin-card h4{margin:0 0 10px; font-family:'Fraunces',serif; font-weight:440; font-size:19px; color:var(--gold-soft); letter-spacing:.01em;}
+  .soin-card ul{list-style:none; margin:0; padding:0;}
+  .soin-card li{position:relative; padding:0 0 0 22px; margin:0 0 7px; line-height:1.5; font-weight:400;}
+  .soin-card li::before{content:"✦"; position:absolute; left:0; top:1px; font-size:11px; color:var(--gold);}
+  .soin-etc{color:var(--muted); font-style:italic; margin:6px 0 16px;}
+  @media (max-width:700px){.soin-grid{grid-template-columns:1fr;}}
   .quiz-invite{display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; line-height:1.7;}
   .quiz-invite .ql-text{flex:1 1 320px;}
   .quiz-invite .quiz-sticker{margin:4px 6px; flex:0 0 auto;}
@@ -2411,22 +2419,13 @@
       <div class="body">
         <p>Ce soin énergétique est une sorte de <strong>"révision générale"</strong>. Je le réalise <span class="u">soit au cabinet, soit à distance</span>.</p>
         <p>Pendant la séance, je travaille sur plusieurs éléments&nbsp;:</p>
-        <ul>
-          <li><strong>Vérification de votre taux vibratoire</strong> et des différents équilibres énergétiques</li>
-          <li><strong>Ancrage à la terre</strong></li>
-          <li><strong>Évacuation des énergies usagées</strong></li>
-          <li><strong>Travail sur les différents blocages énergétiques</strong></li>
-          <li><strong>Travail sur les émotions négatives</strong></li>
-          <li><strong>Centrage des corps subtils</strong></li>
-          <li><strong>Harmonisation des chakras</strong></li>
-          <li><strong>Augmentation de la vibration énergétique</strong></li>
-          <li><strong>Réactivation de la circulation énergétique</strong></li>
-          <li><strong>Nettoyage et équilibrage de l'aura</strong></li>
-          <li><strong>Travail sur les liens énergétiques</strong></li>
-          <li><strong>Renforcement de la vitalité</strong></li>
-          <li>Accompagnement énergétique des tensions et zones d'inconfort physique</li>
-          <li>Etc.</li>
-        </ul>
+        <div class="soin-grid">
+          <div class="soin-card"><h4>Faire le point</h4><ul><li>Vérification de votre taux vibratoire et des différents équilibres énergétiques</li></ul></div>
+          <div class="soin-card"><h4>Libérer</h4><ul><li>Évacuation des énergies usagées</li><li>Travail sur les différents blocages énergétiques</li><li>Travail sur les émotions négatives</li><li>Travail sur les liens énergétiques</li></ul></div>
+          <div class="soin-card"><h4>Rééquilibrer</h4><ul><li>Ancrage à la terre</li><li>Centrage des corps subtils</li><li>Harmonisation des chakras</li><li>Nettoyage et équilibrage de l'aura</li></ul></div>
+          <div class="soin-card"><h4>Revitaliser</h4><ul><li>Augmentation de la vibration énergétique</li><li>Réactivation de la circulation énergétique</li><li>Renforcement de la vitalité</li><li>Accompagnement énergétique des tensions et zones d'inconfort physique</li></ul></div>
+        </div>
+        <p class="soin-etc">Et bien d'autres points, selon ce dont vous avez besoin.</p>
         <p>Je le réalise <strong>dans le respect global de votre être</strong>, parfois en me concentrant sur quelques-uns de ces points (s'il faut passer plus de temps sur un point en particulier). Cela peut aussi parfois nécessiter <span class="u">plusieurs séances</span>.</p>
         <span class="price">60 € la séance</span>
       </div>
