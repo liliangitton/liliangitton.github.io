@@ -1512,6 +1512,16 @@
   .wheel-example .ex-lion{color:#f3d08a; background:rgba(221,174,94,.20); box-shadow:0 0 0 1px rgba(221,174,94,.4);}
   .wheel-example .ex-m10{color:#a9dcc5; background:rgba(92,131,116,.30); box-shadow:0 0 0 1px rgba(143,194,173,.4);}
 
+/* Questions fréquentes */
+.faq{max-width:760px; display:grid; gap:12px; margin-top:10px;}
+.faq details{border:1px solid var(--line); border-radius:8px; background:rgba(24,19,28,.5);}
+.faq summary{cursor:pointer; padding:18px 22px; font-family:'Fraunces',serif; font-size:19px; line-height:1.35; color:var(--paper); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:16px;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+"; color:var(--gold-soft); font-size:24px; line-height:1; flex:none;}
+.faq details[open] summary::after{content:"\2013";}
+.faq summary:focus-visible{outline:2px solid var(--gold-soft); outline-offset:2px;}
+.faq .faq-a{padding:0 22px 20px;}
+.faq .faq-a p{margin:0 0 10px; max-width:68ch;}
 /* H1 de page (promus depuis les anciens H2) */
 h1.page-h1 svg.section-illustration{vertical-align:middle;}
 .page-h1 + .page-sub{margin-top:6px;}

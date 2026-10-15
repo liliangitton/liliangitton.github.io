@@ -68,6 +68,16 @@ def dup_h2(m):
 
 css = re.sub(r'([^{}@]+)\{([^{}]*)\}', dup_h2, css)
 css += '''
+/* Questions fréquentes */
+.faq{max-width:760px; display:grid; gap:12px; margin-top:10px;}
+.faq details{border:1px solid var(--line); border-radius:8px; background:rgba(24,19,28,.5);}
+.faq summary{cursor:pointer; padding:18px 22px; font-family:'Fraunces',serif; font-size:19px; line-height:1.35; color:var(--paper); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:16px;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+"; color:var(--gold-soft); font-size:24px; line-height:1; flex:none;}
+.faq details[open] summary::after{content:"\\2013";}
+.faq summary:focus-visible{outline:2px solid var(--gold-soft); outline-offset:2px;}
+.faq .faq-a{padding:0 22px 20px;}
+.faq .faq-a p{margin:0 0 10px; max-width:68ch;}
 /* H1 de page (promus depuis les anciens H2) */
 h1.page-h1 svg.section-illustration{vertical-align:middle;}
 .page-h1 + .page-sub{margin-top:6px;}
@@ -86,6 +96,8 @@ header_html = between(src, '<header>', '</header>')
 header_html = header_html.replace('src="' + wm_uri + '"', 'src="' + IMG['wm'] + '" alt="" aria-hidden="true"')
 nav_script = between(src, '<script>\n  var navToggle', '</script>')
 footer_html = between(src, '<footer>', '</footer>')
+must('<a href="#cgv">CGV</a>' in footer_html, 'footer cgv')
+footer_html = footer_html.replace('<a href="#cgv">CGV</a>', '<a href="#cgv">CGV</a> · <a href="#faq">Questions fréquentes</a>')
 warp_html = between(src, '<div class="warp"', '</div>')
 btt_html = between(src, '<button type="button" class="back-to-top"', '</button>')
 cookie_html = between(src, '<div class="cookie-banner"', '</div>\n</div>', incl=False)
@@ -157,6 +169,8 @@ def promote_h1(html, new_text=None, keep_svg=True):
     new = '<h1 class="page-h1"%s>%s</h1>' % (attrs, inner)
     return html[:m.start()] + new + html[m.end():]
 
+FAQ_HTML = '<section id="faq">\n  <div class="wrap">\n    <div class="section-head">\n      <div class="kicker">Questions fréquentes</div>\n      <h1 class="page-h1">Questions fréquentes sur l\'astrologie, l\'hypnose et les soins énergétiques</h1>\n      <p>Les réponses aux questions que l\'on me pose le plus souvent. Si la vôtre n\'y est pas, n\'hésitez pas à me contacter.</p>\n    </div>\n    <div class="faq">\n      <details><summary>Où se déroulent les séances ?</summary><div class="faq-a"><p>Je reçois dans mon cabinet, au 24 rue du Clos Rozé, 45100 Orléans, près du Jardin des Plantes. Toutes les prestations peuvent aussi se faire à distance. Retrouvez le plan et l\'accès sur la page <a class="xl" href="#cabinet">Le cabinet</a>.</p></div></details>\n      <details><summary>Peut-on faire une séance à distance ?</summary><div class="faq-a"><p>Oui, c\'est possible :</p><ul><li>l\'hypnose, en visioconférence ;</li><li>l\'astrologie, en visioconférence ou par téléphone ;</li><li>les soins énergétiques, en visioconférence ou par téléphone.</li></ul><p>La formation en astrologie peut aussi se suivre en visioconférence. <strong>Les tarifs sont les mêmes qu\'en présentiel.</strong></p></div></details>\n      <details><summary>Combien coûtent les séances ?</summary><div class="faq-a"><ul><li>Thème astral : 150 € (version approfondie : 250 €)</li><li>Séance d\'astrologie (point ou question précise) : 90 €</li><li>Séance d\'hypnose humaniste : 60 €</li><li>Soin énergétique : 60 € la séance</li><li>Formation en astrologie : 110 € par mois en groupe, 140 € par mois en individuel</li></ul><p>Le détail est sur les pages <a class="xl" href="#astro-prestations">Astrologie</a>, <a class="xl" href="#hypnose">Hypnose humaniste</a> et <a class="xl" href="#energetique">Soins énergétiques</a>.</p></div></details>\n      <details><summary>Comment payer ?</summary><div class="faq-a"><p>Vous pouvez régler en espèces, par chèque, par carte ou par virement. Pour d\'autres moyens de paiement, n\'hésitez pas à me poser la question.</p></div></details>\n      <details><summary>Comment se déroule un thème astral ?</summary><div class="faq-a"><p>Un premier entretien de 15 minutes me permet de comprendre ce que vous attendez du thème. J\'étudie ensuite votre thème avant de vous rencontrer, puis un second entretien d\'1 h 30 sert à vous le restituer. Un enregistrement de la séance vous est envoyé.</p></div></details>\n      <details><summary>Comment se préparer à un thème astral ?</summary><div class="faq-a"><p>Nous en parlons d\'abord ensemble lors d\'un entretien téléphonique d\'une quinzaine de minutes. Ce qu\'il est utile de savoir, c\'est ce que vous attendez de votre thème astral. Une ou deux questions centrales peuvent ressortir : je les étudierai comme fil conducteur de votre thème.</p></div></details>\n      <details><summary>Faut-il croire en l\'astrologie ? Êtes-vous devin ?</summary><div class="faq-a"><p>Je ne suis pas devin. L\'astrologie que je pratique est humaniste : elle ne cherche pas à prédire, mais à mieux se comprendre, à repérer ses potentiels et ses défis, et à mettre du sens à sa vie. Vous restez toujours acteur de votre vie, et plus vous m\'en dites sur vous, mieux je peux vous accompagner. Pour en savoir plus : <a class="xl" href="#astro-humaniste">comprendre l\'astrologie que je pratique</a>.</p></div></details>\n      <details><summary>Qu\'est-ce que l\'hypnose humaniste ?</summary><div class="faq-a"><p>C\'est une hypnose « inversée » : l\'état d\'hypnose est induit sans perte de conscience, mais au contraire par davantage de conscience de soi, des autres et du monde. Vous agissez sur vous-même en suivant votre intuition, sans manipulation ni suggestions cachées. Mon rôle est d\'être un guide : je n\'interviens pas sans que vous compreniez. Voir la page <a class="xl" href="#hypnose">L\'Hypnose Humaniste</a>.</p></div></details>\n      <details><summary>Je n\'ai jamais fait d\'hypnose, est-ce un problème ?</summary><div class="faq-a"><p>Pas du tout. Je vous guide et je vous explique au fur et à mesure. L\'hypnose humaniste fonctionne aussi bien que vous en ayez déjà fait ou non.</p></div></details>\n      <details><summary>Combien de séances d\'hypnose faut-il prévoir ?</summary><div class="faq-a"><p>Pour l\'hypnose, cela dépend de ce qui vous amène. C\'est une approche brève : en général, il faut compter entre 2 et 5 séances. Parfois, il en faut davantage, notamment si la problématique est installée depuis longtemps ou s\'il y a beaucoup de choses à travailler.</p><p>Souvent, la première séance est consacrée à faire connaissance : je découvre qui vous êtes, je comprends votre problématique et votre chemin de vie. Cela me permet ensuite d\'intervenir plus justement sur ce qui peut vous bloquer.</p></div></details>\n      <details><summary>Combien de séances de soins énergétiques faut-il prévoir ?</summary><div class="faq-a"><p>En général, une seule séance suffit. Dans certaines situations, il peut être nécessaire d\'aller jusqu\'à 3 séances pour que le travail soit complet. Mais la plupart du temps, une séance est suffisante.</p></div></details>\n      <details><summary>En quoi consiste un soin énergétique ?</summary><div class="faq-a"><p>Le rééquilibrage énergétique est une sorte de « révision générale » : faire le point, libérer, rééquilibrer et revitaliser, selon ce dont vous avez besoin. Il peut se faire au cabinet ou à distance, et peut parfois nécessiter plusieurs séances. Voir la page <a class="xl" href="#energetique">Soins énergétiques</a>.</p></div></details>\n      <details><summary>La formation en astrologie s\'adresse à qui ?</summary><div class="faq-a"><p>Aux débutants comme aux plus confirmés, en groupe ou en individuel, en visioconférence ou dans mon cabinet. Elle se déroule sur 3 années : vous pouvez ne suivre que la première, qui apprend à analyser un thème astral, ou poursuivre avec la deuxième et la troisième. Elle est hors cadre de la formation professionnelle continue. Détails sur la page <a class="xl" href="#astro-initiation">Formation en astrologie</a>.</p></div></details>\n      <details><summary>Comment prendre rendez-vous ?</summary><div class="faq-a"><p>Par téléphone au <a class="xl" href="tel:+33687035649">06 87 03 56 49</a>, ou depuis la <a class="xl" href="#contact">page de contact</a>. Une question avant de réserver ? Écrivez-moi, on en parle simplement.</p></div></details>\n    </div>\n    <nav class="next-steps" aria-label="Pour aller plus loin"><span class="ns-label">Pour aller plus loin</span><div class="ns-row"><a class="ns-link" href="#astrologie">L\'astrologie →</a><a class="ns-link" href="#hypnose">L\'Hypnose Humaniste →</a><a class="ns-link" href="#energetique">Les soins énergétiques →</a><a class="btn btn-primary" href="#contact">Prendre rendez-vous</a></div></nav>\n  </div>\n</section>'
+
 H1 = {
     'astrologie': 'Astrologue à Orléans et à distance',
     'energetique': 'Soins énergétiques à Orléans et à distance',
@@ -177,6 +191,8 @@ CONTENT = {
 }
 for k in ['energetique', 'hypnose', 'apropos', 'avis', 'contact', 'cabinet', 'blog', 'mentions', 'cgv']:
     CONTENT[k] = promote_h1(SEC[k], H1[k])
+
+CONTENT['faq'] = FAQ_HTML
 
 # images : liens vers les fichiers, textes alternatifs plus parlants
 CONTENT['accueil'] = CONTENT['accueil'].replace(
@@ -215,6 +231,8 @@ PAGES = [
          desc="Prenez rendez-vous avec Lilian Gitton, à Orléans ou en visio : téléphone, e-mail, WhatsApp. Une question ? Écrivez-moi, on en parle simplement."),
     dict(key='blog', url='/articles-videos/', nav='/articles-videos/', title="Articles et vidéos sur l'astrologie et le développement personnel",
          desc="Articles et vidéos de Lilian Gitton sur l'astrologie, la spiritualité et le développement personnel : vidéos pédagogiques et textes à lire."),
+    dict(key='faq', url='/questions-frequentes/', nav='', title="Questions fréquentes : astrologie, hypnose, soins énergétiques à Orléans",
+         desc="Questions fréquentes sur l'astrologie, l'hypnose humaniste et les soins énergétiques à Orléans : tarifs, déroulement des séances, séances à distance, formation."),
     dict(key='mentions', url='/mentions-legales/', nav='', title="Mentions légales — Lilian Gitton",
          desc="Mentions légales du site de Lilian Gitton, astrologue, hypnothérapeute et énergéticien à Orléans."),
     dict(key='cgv', url='/cgv/', nav='', title="Conditions générales de vente — Lilian Gitton",
@@ -227,6 +245,7 @@ SECTION_URL = {
     'apropos': '/qui-suis-je/', 'avis': '/avis/', 'contact': '/contact/', 'cabinet': '/cabinet/',
     'blog': '/articles-videos/', 'mentions': '/mentions-legales/', 'cgv': '/cgv/',
     'astro-initiation': '/formation-astrologie/',
+    'faq': '/questions-frequentes/',
 }
 SECTION_IDS = set(SECTION_URL) - {'astro-initiation'}
 
