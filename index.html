@@ -1288,14 +1288,17 @@
   .quiz-invite{display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; line-height:1.7;}
   .quiz-invite .ql-text{flex:1 1 320px;}
   .quiz-invite .quiz-sticker{margin:4px 6px; flex:0 0 auto;}
-  .wheel-video{display:flex; justify-content:center; margin:28px 0 0;}
+  .video-teaser{max-width:661px; margin:26px 0 8px; padding:16px 20px 18px; border-left:2px solid var(--gold-soft); border-radius:0 12px 12px 0; background:rgba(221,174,94,.06);}
+  .video-teaser.vt-center{margin-left:auto; margin-right:auto;}
+  .video-teaser .vt-intro{margin:0 0 12px; font-size:14.5px; line-height:1.55; color:var(--muted); font-style:italic;}
+  .video-teaser .vt-row{margin:0; display:flex; justify-content:flex-start;}
   .video-pill{display:inline-flex; align-items:center; gap:14px; padding:10px 22px 10px 16px; border:1px solid var(--gold); border-radius:999px; background:rgba(221,174,94,.08); color:var(--paper); text-decoration:none; transition:background .25s ease, box-shadow .25s ease, transform .25s ease;}
   .video-pill:hover,.video-pill:focus-visible{background:rgba(221,174,94,.18); box-shadow:0 0 22px rgba(221,174,94,.35); transform:translateY(-2px);}
   .video-pill .submenu-camera-icon{width:42px; height:33px; flex:0 0 42px;}
   .video-pill .vp-text{display:flex; flex-direction:column; line-height:1.3; text-align:left;}
   .video-pill .vp-kicker{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-soft);}
   .video-pill .vp-title{font-size:16.5px;}
-  .wheel-quiz{margin-top:44px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 22px; color:var(--muted); font-size:17px; text-align:center;}
+  .wheel-quiz{margin-top:34px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 22px; color:var(--muted); font-size:17px; text-align:center;}
   .wheel-quiz .quiz-sticker{margin:4px 6px; flex:0 0 auto;}
   .wheel-panel.fresh{animation:wheel-panel-in .4s ease;}
   @keyframes wheel-panel-in{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
@@ -2136,6 +2139,20 @@
           <li>et surtout à <strong>se rapprocher de son Soi</strong>, de qui nous sommes en profondeur, traverser les différents <a class="xl" href="#astro-niveaux">"niveaux"<sup>*</sup></a> <span class="fn-hint">(définis plus bas)</span>.</li>
         </ul>
         <p><em>L'astrologie humaniste <strong>n'est pas de la voyance</strong>. Je ne prédis pas votre avenir, je vous aide à lire le sens de ce que vous vivez. Pour moi, <strong>rien n'arrive par hasard</strong>&nbsp;: chaque cycle de votre vie vous montre là où elle vous invite à avancer, par exemple à vous affirmer davantage, à poser vos limites ou à vous faire confiance. Ce n'est jamais une fatalité, mais un cadre&nbsp;: ce qui compte, c'est ce que vous en faites.</em></p>
+        <div class="video-teaser">
+          <p class="vt-intro">Un thème astral n'enferme pas dans un destin. Une réflexion en vidéo sur ce que l'on peut vraiment changer&nbsp;:</p>
+          <p class="vt-row"><a class="video-pill" href="https://youtube.com/shorts/2CxULCRQRPg" target="_blank" rel="noopener"><svg class="submenu-camera-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g class="cam-whole">
+                <circle cx="9" cy="8" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 30 C3 20 5 16.5 9 16.5 C13 16.5 15 20 15 30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M13 18 L21 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M13 24 L21 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <rect x="21" y="10" width="15" height="11" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M36 13.5 L41.5 10.5 V20.5 L36 17.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle class="cam-rec-dot" cx="24.5" cy="13.5" r="1.4" fill="currentColor" stroke="none"/>
+              </g>
+            </svg><span class="vp-text"><span class="vp-kicker">Vidéo pédagogique</span><span class="vp-title">Peut-on vraiment changer sa vie&nbsp;?</span></span></a></p>
+        </div>
         <aside class="levels-box" id="astro-niveaux">
 <h4 class="lv-title"><sup>*</sup> Les trois niveaux de l'astrologie humaniste</h4>
 <p class="lv-intro">Dane Rudhyar a repris les travaux de Carl Gustav Jung et notamment son concept "d'individuation", il a expliqué 3 niveaux qui sont importants dans l'astrologie humaniste&nbsp;:</p>
@@ -2150,6 +2167,20 @@
         <p class="chapter"><strong class="sub-title">Qu'est-ce qu'une carte du ciel&nbsp;?</strong><br>Une carte du ciel en astrologie est une représentation graphique de la position des planètes <strong>tout autour de la Terre</strong> au moment de la naissance d'une personne&nbsp;: c'est comme une photo du ciel, prise à l'instant et à l'endroit où vous êtes né. Elle est calculée en utilisant la date, l'heure et le lieu de naissance de l'individu. On y retrouve <strong>les signes du zodiaque</strong>, <strong>les planètes</strong>, <strong>les aspects</strong> et <strong>les douze maisons astrologiques</strong> (leur signification est expliquée plus bas, dans <a class="xl" href="#astro-roue">les clés pour lire une carte du ciel</a>).</p>
         <p>La carte du ciel est en quelque sorte "votre <strong>carte d'identité cosmique</strong>", un outil important en astrologie pour comprendre les influences planétaires et les tendances de vie d'une personne.</p>
         <p class="key-phrase">C'est tout simplement la carte que va interpréter l'astrologue pour réaliser votre thème astral&nbsp;!</p>
+        <div class="video-teaser">
+          <p class="vt-intro">Envie de trouver votre propre carte du ciel&nbsp;? Voici comment la calculer gratuitement en moins de 2&nbsp;minutes&nbsp;:</p>
+          <p class="vt-row"><a class="video-pill" href="https://youtube.com/shorts/TqkU0RsDdCY" target="_blank" rel="noopener"><svg class="submenu-camera-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g class="cam-whole">
+                <circle cx="9" cy="8" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 30 C3 20 5 16.5 9 16.5 C13 16.5 15 20 15 30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M13 18 L21 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M13 24 L21 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <rect x="21" y="10" width="15" height="11" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M36 13.5 L41.5 10.5 V20.5 L36 17.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle class="cam-rec-dot" cx="24.5" cy="13.5" r="1.4" fill="currentColor" stroke="none"/>
+              </g>
+            </svg><span class="vp-text"><span class="vp-kicker">Vidéo pédagogique</span><span class="vp-title">Trouve ton thème astral en 2&nbsp;minutes</span></span></a></p>
+        </div>
         <p class="chart-intro"><span class="chart-intro-tag">Exemple</span>Voici ma propre carte du ciel</p>
         <figure class="natal-chart">
 <div class="nc-wrap">
@@ -2305,7 +2336,9 @@
         </div>
         <div class="wheel-panel" id="wheelPanel" aria-live="polite"></div>
       </div>
-        <p class="wheel-video"><a class="video-pill" href="https://www.youtube.com/watch?v=YIlkCxI5_9Y" target="_blank" rel="noopener"><svg class="submenu-camera-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <div class="video-teaser vt-center">
+          <p class="vt-intro">Pour aller plus loin que la roue&nbsp;: la vidéo qui explique comment fonctionne un thème astral et comment le lire, avec des mots simples&nbsp;:</p>
+          <p class="vt-row"><a class="video-pill" href="https://www.youtube.com/watch?v=YIlkCxI5_9Y" target="_blank" rel="noopener"><svg class="submenu-camera-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <g class="cam-whole">
                 <circle cx="9" cy="8" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
                 <path d="M3 30 C3 20 5 16.5 9 16.5 C13 16.5 15 20 15 30" fill="none" stroke="currentColor" stroke-width="1.5"/>
@@ -2316,6 +2349,7 @@
                 <circle class="cam-rec-dot" cx="24.5" cy="13.5" r="1.4" fill="currentColor" stroke="none"/>
               </g>
             </svg><span class="vp-text"><span class="vp-kicker">Vidéo pédagogique</span><span class="vp-title">Le thème astral&nbsp;: mode d'emploi</span></span></a></p>
+        </div>
         <p class="quiz-line wheel-quiz"><span class="ql-text">Testez vos connaissances en astrologie&nbsp;:</span> <a class="quiz-sticker" href="/quiz/" aria-label="Faire le quiz d'astrologie"><span class="qs-ic"><svg class="qs-svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g class="qs-spin"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#1d1233" stroke-width="1.4" stroke-dasharray="2 2.6"/><path d="M12 3.5l1.6 6.9 6.9 1.6-6.9 1.6L12 20.5l-1.6-6.9L3.5 12l6.9-1.6z" fill="#1d1233"/></g></svg></span><span class="qs-t">Quiz astro</span><span class="qs-spark" aria-hidden="true">✦</span></a></p>
             </div>
 
@@ -2359,6 +2393,20 @@
         <p>L'astrologie que je transmets est celle que je pratique&nbsp;: une astrologie <strong>humaniste, psychologique et spirituelle</strong>, qui permet de mieux <span class="u">se comprendre</span>, de mieux se connaître et de mettre du sens à sa vie. Elle n'est pas jugeante (il n'y a pas de «&nbsp;bon&nbsp;» ou de «&nbsp;mauvais&nbsp;» thème, mais des défis et des chemins d'évolution) et elle ne cherche pas à prédire des événements.</p>
         <p>La formation convient aux débutants comme aux plus confirmés. Elle se déroule <strong>en groupe ou en individuel</strong>, en <strong>visioconférence</strong> ou dans mon cabinet à Orléans. La formation se déroule sur <strong>3 années</strong>&nbsp;: vous pouvez suivre seulement la première, qui vous apprend à analyser un thème astral, ou poursuivre avec la deuxième et la troisième.</p>
 
+<div class="video-teaser">
+          <p class="vt-intro">Pour vous faire une idée, voici un aperçu à la volée du thème de Michael Jackson. C'est une lecture légère, qui effleure quelques placements pour montrer l'astrologie en action&nbsp;:</p>
+          <p class="vt-row"><a class="video-pill" href="https://youtu.be/3bjMKOL3b9w" target="_blank" rel="noopener"><svg class="submenu-camera-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g class="cam-whole">
+                <circle cx="9" cy="8" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 30 C3 20 5 16.5 9 16.5 C13 16.5 15 20 15 30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M13 18 L21 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M13 24 L21 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <rect x="21" y="10" width="15" height="11" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M36 13.5 L41.5 10.5 V20.5 L36 17.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle class="cam-rec-dot" cx="24.5" cy="13.5" r="1.4" fill="currentColor" stroke="none"/>
+              </g>
+            </svg><span class="vp-text"><span class="vp-kicker">Vidéo pédagogique</span><span class="vp-title">Le thème astral de Michael Jackson</span></span></a></p>
+        </div>
         <div class="chapter">
           <span class="sub-title">Première année&nbsp;: les bases</span>
           <p><strong>Objectif&nbsp;:</strong> apprendre à interpréter les <span class="u">signes, planètes, maisons et aspects</span> dans un thème astral, et bien plus encore, pour qu'à la fin de l'année vous puissiez <strong>analyser en autonomie un thème astral</strong>.</p>
@@ -2393,6 +2441,20 @@
             <li><strong>Résumé pour l'interprétation d'un thème</strong>&nbsp;: la méthode pour analyser un thème, par où commencer et que regarder en priorité.</li>
             <li><strong>L'analyse pratique de thèmes</strong>&nbsp;: vous mettez en application tout ce que vous avez appris en analysant de vrais thèmes, avec des personnes de votre entourage. Nous les travaillons ensemble, puis vous menez l'interprétation, accompagné pas à pas.</li>
           </ol>
+          <div class="video-teaser">
+          <p class="vt-intro">Et pour voir l'astrologie bouger&nbsp;: on fait avancer le temps dans un thème, et les planètes se couchent au Descendant&nbsp;:</p>
+          <p class="vt-row"><a class="video-pill" href="https://youtu.be/8lWx6OmkWDo" target="_blank" rel="noopener"><svg class="submenu-camera-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g class="cam-whole">
+                <circle cx="9" cy="8" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 30 C3 20 5 16.5 9 16.5 C13 16.5 15 20 15 30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M13 18 L21 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M13 24 L21 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <rect x="21" y="10" width="15" height="11" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M36 13.5 L41.5 10.5 V20.5 L36 17.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle class="cam-rec-dot" cx="24.5" cy="13.5" r="1.4" fill="currentColor" stroke="none"/>
+              </g>
+            </svg><span class="vp-text"><span class="vp-kicker">Vidéo pédagogique</span><span class="vp-title">Venez vivre un coucher de soleil astrologique</span></span></a></p>
+        </div>
         </div>
 
         <div class="chapter">
