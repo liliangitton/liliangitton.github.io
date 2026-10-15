@@ -1277,6 +1277,8 @@
   .wsel:hover .w-phit{fill:rgba(221,174,94,0.2);}
   .wsel.sel .w-phit{fill:rgba(221,174,94,0.42); stroke-opacity:1; stroke-width:1.5; filter:drop-shadow(0 0 7px rgba(221,174,94,0.8));}
   .wheel-panel{min-height:280px; padding:6px 0 6px 34px; border-left:1px solid var(--line);}
+  .wheel-quiz{margin-top:26px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 22px; color:var(--muted); font-size:17px; text-align:center;}
+  .wheel-quiz .quiz-sticker{margin:4px 6px; flex:0 0 auto;}
   .wheel-panel.fresh{animation:wheel-panel-in .4s ease;}
   @keyframes wheel-panel-in{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
   .wp-empty{color:var(--muted); font-size:16px; max-width:340px;}
@@ -1292,6 +1294,7 @@
     .wheel-layout{grid-template-columns:1fr; gap:22px;}
     .wheel-panel{padding:22px 0 0; border-left:none; border-top:1px solid var(--line); min-height:0;}
   }
+    .wheel-panel:empty{border-top:none; padding:0;}
   @media (prefers-reduced-motion: reduce){ .wheel-panel.fresh{animation:none;} }
   /* Bouton "comète" : arrive, reste un moment, repart, puis revient pendant que la roue est à l'écran */
   .wheel-float{
@@ -2269,14 +2272,13 @@
       </div>
       <p class="wheel-example"><strong>Exemple :</strong> un <span class="ex ex-mars">Mars</span> en <span class="ex ex-lion">Lion</span> en <span class="ex ex-m10">maison 10</span>, c'est une action (<span class="ex ex-mars">Mars</span>) qui rayonne (<span class="ex ex-lion">Lion</span>) dans le champ de la vocation et de la vie sociale (<span class="ex ex-m10">maison 10</span>). La personne a besoin de s'affirmer dans son métier, d'y prendre des initiatives et d'être reconnue pour ce qu'elle accomplit. Elle peut être à l'aise dans un rôle de leader, à la tête d'un projet ou d'une équipe, à son compte, ou dans un métier où elle est sur le devant de la scène. Son défi&nbsp;: rayonner avec son cœur dans sa vocation, sans chercher à tout prix la reconnaissance ou le pouvoir.</p>
       <p class="wheel-intro">Touchez un signe, une maison ou une planète sur la roue pour découvrir ce qu'il symbolise.</p>
-      <p class="wheel-intro" style="margin-top:6px;">Envie de vous tester&nbsp;? <a class="xl" href="/quiz/"><strong>Faites le quiz d'astrologie</strong> (3 niveaux, du débutant au très avancé, et un quiz spécial sur le caractère des signes)&nbsp;→</a></p>
       <div class="wheel-layout">
         <div class="wheel-box">
           <svg id="astroWheel" viewBox="0 0 440 440" role="group" aria-label="Roue astrologique : 12 signes (anneau extérieur), 12 maisons (anneau du milieu) et 10 planètes (anneau intérieur)"></svg>
         </div>
         <div class="wheel-panel" id="wheelPanel" aria-live="polite"></div>
       </div>
-      <p class="wheel-caption">De l'extérieur vers le centre : les <strong>12 signes</strong>, les <strong>12 maisons</strong> et les <strong>10 planètes</strong>. Cette roue est une illustration : dans un vrai thème, chaque planète se trouve dans un signe et une maison précis, et la taille des maisons dépend de l'heure et du lieu de naissance.</p>
+        <p class="quiz-line wheel-quiz"><span class="ql-text">Testez vos connaissances en astrologie&nbsp;:</span> <a class="quiz-sticker" href="/quiz/" aria-label="Faire le quiz d'astrologie"><span class="qs-ic"><svg class="qs-svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g class="qs-spin"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#1d1233" stroke-width="1.4" stroke-dasharray="2 2.6"/><path d="M12 3.5l1.6 6.9 6.9 1.6-6.9 1.6L12 20.5l-1.6-6.9L3.5 12l6.9-1.6z" fill="#1d1233"/></g></svg></span><span class="qs-t">Quiz astro</span><span class="qs-spark" aria-hidden="true">✦</span></a></p>
             </div>
 
       </div>
@@ -3130,7 +3132,7 @@
   var cp = plutoGlyph(svg, C, C - 4, 22, 'w-pluto-c'); cp.style.display = 'none'; cp.setAttribute('stroke', '#DDAE5E');
   cs.textContent = '✦' + T; cn.textContent = 'CARTE DU CIEL';
 
-  var emptyHTML = '<p class="wp-empty">Chaque signe, chaque maison et chaque planète raconte une facette de vous. Choisissez-en un sur la roue pour lire ce qu’il évoque.</p>';
+  var emptyHTML = '';
   if(panel) panel.innerHTML = emptyHTML;
 
   function select(item){
