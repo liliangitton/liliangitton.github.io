@@ -1812,6 +1812,15 @@
       var submenu = parentLi.querySelector('.submenu');
       if(submenu && !submenu.classList.contains('open')){
         submenu.classList.add('open');
+        // fait défiler le menu pour que le sous-menu qui vient de se déplier soit bien visible
+        var revealSubmenu = function(){
+          var p = mobilePanel.getBoundingClientRect();
+          var l = parentLi.getBoundingClientRect();
+          var delta = l.top - p.top - 6;
+          if(Math.abs(delta) > 2) mobilePanel.scrollBy({top: delta, behavior: 'smooth'});
+        };
+        setTimeout(revealSubmenu, 60);
+        setTimeout(revealSubmenu, 420);
       }
       keepPanelOpen = true;   // le changement de rubrique qui suit ne doit pas refermer le menu
       setTimeout(function(){ keepPanelOpen = false; }, 0);
