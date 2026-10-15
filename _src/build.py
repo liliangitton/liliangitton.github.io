@@ -23,7 +23,18 @@ os.makedirs(os.path.join(OUT, 'assets'), exist_ok=True)
 def save_img(name, data_uri):
     m = re.match(r'data:image/\w+;base64,(.*)$', data_uri, re.S)
     must(m, 'data URI image invalide pour ' + name)
-    open(os.path.join(OUT, 'img', name), 'wb').write(base64.b64decode(m.group(1)))
+    raw = base64.b64decode(m.group(1))
+    if name == 'portrait.jpg':
+        # affiché à 360 px max : 720 px de large suffisent (écrans 2x)
+        from PIL import Image
+        import io
+        im = Image.open(io.BytesIO(raw)).convert('RGB')
+        if im.width > 720:
+            im = im.resize((720, round(im.height * 720 / im.width)), Image.LANCZOS)
+        buf = io.BytesIO()
+        im.save(buf, 'JPEG', quality=75, optimize=True, progressive=True)
+        raw = buf.getvalue()
+    open(os.path.join(OUT, 'img', name), 'wb').write(raw)
     return '/img/' + name
 
 def find_uri(pattern):
@@ -82,6 +93,34 @@ css += '''
 h1.page-h1 svg.section-illustration{vertical-align:middle;}
 .page-h1 + .page-sub{margin-top:6px;}
 '''
+css += """
+/* Menu : tient sur une ligne entre 1100 et 1400 px (polices réelles chargées) */
+@media (min-width:1100px) and (max-width:1399px){
+  .nav ul{gap:12px !important;}
+  .nav ul > li:not(.nav-contact-slot) > a{font-size:12.5px !important; letter-spacing:0 !important;}
+  .nav ul .nav-contact-slot{margin:0 4px 0 6px !important;}
+  .nav .name{font-size:21px !important; padding-right:12px !important;}
+  .nav .header-watermark{margin-right:8px !important;}
+}
+@media (min-width:1100px) and (max-width:1179px){
+  .nav ul{gap:9px !important;}
+  .nav ul > li:not(.nav-contact-slot) > a{font-size:12px !important;}
+  .nav .name{font-size:18px !important;}
+  .nav .header-watermark{height:46px !important;}
+}
+"""
+FONT_FACES = """/* Polices hébergées (OFL) : Fraunces, Sora, Caveat */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:340 560;font-display:swap;src:url(/fonts/fraunces-roman.woff2) format('woff2');}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:440 560;font-display:swap;src:url(/fonts/fraunces-italic.woff2) format('woff2');}
+@font-face{font-family:'Sora';font-style:normal;font-weight:300 600;font-display:swap;src:url(/fonts/sora.woff2) format('woff2');}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:500 600;font-display:swap;src:url(/fonts/caveat.woff2) format('woff2');}
+"""
+css = FONT_FACES + css
+os.makedirs(os.path.join(OUT, 'fonts'), exist_ok=True)
+import shutil
+for fn in os.listdir(os.path.join(ROOT, '_src', 'fonts')):
+    if fn.endswith('.woff2'):
+        shutil.copy(os.path.join(ROOT, '_src', 'fonts', fn), os.path.join(OUT, 'fonts', fn))
 css_hash = hashlib.md5(css.encode()).hexdigest()[:8]
 open(os.path.join(OUT, 'assets', 'site.css'), 'w', encoding='utf-8').write(css)
 CSS_HREF = '/assets/site.css?v=' + css_hash
@@ -293,7 +332,8 @@ def jsonld(p):
     return '\n'.join('<script type="application/ld+json">\n%s\n</script>' % json.dumps(b, ensure_ascii=False, indent=2) for b in blocks)
 
 # --------------------------------------------------------------- éléments d'en-tête communs
-fonts_links = re.findall(r'<link rel="preconnect"[^>]*>|<link href="https://fonts\.googleapis[^>]*>', src)
+fonts_links = ['<link rel="preload" href="/fonts/fraunces-roman.woff2" as="font" type="font/woff2" crossorigin>',
+               '<link rel="preload" href="/fonts/sora.woff2" as="font" type="font/woff2" crossorigin>']
 manifest = re.search(r'<link rel="manifest"[^>]*>', src).group(0)
 apple_meta = re.findall(r'<meta name="(?:apple-mobile-web-app-[a-z-]+|mobile-web-app-capable|theme-color)"[^>]*>', src)
 

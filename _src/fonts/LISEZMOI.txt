@@ -1,0 +1,4 @@
+Polices hébergées sur le site (au lieu de Google Fonts) : Fraunces, Sora, Caveat.
+Licence SIL Open Font License 1.1 (utilisation et hébergement libres).
+Fichiers générés à partir des polices variables du dépôt github.com/google/fonts (ofl/fraunces, ofl/sora, ofl/caveat),
+réduits au latin (français) et aux graisses réellement utilisées. Caveat ne sert que pour la signature « Lilian ».

@@ -1,3 +1,8 @@
+/* Polices hébergées (OFL) : Fraunces, Sora, Caveat */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:340 560;font-display:swap;src:url(/fonts/fraunces-roman.woff2) format('woff2');}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:440 560;font-display:swap;src:url(/fonts/fraunces-italic.woff2) format('woff2');}
+@font-face{font-family:'Sora';font-style:normal;font-weight:300 600;font-display:swap;src:url(/fonts/sora.woff2) format('woff2');}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:500 600;font-display:swap;src:url(/fonts/caveat.woff2) format('woff2');}
   :root{
     --night:#18131C;
     --night-2:#221B29;
@@ -1525,3 +1530,18 @@
 /* H1 de page (promus depuis les anciens H2) */
 h1.page-h1 svg.section-illustration{vertical-align:middle;}
 .page-h1 + .page-sub{margin-top:6px;}
+
+/* Menu : tient sur une ligne entre 1100 et 1400 px (polices réelles chargées) */
+@media (min-width:1100px) and (max-width:1399px){
+  .nav ul{gap:12px !important;}
+  .nav ul > li:not(.nav-contact-slot) > a{font-size:12.5px !important; letter-spacing:0 !important;}
+  .nav ul .nav-contact-slot{margin:0 4px 0 6px !important;}
+  .nav .name{font-size:21px !important; padding-right:12px !important;}
+  .nav .header-watermark{margin-right:8px !important;}
+}
+@media (min-width:1100px) and (max-width:1179px){
+  .nav ul{gap:9px !important;}
+  .nav ul > li:not(.nav-contact-slot) > a{font-size:12px !important;}
+  .nav .name{font-size:18px !important;}
+  .nav .header-watermark{height:46px !important;}
+}
