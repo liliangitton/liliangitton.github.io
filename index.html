@@ -1291,6 +1291,13 @@
   .video-teaser{max-width:661px; margin:26px 0 8px; padding:16px 20px 18px; border-left:2px solid var(--gold-soft); border-radius:0 12px 12px 0; background:rgba(221,174,94,.06);}
   .video-teaser.vt-center{margin-left:auto; margin-right:auto;}
   .video-teaser .vt-intro{margin:0 0 12px; font-size:14.5px; line-height:1.55; color:var(--muted); font-style:italic;}
+  .video-teaser .vt-player{margin-top:14px;}
+  .video-teaser .vt-frame{position:relative; width:100%; aspect-ratio:16/9; border-radius:10px; overflow:hidden; background:#000; border:1px solid var(--line);}
+  .video-teaser .vt-frame.vt-vertical{aspect-ratio:9/16; width:min(100%,300px);}
+  .video-teaser .vt-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .video-teaser .vt-note{margin:8px 0 0; font-size:12.5px; color:var(--muted); line-height:1.5;}
+  .video-teaser .vt-note a{color:var(--gold-soft);}
+  .video-pill[aria-expanded="true"]{background:rgba(221,174,94,.18);}
   .video-teaser .vt-row{margin:0; display:flex; justify-content:flex-start;}
   .video-pill{display:inline-flex; align-items:center; gap:14px; padding:10px 22px 10px 16px; border:1px solid var(--gold); border-radius:999px; background:rgba(221,174,94,.08); color:var(--paper); text-decoration:none; transition:background .25s ease, box-shadow .25s ease, transform .25s ease;}
   .video-pill:hover,.video-pill:focus-visible{background:rgba(221,174,94,.18); box-shadow:0 0 22px rgba(221,174,94,.35); transform:translateY(-2px);}
@@ -2021,6 +2028,40 @@
       });
       btn.addEventListener('click', function(){
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+
+    // Vidéos pédagogiques : le lecteur YouTube (sans cookies) ne se charge qu'au clic
+    (function(){
+      document.addEventListener('click', function(e){
+        var pill = e.target.closest && e.target.closest('.video-teaser .video-pill');
+        if(!pill) return;
+        if(e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return; // ouverture classique dans un nouvel onglet
+        var href = pill.getAttribute('href') || '';
+        var m = href.match(/(?:youtu\.be\/|shorts\/|[?&]v=)([A-Za-z0-9_-]{11})/);
+        if(!m) return;
+        e.preventDefault();
+        var box = pill.closest('.video-teaser');
+        var old = box.querySelector('.vt-player');
+        if(old){ old.remove(); pill.setAttribute('aria-expanded','false'); return; }
+        var vertical = /\/shorts\//.test(href);
+        var wrap = document.createElement('div');
+        wrap.className = 'vt-player';
+        var frame = document.createElement('div');
+        frame.className = 'vt-frame' + (vertical ? ' vt-vertical' : '');
+        var ifr = document.createElement('iframe');
+        ifr.src = 'https://www.youtube-nocookie.com/embed/' + m[1] + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        ifr.title = 'Vidéo pédagogique de Lilian Gitton';
+        ifr.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        ifr.setAttribute('allowfullscreen','');
+        ifr.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+        frame.appendChild(ifr);
+        var note = document.createElement('p');
+        note.className = 'vt-note';
+        note.innerHTML = 'Lecteur YouTube en mode sans cookies · <a href="' + href + '" target="_blank" rel="noopener">Voir sur YouTube</a> · cliquez de nouveau sur la pastille pour fermer.';
+        wrap.appendChild(frame); wrap.appendChild(note);
+        box.appendChild(wrap);
+        pill.setAttribute('aria-expanded','true');
       });
     })();
 
@@ -2890,7 +2931,7 @@
         Les informations recueillies via ce site (formulaire de contact, prise de rendez-vous) sont utilisées exclusivement pour répondre à votre demande et ne sont jamais transmises à des tiers. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données, à exercer par email à l'adresse ci-dessus.</p>
 
         <p><strong>Cookies</strong><br>
-        Ce site utilise un service de carte interactive (Google Maps) susceptible de déposer des cookies tiers. Vous pouvez accepter ou refuser leur dépôt via le bandeau affiché lors de votre première visite.</p>
+        Ce site utilise un service de carte interactive (Google Maps) susceptible de déposer des cookies tiers. Vous pouvez accepter ou refuser leur dépôt via le bandeau affiché lors de votre première visite.<br>Les vidéos pédagogiques ne se chargent qu'au moment où vous cliquez sur « Vidéo pédagogique » : le lecteur YouTube (en mode « sans cookies » youtube-nocookie.com) n'est alors contacté qu'à ce moment-là.</p>
       </div>
     </div>
   </div>
