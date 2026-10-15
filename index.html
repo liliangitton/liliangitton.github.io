@@ -1811,6 +1811,11 @@
 
     var parentLi = link.closest('.has-submenu');
     var isMainSubmenuLink = parentLi && !link.closest('.submenu');
+    // 2e appui sur la rubrique dont le sous-menu est déjà déplié : on va à la rubrique et le menu se referme
+    if(isMainSubmenuLink){
+      var sm0 = parentLi.querySelector('.submenu');
+      if(sm0 && sm0.classList.contains('open')) isMainSubmenuLink = false;
+    }
     if(isMainSubmenuLink){
       var submenu = parentLi.querySelector('.submenu');
       if(submenu && !submenu.classList.contains('open')){
