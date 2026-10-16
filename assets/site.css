@@ -594,6 +594,10 @@
     font-size:14px;
     padding-left:3px;
   }
+  /* vidéos verticales (Shorts) : cadre 9/16 */
+  .video-grid{align-items:start;}
+  .video-card-short .video-thumb{aspect-ratio:9/16; width:min(100%,200px);}
+  .video-card-short .video-thumb img{object-position:center;}
   .video-card h4{
     font-family:'Fraunces', serif; font-weight:400; font-size:17px;
     margin:0 0 6px; color:var(--paper);
