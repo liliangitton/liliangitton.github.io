@@ -316,10 +316,11 @@
   .pc-menu a{display:block; padding:10px 20px; color:var(--paper); text-decoration:none; font-size:14px; line-height:1.4; transition:background .2s ease, color .2s ease;}
   .pc-menu a:hover, .pc-menu a:focus-visible{background:rgba(221,174,94,.1); color:var(--gold-soft);}
   /* Sommaire de la page Astrologie */
-  .page-toc{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; margin:4px 0 26px;}
-  .page-toc .pt-label{font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-right:4px;}
-  .page-toc a{display:inline-block; padding:6px 14px; border:1px solid var(--line-strong); border-radius:999px; color:var(--paper); font-size:13.5px; text-decoration:none; transition:border-color .25s ease, color .25s ease, background .25s ease;}
-  .page-toc a:hover, .page-toc a:focus-visible{border-color:var(--gold-soft); color:var(--gold-soft); background:rgba(221,174,94,.08);}
+  .page-toc{display:flex; flex-wrap:wrap; gap:2px 6px; align-items:center; margin:2px 0 40px; padding:0 0 14px; border-bottom:1px solid rgba(221,174,94,.18); font-size:13px;}
+  .page-toc .pt-label{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); opacity:.7; margin-right:6px;}
+  .page-toc a{display:inline-block; padding:3px 4px; color:var(--muted); font-size:13px; text-decoration:none; border-bottom:1px solid transparent; transition:color .25s ease, border-color .25s ease;}
+  .page-toc a + a::before{content:"·"; display:inline-block; margin-right:10px; color:var(--gold-soft); opacity:.5;}
+  .page-toc a:hover, .page-toc a:focus-visible{color:var(--gold-soft); border-bottom-color:var(--gold-soft);}
   @media (max-width:560px){
     .hero-practices{gap:10px; padding:18px 14px 16px; max-width:none;}
     .practice-chip{padding:8px 14px 8px 11px; font-size:13.5px;}
