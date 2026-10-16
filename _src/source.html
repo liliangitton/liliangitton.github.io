@@ -362,6 +362,41 @@
   .hero h1 em{font-style:italic; font-weight:440; color:var(--gold-soft);}
   .hero p.lead{margin-top:26px; max-width:460px; color:var(--muted); font-size:17px;}
   .hero-actions{margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;}
+  /* Découvrir mes pratiques : libellé inactif + 3 pastilles-icônes cliquables */
+  .hero-practices{margin:34px 0 0; padding:20px 22px 20px; min-width:0; display:flex; gap:12px; flex-wrap:wrap; align-items:center; border:1px solid rgba(221,174,94,.5); border-radius:18px; background:linear-gradient(160deg, rgba(221,174,94,.08), rgba(221,174,94,.015)); max-width:max-content;}
+  .hero-practices legend{display:flex; align-items:center; gap:10px; padding:0 12px; margin-left:10px; font-size:14px; letter-spacing:.07em; color:var(--gold-soft); cursor:default; user-select:none;}
+  .hero-practices .pc-star{width:18px; height:18px; color:var(--gold); animation:pcStarSpin 24s linear infinite;}
+  @keyframes pcStarSpin{to{transform:rotate(360deg);}}
+  .practice-chip{display:inline-flex; align-items:center; gap:10px; padding:9px 18px 9px 13px; border:1px solid var(--gold-soft); border-radius:999px; background:rgba(221,174,94,.07); color:var(--paper); font-size:14px; text-decoration:none; transition:background .3s ease, box-shadow .3s ease, transform .3s ease, border-color .3s ease;}
+  .practice-chip .pc-ic{width:24px; height:24px; flex:none; color:var(--gold-soft); overflow:visible; transition:color .3s ease;}
+  .practice-chip .pc-ring, .practice-chip .pc-spiral, .practice-chip .pc-pulse{transform-box:fill-box; transform-origin:center; transition:transform .55s ease, opacity .55s ease;}
+  .practice-chip .pc-pulse{opacity:.55;}
+  .practice-chip:hover, .practice-chip:focus-visible{background:rgba(221,174,94,.18); border-color:var(--gold); box-shadow:0 0 22px -2px rgba(221,174,94,.45); transform:translateY(-2px);}
+  .practice-chip:hover .pc-ic, .practice-chip:focus-visible .pc-ic{color:var(--gold);}
+  .practice-chip:hover .pc-ring{transform:rotate(-24deg);}
+  .practice-chip:hover .pc-spiral{transform:rotate(180deg);}
+  .practice-chip:hover .pc-pulse{transform:scale(1.12); opacity:.9;}
+  .practice-chip:focus-visible{outline:2px solid var(--gold-soft); outline-offset:3px;}
+  .hero-practices.reveal{transition-delay:0.55s;}
+  .hero-practices{position:relative; z-index:30;}
+  .pc-wrap{position:relative;}
+  .pc-menu{display:none; position:absolute; top:100%; left:0; z-index:60; margin:8px 0 0; padding:8px 0; list-style:none; min-width:300px; max-width:calc(100vw - 56px); background:#1a1424; border:1px solid var(--line-strong); border-radius:12px; box-shadow:0 18px 40px -12px rgba(0,0,0,.75);}
+  .pc-menu::before{content:""; position:absolute; top:-10px; left:0; right:0; height:10px;}
+  .pc-wrap.open .pc-menu{display:block;}
+  @media (hover:hover){ .pc-wrap:hover .pc-menu, .pc-wrap:focus-within .pc-menu{display:block;} }
+  .pc-menu li{margin:0; padding:0;}
+  .pc-menu a{display:block; padding:10px 20px; color:var(--paper); text-decoration:none; font-size:14px; line-height:1.4; transition:background .2s ease, color .2s ease;}
+  .pc-menu a:hover, .pc-menu a:focus-visible{background:rgba(221,174,94,.1); color:var(--gold-soft);}
+  /* Sommaire de la page Astrologie */
+  .page-toc{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; margin:4px 0 26px;}
+  .page-toc .pt-label{font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-right:4px;}
+  .page-toc a{display:inline-block; padding:6px 14px; border:1px solid var(--line-strong); border-radius:999px; color:var(--paper); font-size:13.5px; text-decoration:none; transition:border-color .25s ease, color .25s ease, background .25s ease;}
+  .page-toc a:hover, .page-toc a:focus-visible{border-color:var(--gold-soft); color:var(--gold-soft); background:rgba(221,174,94,.08);}
+  @media (max-width:560px){
+    .hero-practices{gap:10px; padding:18px 14px 16px; max-width:none;}
+    .practice-chip{padding:8px 14px 8px 11px; font-size:13.5px;}
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-practices .pc-star{animation:none;} .practice-chip, .practice-chip *{transition:none !important;} .practice-chip:hover{transform:none;} }
   .btn{
     position:relative;
     display:inline-block; padding:14px 28px; font-size:14.5px;
@@ -2167,8 +2202,20 @@
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">Prendre rendez-vous</a>
         <a href="tel:+33687035649" class="btn btn-ghost">M'appeler</a>
-        <a href="#astrologie" class="btn btn-ghost">Découvrir mes pratiques</a>
       </div>
+      <fieldset class="hero-practices">
+        <legend><svg class="pc-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 3 V21 M4.2 7.5 L19.8 16.5 M19.8 7.5 L4.2 16.5"/></svg>Découvrir mes pratiques</legend>
+        <div class="pc-wrap"><a class="practice-chip" href="#astrologie" aria-haspopup="true" aria-expanded="false"><svg class="pc-ic pc-astro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="11" cy="12" r="4.2"/><g class="pc-ring"><ellipse cx="11" cy="12" rx="9.5" ry="2.6"/></g></svg><span>Astrologie</span></a>
+        <ul class="pc-menu">
+          <li><a href="#astro-bienvenue">Bienvenue dans mon univers astrologique</a></li>
+          <li><a href="#astro-humaniste">Comprendre l'astrologie que je pratique</a></li>
+          <li><a href="#astro-prestations">Les prestations et leurs tarifs</a></li>
+          <li><a href="#astro-initiation">La formation en astrologie</a></li>
+          <li><a href="/quiz/">Testez-vous : le quiz</a></li>
+        </ul></div>
+        <a class="practice-chip" href="#hypnose"><svg class="pc-ic pc-hypno" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><g class="pc-spiral"><path d="M12 4 C17 4 20 8 18.5 12.5 C17.2 16.5 11.5 17 9.5 14 C8 11.7 9.3 9 11.5 9.3 C13 9.5 13.2 11.3 11.8 11.8"/></g></svg><span>Hypnose</span></a>
+        <a class="practice-chip" href="#energetique"><svg class="pc-ic pc-energy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="2.2"/><circle class="pc-pulse" cx="12" cy="12" r="6"/><circle class="pc-pulse pc-pulse-2" cx="12" cy="12" r="9.5"/></svg><span>Soins énergétiques</span></a>
+      </fieldset>
       <p class="reassure">Une question, une hésitation&nbsp;? <a class="xl" href="#contact">Écrivez-moi</a>, on en parle simplement.</p>
     </div>
     <div class="hero-photo"><img id="homePortrait" alt="Lilian Gitton, hypnothérapeute, énergéticien et astrologue"></div>
@@ -2199,6 +2246,7 @@
         </g>
         <circle cx="40" cy="40" r="2" fill="var(--gold-soft)"/>
       </svg></h2>
+      <nav class="page-toc" aria-label="Sur cette page"><span class="pt-label">Sur cette page</span><a href="#astro-humaniste">Comprendre l'astrologie</a><a href="#astro-prestations">Prestations et tarifs</a><a href="#astro-distance">Séance à distance</a><a href="#astro-initiation">Formation en astrologie</a><a href="/quiz/">Quiz</a></nav>
       <figure class="quote-banner quote-text epigraph"><blockquote>« Ce qui est en bas est comme ce qui est en haut. »</blockquote><figcaption>Hermès Trismégiste, La Table d’émeraude</figcaption></figure>
       <p>Cher visiteur, je vous souhaite la bienvenue sur la partie astrologie de ce site. L'astrologie humaniste est <strong>avant tout une passion</strong> pour moi, et j'aime pouvoir accompagner les personnes pour qu'elles puissent <strong>se rapprocher de qui elles sont vraiment</strong>, <strong>mieux se comprendre</strong> et <strong>mettre du sens à leur vie</strong>.</p>
       <p class="astro-cta" style="margin-top:14px; font-size:16px;"><a class="xl" href="#astro-prestations">Voir les prestations et tarifs&nbsp;→</a></p>
@@ -3085,9 +3133,19 @@
     }
   })();
 
+  // Menu déroulant de la pastille Astrologie (accueil) : 1er toucher = ouvre, 2e = ouvre la page
+  (function(){
+    var wrap = document.querySelector('.pc-wrap'); if(!wrap) return;
+    var chip = wrap.querySelector('.practice-chip'), touch = window.matchMedia('(hover: none)');
+    function setOpen(o){ wrap.classList.toggle('open', o); chip.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    chip.addEventListener('click', function(e){ if(touch.matches && !wrap.classList.contains('open')){ e.preventDefault(); setOpen(true); } });
+    document.addEventListener('click', function(e){ if(!wrap.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setOpen(false); });
+  })();
+
   // Révélation au scroll
   (function(){
-    var selectors = '.hero-copy .kicker, .hero h1, .hero p.lead, .hero-actions, h2, .about-top .body > p, .service, .split, .t-item, .panel, .signature, .contact h2, .contact-list .row, #cadeau .btn';
+    var selectors = '.hero-copy .kicker, .hero h1, .hero p.lead, .hero-actions, .hero-practices, h2, .about-top .body > p, .service, .split, .t-item, .panel, .signature, .contact h2, .contact-list .row, #cadeau .btn';
     var els = document.querySelectorAll(selectors);
     els.forEach(function(el){ el.classList.add('reveal'); });
     var io = new IntersectionObserver(function(entries){

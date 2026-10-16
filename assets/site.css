@@ -290,6 +290,41 @@
   .hero h1 em{font-style:italic; font-weight:440; color:var(--gold-soft);}
   .hero p.lead{margin-top:26px; max-width:460px; color:var(--muted); font-size:17px;}
   .hero-actions{margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;}
+  /* Découvrir mes pratiques : libellé inactif + 3 pastilles-icônes cliquables */
+  .hero-practices{margin:34px 0 0; padding:20px 22px 20px; min-width:0; display:flex; gap:12px; flex-wrap:wrap; align-items:center; border:1px solid rgba(221,174,94,.5); border-radius:18px; background:linear-gradient(160deg, rgba(221,174,94,.08), rgba(221,174,94,.015)); max-width:max-content;}
+  .hero-practices legend{display:flex; align-items:center; gap:10px; padding:0 12px; margin-left:10px; font-size:14px; letter-spacing:.07em; color:var(--gold-soft); cursor:default; user-select:none;}
+  .hero-practices .pc-star{width:18px; height:18px; color:var(--gold); animation:pcStarSpin 24s linear infinite;}
+  @keyframes pcStarSpin{to{transform:rotate(360deg);}}
+  .practice-chip{display:inline-flex; align-items:center; gap:10px; padding:9px 18px 9px 13px; border:1px solid var(--gold-soft); border-radius:999px; background:rgba(221,174,94,.07); color:var(--paper); font-size:14px; text-decoration:none; transition:background .3s ease, box-shadow .3s ease, transform .3s ease, border-color .3s ease;}
+  .practice-chip .pc-ic{width:24px; height:24px; flex:none; color:var(--gold-soft); overflow:visible; transition:color .3s ease;}
+  .practice-chip .pc-ring, .practice-chip .pc-spiral, .practice-chip .pc-pulse{transform-box:fill-box; transform-origin:center; transition:transform .55s ease, opacity .55s ease;}
+  .practice-chip .pc-pulse{opacity:.55;}
+  .practice-chip:hover, .practice-chip:focus-visible{background:rgba(221,174,94,.18); border-color:var(--gold); box-shadow:0 0 22px -2px rgba(221,174,94,.45); transform:translateY(-2px);}
+  .practice-chip:hover .pc-ic, .practice-chip:focus-visible .pc-ic{color:var(--gold);}
+  .practice-chip:hover .pc-ring{transform:rotate(-24deg);}
+  .practice-chip:hover .pc-spiral{transform:rotate(180deg);}
+  .practice-chip:hover .pc-pulse{transform:scale(1.12); opacity:.9;}
+  .practice-chip:focus-visible{outline:2px solid var(--gold-soft); outline-offset:3px;}
+  .hero-practices.reveal{transition-delay:0.55s;}
+  .hero-practices{position:relative; z-index:30;}
+  .pc-wrap{position:relative;}
+  .pc-menu{display:none; position:absolute; top:100%; left:0; z-index:60; margin:8px 0 0; padding:8px 0; list-style:none; min-width:300px; max-width:calc(100vw - 56px); background:#1a1424; border:1px solid var(--line-strong); border-radius:12px; box-shadow:0 18px 40px -12px rgba(0,0,0,.75);}
+  .pc-menu::before{content:""; position:absolute; top:-10px; left:0; right:0; height:10px;}
+  .pc-wrap.open .pc-menu{display:block;}
+  @media (hover:hover){ .pc-wrap:hover .pc-menu, .pc-wrap:focus-within .pc-menu{display:block;} }
+  .pc-menu li{margin:0; padding:0;}
+  .pc-menu a{display:block; padding:10px 20px; color:var(--paper); text-decoration:none; font-size:14px; line-height:1.4; transition:background .2s ease, color .2s ease;}
+  .pc-menu a:hover, .pc-menu a:focus-visible{background:rgba(221,174,94,.1); color:var(--gold-soft);}
+  /* Sommaire de la page Astrologie */
+  .page-toc{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center; margin:4px 0 26px;}
+  .page-toc .pt-label{font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-right:4px;}
+  .page-toc a{display:inline-block; padding:6px 14px; border:1px solid var(--line-strong); border-radius:999px; color:var(--paper); font-size:13.5px; text-decoration:none; transition:border-color .25s ease, color .25s ease, background .25s ease;}
+  .page-toc a:hover, .page-toc a:focus-visible{border-color:var(--gold-soft); color:var(--gold-soft); background:rgba(221,174,94,.08);}
+  @media (max-width:560px){
+    .hero-practices{gap:10px; padding:18px 14px 16px; max-width:none;}
+    .practice-chip{padding:8px 14px 8px 11px; font-size:13.5px;}
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-practices .pc-star{animation:none;} .practice-chip, .practice-chip *{transition:none !important;} .practice-chip:hover{transform:none;} }
   .btn{
     position:relative;
     display:inline-block; padding:14px 28px; font-size:14.5px;
