@@ -459,6 +459,7 @@ def build_page(p):
             jsonld(p)]
     if key == 'accueil':
         head.append(legacy_script)
+    head.append('<script defer src="https://cloud.umami.is/script.js" data-website-id="1f7325eb-2bb5-430b-8238-d0a0ea323cac"></script>')
     head.append('</head>')
     body = ['<body data-nav="%s">' % p['nav'],
             '<div class="stars-bg" id="starsBg"></div>', '<div class="grain"></div>', '<div class="site-content">',
