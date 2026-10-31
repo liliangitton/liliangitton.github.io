@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Envoyer le SMS – Lilian Gitton</title>
+<style>
+  @font-face { font-family: "Fraunces"; src: url("/fonts/fraunces-roman.woff2") format("woff2"); font-display: swap; }
+  @font-face { font-family: "Sora"; src: url("/fonts/sora.woff2") format("woff2"); font-display: swap; }
+  :root { --night:#18131C; --gold:#C6913D; --paper:#EFE7D8; --muted:#5a4f63; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; background:var(--paper); color:var(--night);
+         font-family:"Sora", Arial, sans-serif; display:flex; align-items:center; justify-content:center; padding:24px 16px; }
+  .carte { width:100%; max-width:440px; text-align:center; }
+  h1 { font-family:"Fraunces", Georgia, serif; font-weight:500; font-size:28px; margin:0 0 6px; }
+  .qui { color:var(--muted); margin:0 0 24px; font-size:16px; }
+  .bouton { display:block; background:var(--gold); color:#fff; text-decoration:none; font-weight:600;
+            font-size:19px; padding:18px 20px; border-radius:14px; margin:0 0 22px; }
+  .texte { background:#fff; border:1px solid var(--gold); border-radius:12px; padding:14px; text-align:left;
+           font-size:15px; line-height:1.5; margin:0 0 12px; white-space:pre-wrap; word-break:break-word; }
+  .copier { background:none; border:1px solid var(--night); color:var(--night); border-radius:10px;
+            padding:10px 16px; font-size:15px; font-family:inherit; }
+  .erreur { color:var(--muted); }
+</style>
+</head>
+<body>
+<main class="carte">
+  <h1>Demande d'avis</h1>
+  <p class="qui" id="qui"></p>
+  <a class="bouton" id="bouton" href="#">📱 Ouvrir Messages</a>
+  <p class="texte" id="texte"></p>
+  <button class="copier" id="copier" type="button">Copier le texte</button>
+</main>
+<script>
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var numero = p.get('n') || '';
+    var texte = p.get('t') || '';
+    if (!numero || !texte) {
+      document.querySelector('.carte').innerHTML = '<p class="erreur">Lien incomplet.</p>';
+      return;
+    }
+    var lien = 'sms:' + numero + '?body=' + encodeURIComponent(texte);
+    document.getElementById('qui').textContent = 'Pour le ' + numero;
+    document.getElementById('texte').textContent = texte;
+    document.getElementById('bouton').href = lien;
+    document.getElementById('copier').addEventListener('click', function () {
+      var b = this;
+      navigator.clipboard.writeText(texte).then(function () { b.textContent = 'Texte copié ✓'; });
+    });
+    // Ouverture automatique de Messages
+    setTimeout(function () { location.href = lien; }, 300);
+  })();
+</script>
+</body>
+</html>
