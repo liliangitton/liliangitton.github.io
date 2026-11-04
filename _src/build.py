@@ -94,6 +94,17 @@ h1.page-h1 svg.section-illustration{vertical-align:middle;}
 .page-h1 + .page-sub{margin-top:6px;}
 '''
 css += """
+/* Pages vidéos : sous-titres et page sommaire */
+h2.h2-sub{font-size:clamp(24px,3.2vw,32px) !important; margin:0 0 12px !important;}
+.hub-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:22px; margin-top:10px;}
+a.hub-card{display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); border-radius:10px; background:rgba(24,19,28,.5); padding:22px; text-decoration:none; color:inherit; transition:transform .25s, border-color .25s;}
+a.hub-card:hover{transform:translateY(-3px); border-color:var(--gold-soft);}
+a.hub-card p{margin:0;}
+.hub-thumbs{display:flex; gap:8px;}
+.hub-thumbs img{flex:1; min-width:0; aspect-ratio:16/9; object-fit:cover; border-radius:6px;}
+.hub-more{color:var(--gold-soft); font-size:15px; margin-top:auto;}
+"""
+css += """
 /* Menu : tient sur une ligne entre 1100 et 1400 px (polices réelles chargées) */
 @media (min-width:1100px) and (max-width:1399px){
   .nav ul{gap:12px !important;}
@@ -132,6 +143,12 @@ def between(s, a, b, incl=True, start=0):
     return s[i:j]
 
 header_html = between(src, '<header>', '</header>')
+must('<span class="nav-label">Mes vidéos&nbsp;: astrologie et développement personnel</span>' in header_html, 'sous-menu vidéos')
+header_html = header_html.replace('<a href="#articles-videos" class="submenu-video-link">\n            <span class="nav-label">Mes vidéos&nbsp;: astrologie et développement personnel</span>',
+    '<a href="#videos-astrologie" class="submenu-video-link">\n            <span class="nav-label">Vidéos d\'astrologie</span>')
+header_html = header_html.replace('<a href="#articles-spiritualite" class="submenu-video-link">\n            <span class="nav-label">Mes articles sur la spiritualité</span>',
+    '<a href="#videos-developpement-personnel" class="submenu-video-link">\n            <span class="nav-label">Développement personnel et spiritualité</span>')
+must('#videos-astrologie' in header_html and '#videos-developpement-personnel' in header_html, 'sous-menu remplacé')
 header_html = header_html.replace('src="' + wm_uri + '"', 'src="' + IMG['wm'] + '" alt="" aria-hidden="true"')
 nav_script = between(src, '<script>\n  var navToggle', '</script>')
 footer_html = between(src, '<footer>', '</footer>')
@@ -195,6 +212,99 @@ formation_page = '''<section id="astrologie" class="page-formation">
   </div>
 </section>'''
 
+
+# ---- articles et vidéos : une page « sommaire » + deux pages de vidéos (astrologie / développement personnel)
+blog = SEC['blog']
+CARDS = {m.group(1): m.group(0) for m in re.finditer(
+    r'<a class="video-card[^"]*" href="[^"]*?(?:shorts/|youtu\.be/|watch\?v=)([\w-]{11})".*?</a>', blog, re.S)}
+must(len(CARDS) == 9, 'vidéos trouvées : %d' % len(CARDS))
+VID_COMPRENDRE = ['rEiyl0YT6zw', 'Jf-4Rujlj4A', 'TqkU0RsDdCY', '2CxULCRQRPg']
+VID_APPRENDRE = ['YIlkCxI5_9Y', '3bjMKOL3b9w', '8lWx6OmkWDo']
+VID_DEVPERSO = ['iALKjbe_P9o', 'I8yoi_ZlrFU']
+must(set(VID_COMPRENDRE + VID_APPRENDRE + VID_DEVPERSO) == set(CARDS), 'classement des vidéos incomplet')
+
+def grid(ids):
+    return '      <div class="video-grid">\n        ' + '\n        '.join(CARDS[i] for i in ids) + '\n      </div>\n'
+
+YT_BTN = '      <a href="https://youtube.com/@lili4554" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top:28px;">Toutes mes vidéos sur YouTube</a>\n'
+articles_block = blog[blog.index('<div class="block">\n      <h3 id="articles-spiritualite">'):blog.index('<nav class="next-steps"')]
+
+videos_astro_page = '''<section id="videos-astrologie">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Vidéos d'astrologie</div>
+      <h1 class="page-h1">Vidéos d'astrologie&nbsp;: comprendre et apprendre</h1>
+      <p>Qu'est-ce qu'un thème astral, que disent votre Soleil, votre Lune et votre Ascendant, comment lire les planètes, les signes et les maisons&nbsp;? Dans ces vidéos, je vous explique l'astrologie simplement, avec des exemples concrets. C'est une astrologie humaniste&nbsp;: elle ne prédit pas votre destin, elle vous aide à mieux vous comprendre.</p>
+    </div>
+
+    <div class="block">
+      <h2 class="h2-sub" id="comprendre-theme-astral">Comprendre son thème astral</h2>
+      <div class="body">
+        <p>Pour découvrir ce que représente un thème astral, trouver le vôtre gratuitement et comprendre ce qu'il révèle de votre personnalité. Envie d'aller plus loin&nbsp;? Je réalise <a class="xl" href="#astro-prestations">l'analyse de votre thème astral</a>, à Orléans ou en visio.</p>
+      </div>
+''' + grid(VID_COMPRENDRE) + '''    </div>
+
+    <div class="block">
+      <h2 class="h2-sub" id="apprendre-astrologie">Apprendre l'astrologie</h2>
+      <div class="body">
+        <p>Des vidéos plus pédagogiques pour apprendre à lire un thème astral pas à pas&nbsp;: le mode d'emploi, une analyse commentée comme en atelier, et le mouvement du ciel dans un thème. Pour apprendre vraiment à analyser un thème, découvrez ma <a class="xl" href="#astro-initiation">formation en astrologie</a>, à Orléans et en ligne.</p>
+      </div>
+''' + grid(VID_APPRENDRE) + YT_BTN + '''    </div>
+
+    <nav class="next-steps" aria-label="Pour aller plus loin"><span class="ns-label">Pour aller plus loin</span><div class="ns-row"><a class="ns-link" href="#astrologie">Le thème astral et les tarifs →</a><a class="ns-link" href="#astro-initiation">La formation en astrologie →</a><a class="ns-link" href="/quiz/">Le quiz d'astrologie →</a><a class="btn btn-primary" href="#contact">Prendre rendez-vous</a></div></nav>
+  </div>
+</section>'''
+
+videos_dev_page = '''<section id="videos-developpement-personnel">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Développement personnel</div>
+      <h1 class="page-h1">Développement personnel et spiritualité&nbsp;: vidéos et articles</h1>
+      <p>De courtes vidéos et des réflexions personnelles pour cheminer vers plus de conscience au quotidien&nbsp;: sortir de la réaction, accueillir ce que la vie nous apprend, poser ses limites, retrouver ce que l'on veut vraiment.</p>
+    </div>
+
+    <div class="block">
+      <h2 class="h2-sub" id="videos-spiritualite">Mes vidéos de développement personnel</h2>
+      <div class="body">
+        <p>Des messages courts pour prendre du recul et revenir à soi. Si vous souhaitez être accompagné plus en profondeur, je propose des séances d'<a class="xl" href="#hypnose">hypnose humaniste</a> et des <a class="xl" href="#energetique">soins énergétiques</a>, à Orléans ou à distance.</p>
+      </div>
+''' + grid(VID_DEVPERSO) + YT_BTN + '''    </div>
+
+    ''' + articles_block.replace('<h3 id="articles-spiritualite">', '<h2 class="h2-sub" id="articles-spiritualite">').replace(
+        'Mes articles sur la spiritualité et le développement personnel</h3>', 'Mes articles sur la spiritualité et le développement personnel</h2>', 1) + '''<nav class="next-steps" aria-label="Pour aller plus loin"><span class="ns-label">Pour aller plus loin</span><div class="ns-row"><a class="ns-link" href="#hypnose">L'Hypnose Humaniste →</a><a class="ns-link" href="#energetique">Les soins énergétiques →</a><a class="ns-link" href="#apropos">Qui suis-je ? →</a><a class="btn btn-primary" href="#contact">Prendre rendez-vous</a></div></nav>
+  </div>
+</section>'''
+must('id="articles-spiritualite"' in videos_dev_page and '</h3>' not in videos_dev_page.split('id="articles-spiritualite"')[1].split('</div>')[0], 'titre articles')
+
+def thumbs(ids):
+    return '<div class="hub-thumbs">' + ''.join('<img src="https://img.youtube.com/vi/%s/mqdefault.jpg" alt="" loading="lazy">' % i for i in ids) + '</div>'
+
+blog_page = '''<section id="blog">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Articles et vidéos</div>
+      <h1 class="page-h1">Articles et vidéos</h1>
+      <p>Tout ce que je partage, rangé en deux thèmes&nbsp;: l'astrologie d'un côté, le développement personnel et la spiritualité de l'autre.</p>
+    </div>
+    <div class="hub-grid">
+      <a class="block card-block hub-card" href="#videos-astrologie">
+        ''' + thumbs(['Jf-4Rujlj4A', 'YIlkCxI5_9Y', '3bjMKOL3b9w']) + '''
+        <h2 class="h2-sub">Vidéos d'astrologie</h2>
+        <p>Comprendre son thème astral, son Soleil, sa Lune et son Ascendant, et apprendre à lire les planètes, les signes et les maisons.</p>
+        <span class="hub-more">Voir les vidéos d'astrologie&nbsp;→</span>
+      </a>
+      <a class="block card-block hub-card" href="#videos-developpement-personnel">
+        ''' + thumbs(['iALKjbe_P9o', 'I8yoi_ZlrFU']) + '''
+        <h2 class="h2-sub">Développement personnel et spiritualité</h2>
+        <p>Des vidéos courtes et des articles pour cheminer vers plus de conscience&nbsp;: poser ses limites, faire de vrais choix, la méditation, l'énergie.</p>
+        <span class="hub-more">Voir les vidéos et les articles&nbsp;→</span>
+      </a>
+    </div>
+    <nav class="next-steps" aria-label="Pour aller plus loin"><span class="ns-label">Pour aller plus loin</span><div class="ns-row"><a class="ns-link" href="#astrologie">Découvrir l'astrologie →</a><a class="ns-link" href="#apropos">Qui suis-je ? →</a><a class="btn btn-primary" href="#contact">Prendre rendez-vous</a></div></nav>
+  </div>
+</section>'''
+SEC['blog'] = blog_page
+
 # ---- titres H1
 def promote_h1(html, new_text=None, keep_svg=True):
     """Transforme le premier <h2> de la section en <h1 class="page-h1">, avec un nouveau texte éventuel."""
@@ -218,7 +328,7 @@ H1 = {
     'avis': None,
     'contact': 'Prendre rendez-vous',
     'cabinet': 'Le cabinet à Orléans',
-    'blog': 'Mes articles et vidéos',
+    'blog': None,
     'mentions': None,
     'cgv': None,
 }
@@ -228,8 +338,11 @@ CONTENT = {
     'astrologie': astro_page,
     'formation': formation_page,
 }
-for k in ['energetique', 'hypnose', 'apropos', 'avis', 'contact', 'cabinet', 'blog', 'mentions', 'cgv']:
+for k in ['energetique', 'hypnose', 'apropos', 'avis', 'contact', 'cabinet', 'mentions', 'cgv']:
     CONTENT[k] = promote_h1(SEC[k], H1[k])
+CONTENT['blog'] = blog_page
+CONTENT['videos-astro'] = videos_astro_page
+CONTENT['videos-dev'] = videos_dev_page
 
 CONTENT['faq'] = FAQ_HTML
 
@@ -268,8 +381,12 @@ PAGES = [
          desc="Le cabinet de Lilian Gitton à Orléans, 24 rue du Clos Rozé, près du Jardin des Plantes : adresse, accès et plan pour venir en séance."),
     dict(key='contact', url='/contact/', nav='/contact/', title="Prendre rendez-vous avec Lilian Gitton, à Orléans ou en visio",
          desc="Prenez rendez-vous avec Lilian Gitton, à Orléans ou en visio : téléphone, e-mail, WhatsApp. Une question ? Écrivez-moi, on en parle simplement."),
-    dict(key='blog', url='/articles-videos/', nav='/articles-videos/', title="Articles et vidéos sur l'astrologie et le développement personnel",
-         desc="Articles et vidéos de Lilian Gitton sur l'astrologie, la spiritualité et le développement personnel : vidéos pédagogiques et textes à lire."),
+    dict(key='blog', url='/articles-videos/', nav='/articles-videos/', title="Articles et vidéos | Lilian Gitton, Orléans",
+         desc="Articles et vidéos de Lilian Gitton, astrologue à Orléans : vidéos d'astrologie pour comprendre son thème astral, vidéos et articles de développement personnel."),
+    dict(key='videos-astro', url='/videos-astrologie/', nav='/articles-videos/', title="Vidéos d'astrologie : thème astral, planètes, signes | Lilian Gitton",
+         desc="Vidéos d'astrologie pour comprendre son thème astral et apprendre à le lire : Soleil, Lune, Ascendant, planètes, signes, maisons, exemples concrets."),
+    dict(key='videos-dev', url='/videos-developpement-personnel/', nav='/articles-videos/', title="Vidéos de développement personnel et spiritualité | Lilian Gitton",
+         desc="Vidéos et articles de développement personnel et de spiritualité par Lilian Gitton : poser ses limites, faire de vrais choix, méditation, énergie."),
     dict(key='faq', url='/questions-frequentes/', nav='', title="Questions fréquentes : astrologie, hypnose, soins énergétiques à Orléans",
          desc="Questions fréquentes sur l'astrologie, l'hypnose humaniste et les soins énergétiques à Orléans : tarifs, déroulement des séances, séances à distance, formation."),
     dict(key='mentions', url='/mentions-legales/', nav='', title="Mentions légales — Lilian Gitton",
@@ -282,11 +399,12 @@ URL_OF = {p['key']: p['url'] for p in PAGES}
 SECTION_URL = {
     'accueil': '/', 'astrologie': '/astrologie/', 'energetique': '/energetique/', 'hypnose': '/hypnose/',
     'apropos': '/qui-suis-je/', 'avis': '/avis/', 'contact': '/contact/', 'cabinet': '/cabinet/',
-    'blog': '/articles-videos/', 'mentions': '/mentions-legales/', 'cgv': '/cgv/',
+    'blog': '/articles-videos/', 'videos-astrologie': '/videos-astrologie/',
+    'videos-developpement-personnel': '/videos-developpement-personnel/', 'articles-videos': '/videos-astrologie/', 'mentions': '/mentions-legales/', 'cgv': '/cgv/',
     'astro-initiation': '/formation-astrologie/',
     'faq': '/questions-frequentes/',
 }
-SECTION_IDS = set(SECTION_URL) - {'astro-initiation'}
+SECTION_IDS = set(SECTION_URL) - {'astro-initiation', 'articles-videos'}
 
 def ids_of(html):
     return set(re.findall(r'\bid="([^"]+)"', html))

@@ -1571,6 +1571,16 @@
 h1.page-h1 svg.section-illustration{vertical-align:middle;}
 .page-h1 + .page-sub{margin-top:6px;}
 
+/* Pages vidéos : sous-titres et page sommaire */
+h2.h2-sub{font-size:clamp(24px,3.2vw,32px) !important; margin:0 0 12px !important;}
+.hub-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:22px; margin-top:10px;}
+a.hub-card{display:flex; flex-direction:column; gap:12px; border:1px solid var(--line); border-radius:10px; background:rgba(24,19,28,.5); padding:22px; text-decoration:none; color:inherit; transition:transform .25s, border-color .25s;}
+a.hub-card:hover{transform:translateY(-3px); border-color:var(--gold-soft);}
+a.hub-card p{margin:0;}
+.hub-thumbs{display:flex; gap:8px;}
+.hub-thumbs img{flex:1; min-width:0; aspect-ratio:16/9; object-fit:cover; border-radius:6px;}
+.hub-more{color:var(--gold-soft); font-size:15px; margin-top:auto;}
+
 /* Menu : tient sur une ligne entre 1100 et 1400 px (polices réelles chargées) */
 @media (min-width:1100px) and (max-width:1399px){
   .nav ul{gap:12px !important;}
