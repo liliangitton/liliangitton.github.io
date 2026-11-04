@@ -150,6 +150,7 @@ header_html = header_html.replace('<a href="#articles-spiritualite" class="subme
     '<a href="#videos-developpement-personnel" class="submenu-video-link">\n            <span class="nav-label">Développement personnel et spiritualité</span>')
 must('#videos-astrologie' in header_html and '#videos-developpement-personnel' in header_html, 'sous-menu remplacé')
 header_html = header_html.replace('src="' + wm_uri + '"', 'src="' + IMG['wm'] + '" alt="" aria-hidden="true"')
+header_html = header_html.replace('alt="" aria-hidden="true" alt=""', 'alt="" aria-hidden="true"')
 nav_script = between(src, '<script>\n  var navToggle', '</script>')
 footer_html = between(src, '<footer>', '</footer>')
 must('<a href="#cgv">CGV</a>' in footer_html, 'footer cgv')
@@ -218,6 +219,14 @@ blog = SEC['blog']
 CARDS = {m.group(1): m.group(0) for m in re.finditer(
     r'<a class="video-card[^"]*" href="[^"]*?(?:shorts/|youtu\.be/|watch\?v=)([\w-]{11})".*?</a>', blog, re.S)}
 must(len(CARDS) == 9, 'vidéos trouvées : %d' % len(CARDS))
+def video_title(card):
+    t = re.sub(r'<[^>]+>', '', re.search(r'<h4>(.*?)</h4>', card, re.S).group(1))
+    return t.replace('&nbsp;', ' ').replace('"', '&quot;').strip()
+VIDEO_TITLES = {i: video_title(c) for i, c in CARDS.items()}
+for _i, _c in list(CARDS.items()):
+    _old = '/vi/%s/hqdefault.jpg" alt=""' % _i
+    must(_old in _c, 'miniature ' + _i)
+    CARDS[_i] = _c.replace(_old, '/vi/%s/hqdefault.jpg" alt="Miniature de la vidéo : %s"' % (_i, VIDEO_TITLES[_i]))
 VID_COMPRENDRE = ['rEiyl0YT6zw', 'Jf-4Rujlj4A', 'TqkU0RsDdCY', '2CxULCRQRPg']
 VID_APPRENDRE = ['YIlkCxI5_9Y', '3bjMKOL3b9w', '8lWx6OmkWDo']
 VID_DEVPERSO = ['iALKjbe_P9o', 'I8yoi_ZlrFU']
@@ -277,7 +286,7 @@ videos_dev_page = '''<section id="videos-developpement-personnel">
 must('id="articles-spiritualite"' in videos_dev_page and '</h3>' not in videos_dev_page.split('id="articles-spiritualite"')[1].split('</div>')[0], 'titre articles')
 
 def thumbs(ids):
-    return '<div class="hub-thumbs">' + ''.join('<img src="https://img.youtube.com/vi/%s/mqdefault.jpg" alt="" loading="lazy">' % i for i in ids) + '</div>'
+    return '<div class="hub-thumbs">' + ''.join('<img src="https://img.youtube.com/vi/%s/mqdefault.jpg" alt="Miniature de la vidéo : %s" loading="lazy">' % (i, VIDEO_TITLES[i]) for i in ids) + '</div>'
 
 blog_page = '''<section id="blog">
   <div class="wrap">
@@ -467,6 +476,14 @@ def jsonld(p):
     if p['key'] in PAGE_VIDEOS:
         for v in video_objects(PAGE_VIDEOS[p['key']]):
             blocks.append(dict({'@context': 'https://schema.org'}, **v))
+    if p['key'] == 'faq':
+        qa = []
+        for q, a in re.findall(r'<summary>(.*?)</summary><div class="faq-a">(.*?)</div></details>', FAQ_HTML, re.S):
+            a = re.sub(r'</li>', ' ', a); a = re.sub(r'<li>', '- ', a)
+            a = re.sub(r'<[^>]+>', ' ', a); a = re.sub(r'\s+', ' ', a).replace(' ;', ' ;').strip()
+            qa.append({'@type': 'Question', 'name': q.strip(), 'acceptedAnswer': {'@type': 'Answer', 'text': a}})
+        must(len(qa) >= 10, 'questions FAQ : %d' % len(qa))
+        blocks.append({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': qa})
     if p['key'] != 'accueil':
         crumbs = [{'@type': 'ListItem', 'position': 1, 'name': 'Accueil', 'item': SITE + '/'},
                   {'@type': 'ListItem', 'position': 2, 'name': p['title'], 'item': SITE + p['url']}]
