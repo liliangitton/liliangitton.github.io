@@ -154,6 +154,20 @@ header_html = header_html.replace('alt="" aria-hidden="true" alt=""', 'alt="" ar
 nav_script = between(src, '<script>\n  var navToggle', '</script>')
 footer_html = between(src, '<footer>', '</footer>')
 must('<a href="#cgv">CGV</a>' in footer_html, 'footer cgv')
+_mi = header_html.index('<a href="#astro-prestations" class="submenu-video-link">')
+_me = header_html.index('</a></li>', _mi) + len('</a></li>')
+header_html = header_html[:_me] + """
+          <li><a href="#cadeau" class="submenu-video-link">
+            <span class="nav-label">Offrir une carte cadeau</span>
+            <svg class="submenu-camera-icon submenu-tag-icon" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g class="tag-swing" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+                <rect x="9" y="13" width="26" height="15" rx="2"/>
+                <rect x="7" y="9" width="30" height="5" rx="1.5"/>
+                <path d="M22 9 L22 28" />
+                <path d="M22 9 C18 3 12 5 15 9 M22 9 C26 3 32 5 29 9" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </a></li>""" + header_html[_me:]
 footer_html = footer_html.replace('<a href="#cgv">CGV</a>', '<a href="#cgv">CGV</a> · <a href="#faq">Questions fréquentes</a> · <a href="#cadeau">Carte cadeau</a>')
 warp_html = between(src, '<div class="warp"', '</div>')
 btt_html = between(src, '<button type="button" class="back-to-top"', '</button>')
@@ -369,6 +383,33 @@ CONTENT['apropos'] = CONTENT['apropos'].replace('<img class="portrait" src="' + 
 # l'alt d'origine éventuel (doublon d'attribut)
 CONTENT['apropos'] = re.sub(r'(<img class="portrait"[^>]*?) alt="Lilian Gitton, hypnothérapeute, énergéticien et astrologue"', r'\1', CONTENT['apropos'])
 CONTENT['cabinet'] = CONTENT['cabinet'].replace('<img src="' + cab_uri + '"', '<img src="%s" loading="lazy"' % IMG['cabinet'])
+
+# --------------------------------------------------------------- carte cadeau : liens visibles
+GIFT_LINE = ('<p style="margin-top:18px; font-size:15px;">🎁 Envie de l\'offrir&nbsp;? '
+             '<a class="xl" href="#cadeau">Découvrez la carte cadeau</a>, à acheter en ligne.</p>')
+for _k, _anchor in [('hypnose', '<span class="price">60 € la séance</span>'), ('energetique', '<span class="price">60 € la séance</span>')]:
+    must(CONTENT[_k].count(_anchor) >= 1, 'prix ' + _k)
+    CONTENT[_k] = CONTENT[_k].replace(_anchor, _anchor + '\n        ' + GIFT_LINE, 1)
+_a = CONTENT['astrologie']
+_i = _a.index('id="astro-prestations"')
+_j = _a.index('<div class="service-list"', _i)
+# fin de la liste des prestations : la balise </div> qui referme service-list
+_depth, _k2 = 0, _j
+import re as _re
+for _m in _re.finditer(r'<div\b|</div>', _a[_j:]):
+    _depth += 1 if _m.group(0) == '<div' else -1
+    if _depth == 0:
+        _k2 = _j + _m.end(); break
+must(_k2 > _j, 'fin liste prestations astro')
+CONTENT['astrologie'] = _a[:_k2] + '\n      ' + GIFT_LINE + _a[_k2:]
+_h = CONTENT['accueil']
+_c = _h.index('<div class="home-cabinet">')
+_e = _h.index('</div>', _h.index('</p>', _c)) + len('</div>')
+HOME_GIFT = ('\n    <div style="margin-top:56px; padding:22px 24px; border:1px solid var(--line-strong); border-left:2px solid var(--gold-soft); border-radius:8px; background:rgba(221,174,94,0.06);">'
+             '<h2 class="home-h" style="margin:0 0 8px;">Offrir une carte cadeau</h2>'
+             '<p style="margin:0 0 16px;">Un thème astral, une séance d\'hypnose ou un soin énergétique à offrir, à Orléans ou à distance. Achat en ligne en quelques minutes, carte personnalisée envoyée par e-mail.</p>'
+             '<a class="btn btn-primary" href="#cadeau">Choisir une carte cadeau</a></div>')
+CONTENT['accueil'] = _h[:_e] + HOME_GIFT + _h[_e:]
 for k, v in CONTENT.items():
     must('base64' not in v, 'base64 restant dans ' + k)
 
