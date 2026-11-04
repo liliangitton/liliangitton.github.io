@@ -168,7 +168,7 @@ header_html = header_html[:_me] + """
               </g>
             </svg>
           </a></li>""" + header_html[_me:]
-footer_html = footer_html.replace('<a href="#cgv">CGV</a>', '<a href="#cgv">CGV</a> · <a href="#faq">Questions fréquentes</a> · <a href="#cadeau">Carte cadeau</a>')
+footer_html = footer_html.replace('<a href="#cgv">CGV</a>', '<a href="#cgv">CGV</a> · <a href="#faq">Questions fréquentes</a>')
 warp_html = between(src, '<div class="warp"', '</div>')
 btt_html = between(src, '<button type="button" class="back-to-top"', '</button>')
 cookie_html = between(src, '<div class="cookie-banner"', '</div>\n</div>', incl=False)
