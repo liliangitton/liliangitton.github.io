@@ -441,8 +441,32 @@ ld['url'] = SITE + '/'
 ld['image'] = SITE + IMG['partage']
 ld['@id'] = SITE + '/#cabinet'
 
+VIDEO_DATES = {
+    'TqkU0RsDdCY': '2026-05-21', '2CxULCRQRPg': '2026-06-03', 'I8yoi_ZlrFU': '2026-10-28',
+    'iALKjbe_P9o': '2026-10-31', 'rEiyl0YT6zw': '2026-11-02', '3bjMKOL3b9w': '2026-05-15',
+    'YIlkCxI5_9Y': '2026-05-27', '8lWx6OmkWDo': '2026-05-29', 'Jf-4Rujlj4A': '2026-10-22',
+}
+def video_objects(ids):
+    out = []
+    for i in ids:
+        card = CARDS[i]
+        name = re.sub(r'<[^>]+>', '', re.search(r'<h4>(.*?)</h4>', card, re.S).group(1)).replace('&nbsp;', ' ').strip()
+        desc = re.sub(r'<[^>]+>', '', re.search(r'<p>(.*?)</p>', card, re.S).group(1)).replace('&nbsp;', ' ').strip()
+        url = re.search(r'href="([^"]+)"', card).group(1)
+        out.append({'@type': 'VideoObject', 'name': name, 'description': desc,
+                    'thumbnailUrl': 'https://i.ytimg.com/vi/%s/hqdefault.jpg' % i,
+                    'uploadDate': VIDEO_DATES[i] + 'T12:00:00+01:00',
+                    'contentUrl': url, 'embedUrl': 'https://www.youtube.com/embed/' + i,
+                    'author': {'@type': 'Person', 'name': 'Lilian Gitton'}})
+    return out
+must(set(VIDEO_DATES) == set(CARDS), 'dates des vidéos incomplètes')
+PAGE_VIDEOS = {'videos-astro': VID_COMPRENDRE + VID_APPRENDRE, 'videos-dev': VID_DEVPERSO}
+
 def jsonld(p):
     blocks = [ld]
+    if p['key'] in PAGE_VIDEOS:
+        for v in video_objects(PAGE_VIDEOS[p['key']]):
+            blocks.append(dict({'@context': 'https://schema.org'}, **v))
     if p['key'] != 'accueil':
         crumbs = [{'@type': 'ListItem', 'position': 1, 'name': 'Accueil', 'item': SITE + '/'},
                   {'@type': 'ListItem', 'position': 2, 'name': p['title'], 'item': SITE + p['url']}]
