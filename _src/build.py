@@ -217,10 +217,10 @@ formation_page = '''<section id="astrologie" class="page-formation">
 blog = SEC['blog']
 CARDS = {m.group(1): m.group(0) for m in re.finditer(
     r'<a class="video-card[^"]*" href="[^"]*?(?:shorts/|youtu\.be/|watch\?v=)([\w-]{11})".*?</a>', blog, re.S)}
-must(len(CARDS) == 9, 'vidéos trouvées : %d' % len(CARDS))
+must(len(CARDS) == 10, 'vidéos trouvées : %d' % len(CARDS))
 VID_COMPRENDRE = ['rEiyl0YT6zw', 'Jf-4Rujlj4A', 'TqkU0RsDdCY', '2CxULCRQRPg']
 VID_APPRENDRE = ['YIlkCxI5_9Y', '3bjMKOL3b9w', '8lWx6OmkWDo']
-VID_DEVPERSO = ['iALKjbe_P9o', 'I8yoi_ZlrFU']
+VID_DEVPERSO = ['QI_YoUcgMbk', 'iALKjbe_P9o', 'I8yoi_ZlrFU']
 must(set(VID_COMPRENDRE + VID_APPRENDRE + VID_DEVPERSO) == set(CARDS), 'classement des vidéos incomplet')
 
 def grid(ids):
@@ -294,7 +294,7 @@ blog_page = '''<section id="blog">
         <span class="hub-more">Voir les vidéos d'astrologie&nbsp;→</span>
       </a>
       <a class="block card-block hub-card" href="#videos-developpement-personnel">
-        ''' + thumbs(['iALKjbe_P9o', 'I8yoi_ZlrFU']) + '''
+        ''' + thumbs(['QI_YoUcgMbk', 'iALKjbe_P9o', 'I8yoi_ZlrFU']) + '''
         <h2 class="h2-sub">Développement personnel et spiritualité</h2>
         <p>Des vidéos courtes et des articles pour cheminer vers plus de conscience&nbsp;: poser ses limites, faire de vrais choix, la méditation, l'énergie.</p>
         <span class="hub-more">Voir les vidéos et les articles&nbsp;→</span>
@@ -445,6 +445,7 @@ VIDEO_DATES = {
     'TqkU0RsDdCY': '2026-05-21', '2CxULCRQRPg': '2026-06-03', 'I8yoi_ZlrFU': '2026-10-28',
     'iALKjbe_P9o': '2026-10-31', 'rEiyl0YT6zw': '2026-11-02', '3bjMKOL3b9w': '2026-05-15',
     'YIlkCxI5_9Y': '2026-05-27', '8lWx6OmkWDo': '2026-05-29', 'Jf-4Rujlj4A': '2026-10-22',
+    'QI_YoUcgMbk': '2026-11-04',
 }
 def video_objects(ids):
     out = []
