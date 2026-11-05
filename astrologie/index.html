@@ -1000,7 +1000,33 @@
           </div>
         </div>
       </div>
-      <p class="astro-cta" id="suite-prestations" style="margin-top:20px; font-size:16px; scroll-margin-top:110px;"><a class="xl" href="/theme-astral/">Comment se passe la séance et ce que comprend chaque formule, en détail&nbsp;→</a></p>
+      <p class="astro-cta" id="suite-prestations" style="margin-top:20px; font-size:16px; scroll-margin-top:110px;"><a class="xl" href="/theme-astral/" aria-controls="ta-deroulant" aria-expanded="false">Comment se passe la séance et ce que comprend chaque formule, en détail&nbsp;<span class="ta-fleche">→</span></a></p>
+      <div id="ta-deroulant" class="ta-deroulant" hidden></div>
+      <style>.ta-deroulant{margin:22px 0 8px; padding:4px 0 4px 20px; border-left:2px solid var(--gold-soft);} .ta-deroulant .block{margin-top:28px;} .ta-deroulant .block:first-child{margin-top:8px;} .ta-deroulant .sous-titre{font-size:1.35em;} .ta-refermer{margin-top:22px; font-size:15px;}</style>
+      <script>
+      (function(){
+        var a=document.querySelector('#suite-prestations a'), box=document.getElementById('ta-deroulant'), fleche=a.querySelector('.ta-fleche'), pret=false;
+        if(!window.fetch||!window.DOMParser) return;
+        function ouvrir(){box.hidden=false; a.setAttribute('aria-expanded','true'); fleche.textContent='↑';}
+        function fermer(){box.hidden=true; a.setAttribute('aria-expanded','false'); fleche.textContent='↓'; document.getElementById('suite-prestations').scrollIntoView({behavior:'smooth'});}
+        fleche.textContent='↓';
+        a.addEventListener('click',function(e){
+          e.preventDefault();
+          if(!box.hidden){fermer(); return;}
+          if(pret){ouvrir(); return;}
+          fetch('/theme-astral/').then(function(r){if(!r.ok) throw 0; return r.text();}).then(function(t){
+            var d=new DOMParser().parseFromString(t,'text/html');
+            ['ta-apport','ta-methode','ta-deroule','ta-lieu','ta-questions'].forEach(function(id){
+              var h=d.getElementById(id); if(!h) return; var b=h.closest('.block'); h.removeAttribute('id'); box.appendChild(document.importNode(b,true));
+            });
+            var tel=d.querySelector('#theme-astral a[href^="tel:"]'); if(tel){box.appendChild(document.importNode(tel.closest('.block'),true));}
+            var f=document.createElement('p'); f.className='ta-refermer'; f.innerHTML='<a class="xl" href="#suite-prestations">Refermer&nbsp;↑</a>';
+            f.firstChild.addEventListener('click',function(ev){ev.preventDefault(); fermer();});
+            box.appendChild(f); pret=true; ouvrir();
+          }).catch(function(){location.href=a.href;});
+        });
+      })();
+      </script>
       <p style="margin-top:18px; font-size:15px;">🎁 Envie de l'offrir&nbsp;? <a class="xl" href="/carte-cadeau/">Découvrez la carte cadeau</a>, à acheter en ligne.</p>
       <!-- partage-tarifs --><div class="share-inline"><button type="button" class="share-btn share-btn-sm" data-share data-umami-event="partage" data-share-url="https://liliangitton.fr/astrologie/#astro-prestations" data-share-title="Thème astral : prestations et tarifs — Lilian Gitton"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg><span>Partager ces prestations</span></button><span class="share-ok" role="status" aria-live="polite"></span></div><!-- /partage-tarifs -->
       
