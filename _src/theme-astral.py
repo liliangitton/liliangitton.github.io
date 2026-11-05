@@ -9,22 +9,18 @@ DESC = ("Faire son thème astral à Orléans ou en visio avec Lilian Gitton, ast
         "ce qu'il apporte, déroulé de la consultation, tarifs (150 €, version approfondie 250 €).")
 
 FAQ = [
-    ("Faut-il croire en l'astrologie ? Êtes-vous devin ?",
-     "Je ne suis pas devin. L'astrologie que je pratique est humaniste : elle ne cherche pas à prédire, mais à mieux "
-     "se comprendre, à repérer ses potentiels et ses défis, et à mettre du sens à sa vie. Vous restez toujours acteur "
-     "de votre vie, et plus vous m'en dites sur vous, mieux je peux vous accompagner."),
-    ("Comment se préparer à un thème astral ?",
-     "Nous en parlons d'abord ensemble lors d'un entretien téléphonique d'une quinzaine de minutes. Ce qu'il est utile "
-     "de savoir, c'est ce que vous attendez de votre thème astral. Une ou deux questions centrales peuvent ressortir : "
-     "je les étudierai comme fil conducteur de votre thème."),
+    ("Allez-vous me prédire mon avenir ?",
+     "Non, je ne prédis pas l'avenir. L'astrologie humaniste sert à mieux vous comprendre, à voir vos ressources et vos défis, "
+     "et à donner du sens à ce que vous vivez. Les décisions restent les vôtres. Plus vous me parlez de vous, plus l'analyse est juste."),
+    ("Dois-je préparer quelque chose ?",
+     "Rien de compliqué : avant notre court échange téléphonique, demandez-vous simplement ce que vous en attendez. "
+     "Une ou deux questions qui vous tiennent à cœur suffisent, elles me serviront de fil conducteur."),
     ("Combien de temps dure la consultation ?",
-     "Un premier entretien de 15 minutes, puis la séance de restitution d'environ 1 h 30. "
-     "Un enregistrement de la séance vous est ensuite envoyé."),
+     "Comptez 15 minutes pour le premier échange, puis environ 1 h 30 pour la séance. L'enregistrement vous est envoyé ensuite."),
     ("Peut-on faire son thème astral à distance ?",
-     "Oui, en visioconférence ou par téléphone, même si vous êtes à l'autre bout du monde. "
-     "Les tarifs sont les mêmes qu'au cabinet."),
+     "Oui, en visio ou par téléphone, où que vous viviez, au même tarif qu'au cabinet."),
     ("Comment payer ?",
-     "En espèces, par chèque, par carte ou par virement. Pour d'autres moyens de paiement, n'hésitez pas à me poser la question."),
+     "Espèces, chèque, carte bancaire ou virement. Un autre moyen ? Demandez-moi."),
     ("Peut-on offrir un thème astral ?",
      "Oui, avec la carte cadeau, à acheter en ligne. Elle est valable un an."),
 ]
@@ -41,20 +37,20 @@ CONTENT = '''<section class="tab-active" id="theme-astral">
     <div class="section-head">
       <div class="kicker">Astrologie</div>
       <h1 class="page-h1">Thème astral à Orléans et à distance</h1>
-      <p>Que vous traversiez une période de questionnements, un changement de vie, ou simplement l'envie de mieux vous connaître, <strong>votre thème astral est un point de départ</strong>. Astrologue à Orléans, je vous reçois pour l'<strong>analyse de votre thème astral</strong> au cabinet, ou à distance en visio ou par téléphone.</p>
+      <p>Votre <strong>thème astral</strong>, c'est la carte du ciel au moment exact de votre naissance. Bien lu, il devient un miroir&nbsp;: il éclaire vos forces, vos fragilités et le chemin qui vous ressemble. Je vous propose de le découvrir ensemble, lors d'une <strong>consultation dans mon cabinet à Orléans</strong>, ou à distance.</p>
       <p class="astro-cta" style="margin-top:14px; font-size:16px;"><a class="xl" href="#ta-tarifs">Voir les tarifs&nbsp;→</a></p>
     </div>
 
     <div class="block">
       <h2 class="sous-titre" id="ta-apport">Ce que votre thème astral peut vous apporter</h2>
       <div class="body">
-        <p>Le thème astral, ou carte du ciel, est l'image du ciel au moment de votre naissance. Je l'analyse selon l'<a class="xl" href="/astrologie/">astrologie humaniste</a>&nbsp;: un outil de connaissance de soi, pas de prédiction. Il peut vous aider à&nbsp;:</p>
+        <p>Je l'aborde avec l'<a class="xl" href="/astrologie/">astrologie humaniste</a>&nbsp;: il ne s'agit pas de prédire, mais de mieux vous connaître. Au fil de la consultation, vous découvrez&nbsp;:</p>
         <ul>
-          <li>comprendre vos <strong>potentiels</strong>&nbsp;;</li>
-          <li>mieux cerner vos <strong>défis</strong> pour les transcender&nbsp;;</li>
-          <li>mettre du sens à votre vie, aux événements passés et présents&nbsp;;</li>
-          <li>voir vos différents <strong>cycles à venir</strong>&nbsp;;</li>
-          <li>et surtout vous rapprocher de votre Soi, de qui vous êtes en profondeur.</li>
+          <li>les <strong>talents et ressources</strong> sur lesquels vous appuyer&nbsp;;</li>
+          <li>les <strong>difficultés qui reviennent</strong>, et la façon de les dépasser&nbsp;;</li>
+          <li>un regard neuf sur votre histoire&nbsp;: ce que vous avez vécu prend du sens&nbsp;;</li>
+          <li>les grandes <strong>périodes de votre vie</strong>, et les cycles qui s'annoncent&nbsp;;</li>
+          <li>un lien plus profond avec votre être intérieur, votre Soi.</li>
         </ul>
       </div>
     </div>
@@ -63,13 +59,13 @@ CONTENT = '''<section class="tab-active" id="theme-astral">
       <h2 class="sous-titre" id="ta-deroule">Comment se déroule la consultation</h2>
       <div class="body">
         <ol>
-          <li><strong>Un premier entretien de 15 minutes</strong>, par téléphone, pour me dire ce que vous attendez de votre thème. Une ou deux questions centrales peuvent ressortir&nbsp;: elles deviendront le fil conducteur de l'étude.</li>
-          <li><strong>L'étude de votre thème avant de vous rencontrer.</strong> Je réalise un travail de recherche technique, avec les différents outils astrologiques à ma disposition, que je complète par une approche plus intuitive.</li>
-          <li><strong>Un deuxième entretien d'1 h 30</strong> pour vous restituer votre thème, au cabinet ou à distance.</li>
-          <li><strong>Un enregistrement de la séance</strong> vous est ensuite envoyé, pour y revenir quand vous le souhaitez.</li>
+          <li><strong>Un échange de 15 minutes par téléphone.</strong> Vous me dites ce qui vous amène et ce que vous espérez. Souvent, une ou deux questions essentielles se dégagent&nbsp;: elles guideront mon travail.</li>
+          <li><strong>Je prépare votre thème en amont.</strong> D'abord une analyse technique avec les outils de l'astrologie, puis une lecture plus intuitive.</li>
+          <li><strong>Nous nous retrouvons 1 h 30</strong> pour en parler ensemble, au cabinet ou à distance.</li>
+          <li><strong>Vous recevez l'enregistrement</strong> de la séance, pour le réécouter à votre rythme.</li>
         </ol>
-        <p>Tout au long de la consultation, je veille à ce que vous restiez <span class="u">acteur de votre vie</span>, en favorisant vos prises de conscience et votre libre arbitre.</p>
-        <p>Pour préparer votre thème, j'ai besoin de votre <strong>date, heure et lieu de naissance</strong>.</p>
+        <p>Mon intention&nbsp;: que vous repartiez <span class="u">acteur de votre vie</span>, avec vos propres prises de conscience. Vos choix vous appartiennent.</p>
+        <p>À me transmettre avant la consultation&nbsp;: votre <strong>date, heure et lieu de naissance</strong>.</p>
       </div>
     </div>
 
@@ -85,24 +81,24 @@ CONTENT = '''<section class="tab-active" id="theme-astral">
         <div class="service no-icon">
           <div class="service-inner">
             <h3 style="display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;">Version approfondie <span class="price" style="margin-top:0;">250 €</span></h3>
-            <p>Tout le contenu du thème astral, avec en plus une étude plus approfondie des blessures et, si besoin, une proposition de <a class="xl" href="/energetique/">soins énergétiques</a> et/ou d'<a class="xl" href="/hypnose/">hypnose</a> pour un accompagnement.</p>
+            <p>La consultation complète, avec un regard plus poussé sur les blessures. Si cela peut vous aider, je vous propose ensuite des <a class="xl" href="/energetique/">soins énergétiques</a> ou de l'<a class="xl" href="/hypnose/">hypnose</a>.</p>
           </div>
         </div>
         <div class="service no-icon">
           <div class="service-inner">
             <h3 style="display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;">Séance de suivi <span class="price" style="margin-top:0;">90 €</span></h3>
-            <p>Un entretien d'environ 1 h 30 pour une question précise ou pour faire le point. Je la réserve aux personnes qui ont déjà réalisé leur thème astral avec moi, pour travailler sur des bases solides.</p>
+            <p>Environ 1 h 30 pour approfondir une question ou faire le point. Elle est réservée aux personnes dont j'ai déjà étudié le thème&nbsp;: on part ainsi sur des bases solides.</p>
           </div>
         </div>
       </div>
-      <p style="margin-top:18px; font-size:15px;">🎁 Envie de l'offrir&nbsp;? <a class="xl" href="/carte-cadeau/">Découvrez la carte cadeau</a>, à acheter en ligne.</p>
+      <p style="margin-top:18px; font-size:15px;">🎁 Un thème astral, c'est aussi une belle idée de cadeau&nbsp;: <a class="xl" href="/carte-cadeau/">offrir une carte cadeau</a>.</p>
     </div>
 
     <div class="block">
-      <h2 class="sous-titre" id="ta-lieu">Au cabinet à Orléans ou à distance</h2>
+      <h2 class="sous-titre" id="ta-lieu">En cabinet à Orléans ou à distance</h2>
       <div class="body">
         <p>Je vous reçois dans mon <a class="xl" href="/cabinet/">cabinet</a>, au 24 rue du Clos Rozé, 45100 Orléans, près du Jardin des Plantes.</p>
-        <p>Votre thème astral peut aussi se faire <strong>à distance, en visioconférence ou par téléphone</strong>, où que vous soyez. Les tarifs sont les mêmes qu'au cabinet.</p>
+        <p>Vous habitez loin&nbsp;? La consultation se fait aussi <strong>en visio ou par téléphone</strong>, au même tarif.</p>
       </div>
     </div>
 
