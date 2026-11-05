@@ -2,7 +2,7 @@
 import re, sys, os
 
 ROOT = sys.argv[1]
-PAGES = ['index.html', 'astrologie', 'formation-astrologie', 'hypnose', 'energetique',
+PAGES = ['index.html', 'astrologie', 'theme-astral', 'formation-astrologie', 'hypnose', 'energetique',
          'qui-suis-je', 'avis', 'cabinet', 'contact', 'carte-cadeau', 'questions-frequentes',
          'articles-videos', 'videos-astrologie', 'videos-developpement-personnel', 'quiz']
 
