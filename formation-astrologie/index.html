@@ -121,6 +121,19 @@
 }
 </script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="1f7325eb-2bb5-430b-8238-d0a0ea323cac"></script>
+<style id="partage-style">
+.share-zone{max-width:1180px;margin:0 auto;padding:34px 20px 42px;text-align:center;border-top:1px solid var(--line,rgba(239,231,216,.12));}
+.share-q{margin:0 0 14px;font-size:15.5px;color:var(--paper,#EFE7D8);opacity:.85;}
+.share-btn{display:inline-flex;align-items:center;gap:10px;padding:11px 22px;border-radius:999px;cursor:pointer;
+  font:inherit;font-size:15px;letter-spacing:.02em;color:var(--gold-soft,#DDAE5E);background:rgba(221,174,94,.07);
+  border:1px solid var(--gold-soft,#DDAE5E);transition:background .25s ease,transform .25s ease;}
+.share-btn:hover,.share-btn:focus-visible{background:rgba(221,174,94,.16);transform:translateY(-1px);}
+.share-btn:focus-visible{outline:2px solid var(--gold-soft,#DDAE5E);outline-offset:3px;}
+.share-btn-sm{padding:8px 16px;font-size:14px;}
+.share-inline{margin-top:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.share-ok{display:block;min-height:1.4em;margin-top:8px;font-size:13.5px;color:var(--gold-soft,#DDAE5E);}
+.share-inline .share-ok{display:inline;margin:0;}
+</style>
 </head>
 <body data-nav="/astrologie/">
 <div class="stars-bg" id="starsBg"></div>
@@ -804,6 +817,9 @@
         <nav class="next-steps" aria-label="Pour aller plus loin"><span class="ns-label">Pour aller plus loin</span><div class="ns-row"><a class="ns-link" href="/astrologie/">L'astrologie et les prestations →</a><a class="ns-link" href="/quiz/">Le quiz d'astrologie →</a><a class="btn btn-primary" href="/contact/">Prendre rendez-vous</a></div></nav>
   </div>
 </section>
+<!-- partage -->
+<div class="share-zone"><p class="share-q">Cette page peut intéresser quelqu'un autour de vous&nbsp;?</p><button type="button" class="share-btn" data-share data-umami-event="partage"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg><span>Partager cette page</span></button><span class="share-ok" role="status" aria-live="polite"></span></div>
+<!-- /partage -->
 <footer>
   Lilian Gitton — Astrologue, hypnothérapeute et énergéticien
   <div class="footer-phone"><a href="tel:+33687035649">06 87 03 56 49</a></div>
@@ -910,6 +926,26 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
     els.forEach(function(el){ io.observe(el); });
   })();
+</script>
+<script id="partage-script">
+(function(){
+  function copier(t){
+    if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t);}
+    return new Promise(function(ok,ko){try{var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');
+      a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();
+      var r=document.execCommand('copy');document.body.removeChild(a);r?ok():ko();}catch(e){ko(e);}});
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('[data-share]');if(!b)return;
+    var url=b.getAttribute('data-share-url')||(location.origin+location.pathname);
+    var titre=b.getAttribute('data-share-title')||document.title;
+    var msg=b.parentNode.querySelector('.share-ok');
+    function dire(t){if(!msg)return;msg.textContent=t;clearTimeout(msg._t);msg._t=setTimeout(function(){msg.textContent='';},3500);}
+    if(navigator.share){navigator.share({title:titre,url:url}).catch(function(){});return;}
+    copier(url).then(function(){dire('Lien copié ✓ Vous pouvez le coller où vous voulez.');},
+      function(){dire(url);});
+  });
+})();
 </script>
 </body>
 </html>

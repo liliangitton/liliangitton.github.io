@@ -712,3 +712,7 @@ open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '</urlset>\n')
 open(os.path.join(OUT, 'robots.txt'), 'w').write('User-agent: *\nAllow: /\nDisallow: /_src/\n\nSitemap: %s/sitemap.xml\n' % SITE)
 print('OK')
+
+# --------------------------------------------------------------- boutons « Partager »
+import subprocess
+subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'partage.py'), OUT], check=True)
