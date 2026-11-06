@@ -513,7 +513,7 @@ def video_objects(ids):
                     'thumbnailUrl': 'https://i.ytimg.com/vi/%s/hqdefault.jpg' % i,
                     'uploadDate': VIDEO_DATES[i] + 'T12:00:00+01:00',
                     'contentUrl': url, 'embedUrl': 'https://www.youtube.com/embed/' + i,
-                    'author': {'@type': 'Person', 'name': 'Lilian Gitton'}})
+                    'author': {'@type': 'Person', 'name': 'Lilian Gitton', 'url': SITE + '/qui-suis-je/'}})
     return out
 must(set(VIDEO_DATES) == set(CARDS), 'dates des vidéos incomplètes')
 PAGE_VIDEOS = {'videos-astro': VID_COMPRENDRE + VID_APPRENDRE, 'videos-dev': VID_DEVPERSO}
